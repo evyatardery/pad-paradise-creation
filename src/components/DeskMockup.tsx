@@ -37,14 +37,24 @@ const DeskMockup = ({ designImage, designTitle }: Props) => {
       </div>
 
       {/* Layer 3: Keyboard + Mouse + Headphones */}
-      <img
-        src={mockupOverlay}
-        alt=""
-        className="absolute inset-0 w-full h-full object-contain pointer-events-none"
+      <div
+        className="absolute pointer-events-none"
         style={{
-          filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.6))",
+          top: "10%",
+          left: "10%",
+          width: "80%",
+          height: "80%",
         }}
-      />
+      >
+        <img
+          src={mockupOverlay}
+          alt=""
+          className="w-full h-full object-contain"
+          style={{
+            filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.6))",
+          }}
+        />
+      </div>
     </div>
   );
 };
