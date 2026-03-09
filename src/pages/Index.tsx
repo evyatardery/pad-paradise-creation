@@ -1,7 +1,7 @@
 import { useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import ShopSection from "@/components/ShopSection";
-import CustomPadSection from "@/components/CustomPadSection";
+import CustomDesignTool from "@/components/CustomDesignTool";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
 type Section = "hero" | "shop" | "custom";
@@ -20,15 +20,15 @@ const Index = () => {
           <div className="flex gap-4">
             <button
               onClick={() => setSection("shop")}
-              className={`font-semibold transition-colors ${section === "shop" ? "text-primary" : "text-muted-foreground hover:text-primary"}`}
+              className={`font-semibold transition-colors ${section === "shop" ? "text-primary neon-text" : "text-muted-foreground hover:text-primary"}`}
             >
-              חנות
+              🎮 חנות
             </button>
             <button
               onClick={() => setSection("custom")}
-              className={`font-semibold transition-colors ${section === "custom" ? "text-primary" : "text-muted-foreground hover:text-primary"}`}
+              className={`font-semibold transition-colors ${section === "custom" ? "text-primary neon-text" : "text-muted-foreground hover:text-primary"}`}
             >
-              עיצוב אישי
+              🎨 עיצוב אישי
             </button>
           </div>
         </div>
@@ -37,7 +37,7 @@ const Index = () => {
       <div className="pt-14">
         {section === "hero" && <HeroSection onNavigate={setSection} />}
         {section === "shop" && <ShopSection />}
-        {section === "custom" && <CustomPadSection />}
+        {section === "custom" && <CustomDesignTool />}
       </div>
 
       <WhatsAppButton />
