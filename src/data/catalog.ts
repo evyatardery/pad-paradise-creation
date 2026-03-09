@@ -35,6 +35,7 @@ import design23 from "@/assets/pads/design-23.png";
 import design24 from "@/assets/pads/design-24.jpg";
 import design25 from "@/assets/pads/design-25.jpg";
 import design26 from "@/assets/pads/design-26.jpg";
+import design27 from "@/assets/pads/design-27.png";
 
 export interface PadDesign {
   id: string;
