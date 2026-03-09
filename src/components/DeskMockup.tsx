@@ -9,41 +9,40 @@ interface Props {
 const DeskMockup = ({ designImage, designTitle }: Props) => {
   return (
     <div className="relative w-full aspect-video rounded-xl overflow-hidden neon-box">
-      {/* Layer 1: Desk background */}
+      {/* Layer 1: Desk + monitor + room (no keyboard/mouse) */}
       <img
         src={mockupDeskBg}
         alt="Gaming desk"
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      {/* Layer 2: Pad design */}
+      {/* Layer 2: Pad design - positioned on the desk surface */}
       <div
         className="absolute"
         style={{
-          top: "8%",
-          left: "8%",
-          width: "84%",
-          height: "84%",
+          top: "28%",
+          left: "5%",
+          width: "90%",
+          height: "65%",
         }}
       >
         <img
           src={designImage}
           alt={designTitle}
-          className="w-full h-full object-cover rounded-md"
+          className="w-full h-full object-cover rounded-sm"
           style={{
-            boxShadow: "0 4px 20px rgba(0,0,0,0.5)",
+            boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
           }}
         />
       </div>
 
-      {/* Layer 3: Keyboard + Mouse overlay */}
+      {/* Layer 3: Keyboard + Mouse overlay (same perspective as original) */}
       <img
         src={mockupOverlay}
         alt=""
-        className="absolute inset-0 w-full h-full object-contain pointer-events-none"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         style={{
-          mixBlendMode: "normal",
-          filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.6))",
+          filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.5))",
         }}
       />
     </div>
