@@ -20,10 +20,10 @@ const DeskMockup = ({ designImage, designTitle }: Props) => {
       <div
         className="absolute"
         style={{
-          top: "33%",
-          left: "12%",
-          width: "76%",
-          height: "55%",
+          top: "38%",
+          left: "18%",
+          width: "64%",
+          height: "48%",
         }}
       >
         <img
