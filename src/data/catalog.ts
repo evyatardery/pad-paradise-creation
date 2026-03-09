@@ -148,6 +148,7 @@ export const padDesigns: PadDesign[] = [
   { id: "game-7", title: "Neon Bars", image: design20, category: "gaming" },
   { id: "game-8", title: "Electric Blue", image: design21, category: "gaming" },
   { id: "game-9", title: "Dark Grid", image: design25, category: "gaming" },
+  { id: "game-10", title: "Anime Girls RGB", image: design27, category: "gaming" },
 ];
 
 export const sizes = [
