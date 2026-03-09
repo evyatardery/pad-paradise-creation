@@ -16,7 +16,6 @@ const CategoryGallery = ({ categoryId, onBack }: Props) => {
 
   return (
     <section className="py-16 px-6">
-      {/* Back + title */}
       <div className="max-w-7xl mx-auto mb-10">
         <button
           onClick={onBack}
@@ -31,33 +30,34 @@ const CategoryGallery = ({ categoryId, onBack }: Props) => {
         <p className="text-muted-foreground mt-2">{designs.length} עיצובים</p>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 max-w-7xl mx-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
         {designs.map((pad, i) => (
           <motion.button
             key={pad.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05, duration: 0.3 }}
+            transition={{ delay: i * 0.04, duration: 0.3 }}
             onClick={() => setSelectedPad(pad)}
-            className="group rounded-xl overflow-hidden bg-card neon-box hover:neon-box-strong transition-all"
+            className="group rounded-xl overflow-hidden bg-card border border-border hover:border-primary transition-all duration-300"
+            style={{ boxShadow: "0 0 0 rgba(0,0,0,0)" }}
+            onMouseEnter={(e) => (e.currentTarget.style.boxShadow = "0 0 15px hsl(187 100% 50% / 0.3)")}
+            onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "0 0 0 rgba(0,0,0,0)")}
           >
-            <div className="aspect-video overflow-hidden">
+            <div className="aspect-[16/10] overflow-hidden">
               <img
                 src={pad.image}
                 alt={pad.title}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>
-            <div className="p-3 text-center">
-              <h4 className="text-primary font-bold text-sm">{pad.title}</h4>
-              <p className="text-muted-foreground text-xs mt-1">החל מ-₪69</p>
+            <div className="p-3 text-center border-t border-border">
+              <h4 className="text-card-foreground font-bold text-sm">{pad.title}</h4>
+              <p className="text-primary text-xs font-bold mt-1">החל מ-₪69</p>
             </div>
           </motion.button>
         ))}
       </div>
 
-      {/* Modal */}
       <PadModal pad={selectedPad} onClose={() => setSelectedPad(null)} />
     </section>
   );

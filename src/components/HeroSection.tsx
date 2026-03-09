@@ -1,68 +1,85 @@
 import { motion } from "framer-motion";
-import { padDesigns } from "@/data/catalog";
+import heroBg from "@/assets/hero-bg.jpg";
 
 interface HeroSectionProps {
   onNavigate: (section: "shop" | "custom") => void;
 }
 
-// Pick 6 random designs for the hero background strip
-const heroImages = padDesigns.slice(0, 6);
-
 const HeroSection = ({ onNavigate }: HeroSectionProps) => {
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center px-6 text-center relative overflow-hidden">
-      {/* Animated background strip */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="flex gap-4 animate-scroll h-full flex-wrap">
-          {heroImages.map((p, i) => (
-            <img key={i} src={p.image} alt="" className="h-48 w-auto object-cover rounded-lg" />
-          ))}
-        </div>
+    <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+      {/* Full hero background */}
+      <div className="absolute inset-0">
+        <img src={heroBg} alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
       </div>
 
-      <div className="relative z-10">
-        <motion.h1
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-6xl md:text-8xl font-black text-primary neon-text-strong mb-6 tracking-wider"
+      <div className="relative z-10 text-center px-6">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
         >
-          PADZONE
-        </motion.h1>
+          <h1 className="text-7xl md:text-9xl font-black text-primary neon-text-strong mb-2 tracking-widest">
+            PADZONE
+          </h1>
+          <div className="h-1 w-32 mx-auto bg-primary rounded-full mb-6 neon-box" />
+        </motion.div>
+
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="text-xl md:text-2xl text-card-foreground mb-4"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="text-2xl md:text-3xl text-card-foreground font-bold mb-3"
         >
           פדים לגיימרים אמיתיים
         </motion.p>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
+          transition={{ delay: 0.7, duration: 0.6 }}
           className="text-lg text-muted-foreground mb-10"
         >
           מעל 30 עיצובים מוכנים או עיצוב אישי משלך
         </motion.p>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.5 }}
+          transition={{ delay: 0.9, duration: 0.5 }}
           className="flex gap-4 flex-wrap justify-center"
         >
           <button
             onClick={() => onNavigate("shop")}
-            className="px-8 py-4 bg-primary text-primary-foreground font-bold rounded-xl text-lg hover:scale-105 transition-transform neon-box animate-pulse-glow"
+            className="px-10 py-4 bg-primary text-primary-foreground font-black rounded-xl text-lg hover:scale-105 transition-transform neon-box-strong"
           >
             🎮 חנות פדים
           </button>
           <button
             onClick={() => onNavigate("custom")}
-            className="px-8 py-4 border-2 border-primary text-primary font-bold rounded-xl text-lg hover:bg-primary hover:text-primary-foreground transition-all"
+            className="px-10 py-4 border-2 border-primary text-primary font-black rounded-xl text-lg hover:bg-primary hover:text-primary-foreground transition-all backdrop-blur-sm bg-background/30"
           >
             🎨 עצב פד אישי
           </button>
+        </motion.div>
+
+        {/* Features strip */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+          className="flex gap-8 justify-center mt-16 flex-wrap"
+        >
+          {[
+            { icon: "🚚", text: "משלוח חינם" },
+            { icon: "🎨", text: "30+ עיצובים" },
+            { icon: "💎", text: "איכות פרימיום" },
+          ].map((f, i) => (
+            <div key={i} className="flex items-center gap-2 text-card-foreground/80">
+              <span className="text-2xl">{f.icon}</span>
+              <span className="font-semibold">{f.text}</span>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>

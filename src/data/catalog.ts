@@ -35,6 +35,7 @@ import design23 from "@/assets/pads/design-23.png";
 import design24 from "@/assets/pads/design-24.jpg";
 import design25 from "@/assets/pads/design-25.jpg";
 import design26 from "@/assets/pads/design-26.jpg";
+import design27 from "@/assets/pads/design-27.png";
 
 export interface PadDesign {
   id: string;
@@ -147,6 +148,7 @@ export const padDesigns: PadDesign[] = [
   { id: "game-7", title: "Neon Bars", image: design20, category: "gaming" },
   { id: "game-8", title: "Electric Blue", image: design21, category: "gaming" },
   { id: "game-9", title: "Dark Grid", image: design25, category: "gaming" },
+  { id: "game-10", title: "Anime Girls RGB", image: design27, category: "gaming" },
 ];
 
 export const sizes = [
