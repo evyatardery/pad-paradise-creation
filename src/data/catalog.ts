@@ -77,6 +77,14 @@ import colorfulNeonLove from "@/assets/pads/colorful-neon-love.jpg";
 import abstractNeonForest from "@/assets/pads/abstract-neon-forest.png";
 import animeMoonSamurai from "@/assets/pads/anime-moon-samurai.jpeg";
 import darkNeonMask from "@/assets/pads/dark-neon-mask.jpg";
+import animeNeonGirl from "@/assets/pads/anime-neon-girl.png";
+import darkNeonRing from "@/assets/pads/dark-neon-ring.png";
+import animeGhoulSplash from "@/assets/pads/anime-ghoul-splash.jpg";
+import darkChromeFigure from "@/assets/pads/dark-chrome-figure.png";
+import animeSamuraiGirl from "@/assets/pads/anime-samurai-girl.jpg";
+import animeBlueLock from "@/assets/pads/anime-blue-lock.jpeg";
+import animeDemonEyes from "@/assets/pads/anime-demon-eyes.png";
+import animeLuffyDark from "@/assets/pads/anime-luffy-dark.jpg";
 
 export interface PadDesign {
   id: string;
@@ -237,6 +245,17 @@ export const padDesigns: PadDesign[] = [
   { id: "anime-10", title: "Cyberpunk", image: animeCyberpunk, category: "anime" },
   { id: "anime-11", title: "SAO Heathcliff", image: animeSao2, category: "anime" },
   { id: "anime-12", title: "Moon Samurai", image: animeMoonSamurai, category: "anime" },
+  // Anime (continued)
+  { id: "anime-13", title: "Neon Girl", image: animeNeonGirl, category: "anime" },
+  { id: "anime-14", title: "Ghoul Splash", image: animeGhoulSplash, category: "anime" },
+  { id: "anime-15", title: "Samurai Girl", image: animeSamuraiGirl, category: "anime" },
+  { id: "anime-16", title: "Blue Lock", image: animeBlueLock, category: "anime" },
+  { id: "anime-17", title: "Demon Eyes", image: animeDemonEyes, category: "anime" },
+  { id: "anime-18", title: "Luffy Dark", image: animeLuffyDark, category: "anime" },
+
+  // Dark (continued)
+  { id: "dark-15", title: "Neon Ring", image: darkNeonRing, category: "dark" },
+  { id: "dark-16", title: "Chrome Figure", image: darkChromeFigure, category: "dark" },
 
   // Sport
   { id: "sport-1", title: "Ronaldo Fire", image: sportRonaldo1, category: "sport" },
