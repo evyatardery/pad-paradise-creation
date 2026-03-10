@@ -72,10 +72,11 @@ const DeskMockup = ({
   const mouseLeft = kbLeft + KB_W + 2;
   const mouseTop = kbTop + (KB_H - MOUSE_H) / 2;
 
-  const PAD_THICKNESS = 3; // px for 3-4mm edge
-  const PAD_CLIP_PATH = "polygon(16% 18%, 74% 8%, 92% 74%, 28% 90%)";
-  const PAD_BOTTOM_EDGE = "polygon(28% 90%, 92% 74%, 95% 80%, 31% 96%)";
-  const PAD_RIGHT_EDGE = "polygon(74% 8%, 92% 74%, 95% 80%, 78% 14%)";
+const PAD_THICKNESS = 3; // px for 3-4mm edge
+  const PAD_CLIP_PATH = "polygon(18% 16%, 76% 10%, 88% 76%, 24% 88%)";
+  const PAD_BOTTOM_EDGE = "polygon(24% 88%, 88% 76%, 90% 82%, 26% 94%)";
+  const PAD_RIGHT_EDGE = "polygon(76% 10%, 88% 76%, 90% 82%, 78% 16%)";
+  const PAD_SURFACE_TRANSFORM = "skewY(-10deg) rotate(-8deg)";
 
   const textAlignStyle: Record<string, React.CSSProperties> = {
     left: { textAlign: "left", left: "8%", right: "auto", transform: "none" },
@@ -111,14 +112,14 @@ const DeskMockup = ({
       <div
         className="absolute pointer-events-none"
         style={{
-          top: `${padTop + 4}%`,
-          left: `${padLeft + 2.5}%`,
+          top: `${padTop + 3.5}%`,
+          left: `${padLeft + 2}%`,
           width: `${padW}%`,
           height: `${padH}%`,
-          background: "hsl(var(--foreground) / 0.5)",
-          filter: "blur(20px)",
+          background: "hsl(var(--foreground) / 0.45)",
+          filter: "blur(18px)",
           clipPath: PAD_CLIP_PATH,
-          transform: "perspective(1000px) rotateX(60deg) rotateZ(-25deg) scale(1.2)",
+          transform: `${PAD_SURFACE_TRANSFORM} scale(1.04)`,
           transformOrigin: "50% 100%",
           transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
@@ -132,16 +133,13 @@ const DeskMockup = ({
           left: `${padLeft}%`,
           width: `${padW}%`,
           height: `${padH}%`,
-          perspective: "1000px",
-          transformStyle: "preserve-3d",
         }}
       >
         <div
           className="absolute inset-0"
           style={{
-            transform: "rotateX(60deg) rotateZ(-25deg) scale(1.2)",
+            transform: PAD_SURFACE_TRANSFORM,
             transformOrigin: "50% 100%",
-            transformStyle: "preserve-3d",
           }}
         >
           <div
