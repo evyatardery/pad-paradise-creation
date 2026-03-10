@@ -197,7 +197,7 @@ export const padDesigns: PadDesign[] = [
   
   // Anime
   { id: "anime-1", title: "Fortnite", image: animeFortnite, category: "gaming" },
-  { id: "anime-2", title: "Anime Style", image: anime2, category: "anime" },
+  { id: "anime-2", title: "Anime Style", image: anime2, category: "gaming" },
   { id: "anime-3", title: "Dark Forest", image: animeForest, category: "anime" },
   { id: "anime-4", title: "Tokyo Ghoul", image: animeGhoul, category: "anime" },
   { id: "anime-5", title: "Pikachu", image: animePikachu, category: "anime" },
