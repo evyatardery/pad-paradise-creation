@@ -64,31 +64,29 @@ const DeskMockup = ({
   const sizeKey = parseSizeKey(sizeLabel);
   const pad = PAD_SPECS[sizeKey] ?? PAD_SPECS["60x30"];
   const isMedium = sizeKey === "22.5x18.5";
+  const isXL = sizeKey === "80x30";
 
   const padW = pad.widthPct;
   const padH = pad.depthPct;
-  // Pad centered on desk, desk centered in scene
   const deskCenterX = DESK_LEFT + cmToW(DESK_W_CM) / 2;
   const deskCenterY = DESK_TOP + cmToH(DESK_H_CM) / 2;
   const padLeft = deskCenterX - padW / 2;
   const padTop = deskCenterY - padH / 2 + 5;
 
-  // Medium: keyboard LEFT of pad (touching), mouse centered on pad
-  // L/XL: keyboard on pad upper area, mouse on pad right side
-  const kbLeft = isMedium
-    ? padLeft - KB_W - 0.5
+  // M: no keyboard. L: keyboard centered on pad. XL: keyboard shifted left a bit.
+  const showKeyboard = !isMedium;
+  const kbLeft = isXL
+    ? padLeft + (padW - KB_W) / 2 - 3
     : padLeft + (padW - KB_W) / 2;
-  const kbTop = isMedium
-    ? padTop + (padH - KB_H) / 2
-    : padTop + padH * 0.05;
+  const kbTop = padTop + padH * 0.05;
 
-  // Mouse fully inside the pad
+  // Mouse: always on the pad, centered for M, right side for L/XL
   const mouseLeft = isMedium
     ? padLeft + (padW - MOUSE_W) / 2
     : padLeft + padW - MOUSE_W - padW * 0.08;
   const mouseTop = isMedium
     ? padTop + (padH - MOUSE_H) / 2
-    : padTop + padH * 0.5;
+    : padTop + padH * 0.15;
 
   const textAlignStyle: Record<string, React.CSSProperties> = {
     left: { textAlign: "left", left: "8%", right: "auto", transform: "none" },
@@ -203,36 +201,40 @@ const DeskMockup = ({
       </div>
 
       {/* ── Keyboard shadow (on pad) ── */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: `${kbTop + 2.5}%`,
-          left: `${kbLeft + 0.8}%`,
-          width: `${KB_W}%`,
-          height: `${KB_H}%`,
-          background: "rgba(0,0,0,0.45)",
-          filter: "blur(12px)",
-          borderRadius: "6px",
-        }}
-      />
+      {showKeyboard && (
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            top: `${kbTop + 2.5}%`,
+            left: `${kbLeft + 0.8}%`,
+            width: `${KB_W}%`,
+            height: `${KB_H}%`,
+            background: "rgba(0,0,0,0.45)",
+            filter: "blur(12px)",
+            borderRadius: "6px",
+          }}
+        />
+      )}
 
       {/* ── Keyboard ── */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: `${kbTop}%`,
-          left: `${kbLeft}%`,
-          width: `${KB_W}%`,
-          height: `${KB_H}%`,
-        }}
-      >
-        <img
-          src={keyboardImg}
-          alt="RGB mechanical keyboard"
-          className="w-full h-full object-contain"
-          style={{ filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.6))" }}
-        />
-      </div>
+      {showKeyboard && (
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            top: `${kbTop}%`,
+            left: `${kbLeft}%`,
+            width: `${KB_W}%`,
+            height: `${KB_H}%`,
+          }}
+        >
+          <img
+            src={keyboardImg}
+            alt="RGB mechanical keyboard"
+            className="w-full h-full object-contain"
+            style={{ filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.6))" }}
+          />
+        </div>
+      )}
 
       {/* ── Mouse shadow (on pad) ── */}
       <div
