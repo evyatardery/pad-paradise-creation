@@ -168,7 +168,14 @@ const CustomDesignTool = () => {
             </div>
 
             {showMockup ? (
-              <DeskMockup designImage={image} designTitle="Custom Pad" />
+              <DeskMockup
+                designImage={image}
+                designTitle="Custom Pad"
+                sizeLabel={sizes[sizeIdx].label}
+                overlayText={text || undefined}
+                overlayFont={fonts[fontIdx].value}
+                overlayAlign={textAlign}
+              />
             ) : (
               <div className="border-2 border-primary rounded-xl overflow-hidden aspect-video bg-secondary relative">
                 <img src={image} alt="תצוגה מקדימה" className="w-full h-full object-cover" />
