@@ -34,7 +34,7 @@ const MOUSE_H = cmToH(12);
 
 function parseSizeKey(sizeLabel: string): string {
   const match = sizeLabel.match(/(\d+x\d+)/);
-  return match ? match[1] : "80x40";
+  return match ? match[1] : "80x30";
 }
 
 interface Props {
