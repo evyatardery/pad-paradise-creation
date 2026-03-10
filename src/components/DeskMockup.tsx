@@ -1,46 +1,61 @@
 import React from "react";
-import mockupDeskBg from "@/assets/mockup-desk-bg.jpg";
-import mockupOverlay from "@/assets/mockup-overlay.png";
+import deskScene from "@/assets/mockup-desk-scene.jpg";
+import keyboardImg from "@/assets/keyboard-overlay.png";
+import mouseImg from "@/assets/mouse-overlay.png";
 
 /**
- * Pad real-world dimensions (cm) mapped to proportional widths
- * inside the mockup viewport. A standard full-size keyboard is ~44 cm wide,
- * so we use that as the reference for realistic proportions.
+ * Real-world dimensions (cm):
+ *   Desk visible area ≈ 100 cm wide
+ *   Full-size keyboard ≈ 45 cm wide, ~15 cm deep
+ *   Gaming mouse ≈ 7 cm wide, ~12 cm long
  *
- * The mockup viewport represents roughly 100 cm of desk width.
- * keyboard ≈ 44 cm → ~44% of viewport
- * 90×40 pad → 90% viewport width  (wider than keyboard)
- * 80×40 pad → 80% viewport width
- * 45×40 pad → 45% viewport width
+ * Pad sizes:
+ *   XXL 90×40 → 90% of desk width
+ *   XL  80×40 → 80% of desk width
+ *   L   45×40 → 45% of desk width (≈ keyboard width)
  *
- * Height is derived from the aspect ratio of each pad size.
+ * All percentages are relative to a 100cm desk viewport.
  */
 
-const PAD_PROPORTIONS: Record<string, { widthPct: number; aspectRatio: number }> = {
-  "90x40": { widthPct: 92, aspectRatio: 90 / 40 },
-  "80x40": { widthPct: 82, aspectRatio: 80 / 40 },
-  "45x40": { widthPct: 50, aspectRatio: 45 / 40 },
+const DESK_WIDTH_CM = 100;
+const KEYBOARD_WIDTH_CM = 45;
+const KEYBOARD_DEPTH_CM = 15;
+const MOUSE_WIDTH_CM = 7;
+const MOUSE_DEPTH_CM = 12;
+
+interface PadSpec {
+  widthCm: number;
+  depthCm: number;
+}
+
+const PAD_SPECS: Record<string, PadSpec> = {
+  "90x40": { widthCm: 90, depthCm: 40 },
+  "80x40": { widthCm: 80, depthCm: 40 },
+  "45x40": { widthCm: 45, depthCm: 40 },
 };
 
 function parseSizeKey(sizeLabel: string): string {
-  // Extract "90x40" from "XXL 90x40" etc.
   const match = sizeLabel.match(/(\d+x\d+)/);
   return match ? match[1] : "80x40";
 }
 
+// Convert cm to percentage of desk width
+const cmToPct = (cm: number) => (cm / DESK_WIDTH_CM) * 100;
+
+// The scene aspect ratio (16:9). Desk depth visible ≈ 56.25% of width in px.
+// We express vertical positions as % of container height.
+// Container height in "cm" terms ≈ 100 * (9/16) = 56.25 cm
+const DESK_DEPTH_CM = DESK_WIDTH_CM * (9 / 16);
+const cmToVertPct = (cm: number) => (cm / DESK_DEPTH_CM) * 100;
+
 interface Props {
   designImage: string;
   designTitle: string;
-  /** Size label like "XXL 90x40" */
   sizeLabel?: string;
-  /** Optional text overlay on the pad */
   overlayText?: string;
-  /** Font family for overlay text */
   overlayFont?: string;
-  /** Text alignment */
   overlayAlign?: "left" | "center" | "right";
 }
-
 
 const DeskMockup = ({
   designImage,
@@ -51,22 +66,27 @@ const DeskMockup = ({
   overlayAlign = "center",
 }: Props) => {
   const sizeKey = parseSizeKey(sizeLabel);
-  const { widthPct, aspectRatio } = PAD_PROPORTIONS[sizeKey] ?? PAD_PROPORTIONS["80x40"];
+  const pad = PAD_SPECS[sizeKey] ?? PAD_SPECS["80x40"];
 
-  // Pad height as percentage of viewport width (since the container is aspect-video 16:9)
-  // We express height relative to the container height.
-  // Container aspect = 16:9, so containerH = containerW * 9/16
-  // padW = containerW * widthPct/100
-  // padH = padW / aspectRatio
-  // padH as % of containerH = (padW / aspectRatio) / containerH * 100
-  //   = (containerW * widthPct/100 / aspectRatio) / (containerW * 9/16) * 100
-  //   = (widthPct / aspectRatio) / (9/16) * 100 / 100
-  //   = widthPct * 16 / (aspectRatio * 9)
-  const heightPct = (widthPct * 16) / (aspectRatio * 9);
+  // Pad dimensions as % of container
+  const padW = cmToPct(pad.widthCm);
+  const padH = cmToVertPct(pad.depthCm);
+  const padLeft = (100 - padW) / 2;
+  // Place pad so its bottom edge is near 92% of scene height
+  const padTop = Math.max(92 - padH, 25);
 
-  // Center the pad horizontally, place it in the lower portion of the desk
-  const padLeft = (100 - widthPct) / 2;
-  const padTop = Math.max(95 - heightPct, 30); // sit near the bottom, min 30%
+  // Keyboard: centered on pad, sitting on top of pad's upper area
+  const kbW = cmToPct(KEYBOARD_WIDTH_CM);
+  const kbH = cmToVertPct(KEYBOARD_DEPTH_CM);
+  const kbLeft = (100 - kbW) / 2;
+  // Keyboard sits in the upper-middle portion of the pad
+  const kbTop = padTop + padH * 0.08;
+
+  // Mouse: to the right of the keyboard, vertically centered with keyboard
+  const mouseW = cmToPct(MOUSE_WIDTH_CM);
+  const mouseH = cmToVertPct(MOUSE_DEPTH_CM);
+  const mouseLeft = kbLeft + kbW + cmToPct(3); // 3cm gap
+  const mouseTop = kbTop + (kbH - mouseH) / 2;
 
   const textAlignStyle: Record<string, React.CSSProperties> = {
     left: { textAlign: "left", left: "8%", right: "auto", transform: "none" },
@@ -75,40 +95,64 @@ const DeskMockup = ({
   };
 
   return (
-    <div className="relative w-full aspect-video rounded-xl overflow-hidden neon-box">
-      {/* Layer 1: Desk surface background */}
+    <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-border/50">
+      {/* Layer 0: Desk scene with monitors */}
       <img
-        src={mockupDeskBg}
-        alt="Gaming desk"
+        src={deskScene}
+        alt="Gaming desk setup"
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      {/* Layer 2: The mousepad (dynamically sized) */}
+      {/* Layer 1: Pad shadow (slightly offset, blurred) */}
       <div
-        className="absolute"
+        className="absolute rounded-sm"
+        style={{
+          top: `${padTop + 0.8}%`,
+          left: `${padLeft + 0.3}%`,
+          width: `${padW}%`,
+          height: `${padH}%`,
+          background: "rgba(0,0,0,0.45)",
+          filter: "blur(12px)",
+          transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      />
+
+      {/* Layer 2: The mousepad with design */}
+      <div
+        className="absolute rounded-sm overflow-hidden"
         style={{
           top: `${padTop}%`,
           left: `${padLeft}%`,
-          width: `${widthPct}%`,
-          height: `${heightPct}%`,
-          filter: "drop-shadow(0 6px 20px rgba(0,0,0,0.55))",
-          transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+          width: `${padW}%`,
+          height: `${padH}%`,
+          boxShadow: "0 4px 24px rgba(0,0,0,0.5), 0 1px 4px rgba(0,0,0,0.3)",
+          transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
         <img
           src={designImage}
           alt={designTitle}
-          className="w-full h-full object-cover rounded-sm"
+          className="w-full h-full object-cover"
+        />
+
+        {/* Subtle pad edge highlight */}
+        <div
+          className="absolute inset-0 rounded-sm pointer-events-none"
+          style={{
+            boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08)",
+          }}
         />
 
         {/* Text overlay on the pad */}
         {overlayText && (
           <div
-            className="absolute bottom-[10%] text-primary font-bold neon-text px-3 py-1 rounded-md"
+            className="absolute bottom-[10%] font-bold px-3 py-1 rounded-md"
             style={{
-              fontSize: "clamp(0.6rem, 2.5vw, 1.4rem)",
+              fontSize: "clamp(0.5rem, 2vw, 1.2rem)",
               fontFamily: overlayFont || "inherit",
-              backgroundColor: "rgba(0,0,0,0.5)",
+              color: "hsl(var(--primary))",
+              backgroundColor: "rgba(0,0,0,0.6)",
+              textShadow: "0 0 8px hsl(var(--primary) / 0.6)",
               maxWidth: "90%",
               whiteSpace: "nowrap",
               overflow: "hidden",
@@ -121,27 +165,71 @@ const DeskMockup = ({
         )}
       </div>
 
-      {/* Layer 3: Keyboard + Mouse + Headphones (transparent overlay) */}
+      {/* Layer 3: Keyboard shadow */}
       <div
         className="absolute pointer-events-none"
         style={{
-          top: "10%",
-          left: "10%",
-          width: "80%",
-          height: "80%",
+          top: `${kbTop + 1.5}%`,
+          left: `${kbLeft + 0.3}%`,
+          width: `${kbW}%`,
+          height: `${kbH}%`,
+          background: "rgba(0,0,0,0.35)",
+          filter: "blur(8px)",
+          borderRadius: "4px",
+        }}
+      />
+
+      {/* Layer 4: Keyboard */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: `${kbTop}%`,
+          left: `${kbLeft}%`,
+          width: `${kbW}%`,
+          height: `${kbH}%`,
+          transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
         <img
-          src={mockupOverlay}
-          alt=""
-          className="w-full h-full object-contain"
-          style={{
-            filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.6))",
-          }}
+          src={keyboardImg}
+          alt="Gaming keyboard"
+          className="w-full h-full object-contain drop-shadow-lg"
         />
       </div>
 
-      {/* Size indicator badge */}
+      {/* Layer 5: Mouse shadow */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: `${mouseTop + 1.5}%`,
+          left: `${mouseLeft + 0.3}%`,
+          width: `${mouseW}%`,
+          height: `${mouseH}%`,
+          background: "rgba(0,0,0,0.3)",
+          filter: "blur(6px)",
+          borderRadius: "50%",
+        }}
+      />
+
+      {/* Layer 6: Mouse */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: `${mouseTop}%`,
+          left: `${mouseLeft}%`,
+          width: `${mouseW}%`,
+          height: `${mouseH}%`,
+          transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      >
+        <img
+          src={mouseImg}
+          alt="Gaming mouse"
+          className="w-full h-full object-contain drop-shadow-lg"
+        />
+      </div>
+
+      {/* Size badge */}
       <div className="absolute top-3 right-3 bg-background/70 backdrop-blur-sm text-primary text-xs font-bold px-2 py-1 rounded-md border border-primary/30">
         {sizeKey} cm
       </div>
