@@ -48,7 +48,7 @@ interface Props {
 const DeskMockup = ({
   designImage,
   designTitle,
-  sizeLabel = "XL 80x40",
+  sizeLabel = "L 60x30",
   overlayText,
   overlayFont,
   overlayAlign = "center",
