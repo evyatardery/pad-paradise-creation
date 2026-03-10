@@ -99,7 +99,7 @@ const DeskMockup = ({
   return (
     <div
       className="relative w-full rounded-xl border border-border/50"
-      style={{ aspectRatio: "140 / 90", overflow: "hidden" }}
+      style={{ aspectRatio: "190 / 120", overflow: "hidden" }}
     >
       {/* Background desk scene with monitor */}
       <img
