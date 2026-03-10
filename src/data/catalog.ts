@@ -221,6 +221,10 @@ export const padDesigns: PadDesign[] = [
   // Sport
   { id: "sport-1", title: "Ronaldo Fire", image: sportRonaldo1, category: "sport" },
   { id: "sport-2", title: "CR7 Gold", image: sportRonaldo2, category: "sport" },
+  { id: "sport-3", title: "Messi Pop Art", image: sportMessi1, category: "sport" },
+  { id: "sport-4", title: "Messi Dark", image: sportMessi2, category: "sport" },
+  { id: "sport-5", title: "Neymar Gold", image: sportNeymar, category: "sport" },
+  { id: "sport-6", title: "Kobe Legend", image: sportKobe, category: "sport" },
 ];
 
 export const sizes = [
