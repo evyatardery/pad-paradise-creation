@@ -109,7 +109,7 @@ const DeskMockup = ({
         className="absolute inset-0"
         style={{
           transformStyle: "preserve-3d",
-          transform: "rotateX(18deg) translateY(6%)",
+          transform: "translateY(6%)",
           transformOrigin: "50% 70%",
         }}
       >
