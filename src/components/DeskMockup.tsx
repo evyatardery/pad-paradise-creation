@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import mockupDeskBg from "@/assets/mockup-desk-bg.jpg";
 import mockupOverlay from "@/assets/mockup-overlay.png";
 
@@ -40,14 +41,15 @@ interface Props {
   overlayAlign?: "left" | "center" | "right";
 }
 
-const DeskMockup = ({
+
+const DeskMockup = forwardRef<HTMLDivElement, Props>(({
   designImage,
   designTitle,
   sizeLabel = "XL 80x40",
   overlayText,
   overlayFont,
   overlayAlign = "center",
-}: Props) => {
+}, ref) => {
   const sizeKey = parseSizeKey(sizeLabel);
   const { widthPct, aspectRatio } = PAD_PROPORTIONS[sizeKey] ?? PAD_PROPORTIONS["80x40"];
 
@@ -73,7 +75,7 @@ const DeskMockup = ({
   };
 
   return (
-    <div className="relative w-full aspect-video rounded-xl overflow-hidden neon-box">
+    <div ref={ref} className="relative w-full aspect-video rounded-xl overflow-hidden neon-box">
       {/* Layer 1: Desk surface background */}
       <img
         src={mockupDeskBg}
@@ -145,6 +147,8 @@ const DeskMockup = ({
       </div>
     </div>
   );
-};
+});
+
+DeskMockup.displayName = "DeskMockup";
 
 export default DeskMockup;
