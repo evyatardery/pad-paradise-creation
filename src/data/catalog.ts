@@ -37,6 +37,18 @@ import design25 from "@/assets/pads/design-25.jpg";
 import design26 from "@/assets/pads/design-26.jpg";
 import design27 from "@/assets/pads/design-27.png";
 
+// Anime designs
+import animeFortnite from "@/assets/pads/anime-fortnite.jpg";
+import anime2 from "@/assets/pads/anime-2.avif";
+import animeForest from "@/assets/pads/anime-forest.jpg";
+import animeGhoul from "@/assets/pads/anime-ghoul.jpg";
+import animePikachu from "@/assets/pads/anime-pikachu.png";
+import animeItachi from "@/assets/pads/anime-itachi.png";
+import animeSao from "@/assets/pads/anime-sao.jpg";
+import animeJjk from "@/assets/pads/anime-jjk.jpeg";
+import animeNeonCity from "@/assets/pads/anime-neon-city.jpg";
+import animeCyberpunk from "@/assets/pads/anime-cyberpunk.png";
+
 export interface PadDesign {
   id: string;
   title: string;
@@ -95,6 +107,13 @@ export const categories: Category[] = [
     coverImage: padNeonStrike,
     description: "פדים בסגנון גיימינג קלאסי"
   },
+  {
+    id: "anime",
+    title: "אנימה",
+    icon: "⚔️",
+    coverImage: animeItachi,
+    description: "עיצובים בסגנון אנימה ומנגה"
+  },
 ];
 
 export const padDesigns: PadDesign[] = [
@@ -149,6 +168,18 @@ export const padDesigns: PadDesign[] = [
   { id: "game-8", title: "Electric Blue", image: design21, category: "gaming" },
   { id: "game-9", title: "Dark Grid", image: design25, category: "gaming" },
   { id: "game-10", title: "Anime Girls RGB", image: design27, category: "gaming" },
+  
+  // Anime
+  { id: "anime-1", title: "Fortnite", image: animeFortnite, category: "anime" },
+  { id: "anime-2", title: "Anime Style", image: anime2, category: "anime" },
+  { id: "anime-3", title: "Dark Forest", image: animeForest, category: "anime" },
+  { id: "anime-4", title: "Tokyo Ghoul", image: animeGhoul, category: "anime" },
+  { id: "anime-5", title: "Pikachu", image: animePikachu, category: "anime" },
+  { id: "anime-6", title: "Itachi Uchiha", image: animeItachi, category: "anime" },
+  { id: "anime-7", title: "Sword Art Online", image: animeSao, category: "anime" },
+  { id: "anime-8", title: "Jujutsu Kaisen", image: animeJjk, category: "anime" },
+  { id: "anime-9", title: "Neon City", image: animeNeonCity, category: "anime" },
+  { id: "anime-10", title: "Cyberpunk", image: animeCyberpunk, category: "anime" },
 ];
 
 export const sizes = [
