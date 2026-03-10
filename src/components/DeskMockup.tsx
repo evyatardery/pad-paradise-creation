@@ -293,8 +293,8 @@ const DeskMockup = ({
           />
         </div>
         </div>
+        </div>
       </div>
-
       {/* Size badge (outside 3D layer) */}
       <div className="absolute top-3 right-3 bg-background/70 backdrop-blur-sm text-primary text-xs font-bold px-2 py-1 rounded-md border border-primary/30">
         {sizeKey} cm
