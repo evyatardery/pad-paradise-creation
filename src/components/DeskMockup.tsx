@@ -10,8 +10,7 @@ import mouseImg from "@/assets/mouse-overlay.png";
  */
 
 const DESK_W_CM = 140;
-const DESK_H_CM = DESK_W_CM * (9 / 16);
-const SCALE = 1;
+const DESK_H_CM = 90;
 
 const cmToW = (cm: number) => (cm / DESK_W_CM) * 100;
 const cmToH = (cm: number) => (cm / DESK_H_CM) * 100;
@@ -22,19 +21,19 @@ interface PadSpec {
 }
 
 const PAD_SPECS: Record<string, PadSpec> = {
-  "90x30": { widthPct: cmToW(90), depthPct: cmToH(30) },
   "80x30": { widthPct: cmToW(80), depthPct: cmToH(30) },
-  "45x30": { widthPct: cmToW(45), depthPct: cmToH(30) },
+  "60x30": { widthPct: cmToW(60), depthPct: cmToH(30) },
+  "22.5x18.5": { widthPct: cmToW(22.5), depthPct: cmToH(18.5) },
 };
 
-const KB_W = cmToW(35);
+const KB_W = cmToW(30);
 const KB_H = cmToH(12);
 const MOUSE_W = cmToW(7);
 const MOUSE_H = cmToH(12);
 
 function parseSizeKey(sizeLabel: string): string {
-  const match = sizeLabel.match(/(\d+x\d+)/);
-  return match ? match[1] : "80x30";
+  const match = sizeLabel.match(/([\d.]+x[\d.]+)/);
+  return match ? match[1] : "60x30";
 }
 
 interface Props {
@@ -49,13 +48,13 @@ interface Props {
 const DeskMockup = ({
   designImage,
   designTitle,
-  sizeLabel = "XL 80x40",
+  sizeLabel = "L 60x30",
   overlayText,
   overlayFont,
   overlayAlign = "center",
 }: Props) => {
   const sizeKey = parseSizeKey(sizeLabel);
-  const pad = PAD_SPECS[sizeKey] ?? PAD_SPECS["80x30"];
+  const pad = PAD_SPECS[sizeKey] ?? PAD_SPECS["60x30"];
 
   const padW = pad.widthPct;
   const padH = pad.depthPct;
@@ -79,7 +78,7 @@ const DeskMockup = ({
   return (
     <div
       className="relative w-full rounded-xl border border-border/50"
-      style={{ aspectRatio: "16 / 9", overflow: "hidden" }}
+      style={{ aspectRatio: "140 / 90", overflow: "hidden" }}
     >
       {/* Background desk scene with monitor */}
       <img

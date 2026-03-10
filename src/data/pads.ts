@@ -24,9 +24,9 @@ export const pads: Pad[] = [
 ];
 
 export const sizes = [
-  { label: "Large 45x30", price: 69 },
-  { label: "XL 80x30", price: 89 },
-  { label: "XXL 90x30", price: 109 },
+  { label: "M 22.5x18.5", price: 59 },
+  { label: "L 60x30", price: 89 },
+  { label: "XL 80x30", price: 119 },
 ];
 
 export function orderOnWhatsApp(product: string) {
