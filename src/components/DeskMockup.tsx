@@ -75,7 +75,7 @@ const DeskMockup = ({
   };
 
   return (
-    <div ref={ref} className="relative w-full aspect-video rounded-xl overflow-hidden neon-box">
+    <div className="relative w-full aspect-video rounded-xl overflow-hidden neon-box">
       {/* Layer 1: Desk surface background */}
       <img
         src={mockupDeskBg}
