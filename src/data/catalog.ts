@@ -60,6 +60,13 @@ import carsFord from "@/assets/pads/cars-ford.jpg";
 import sportRonaldo1 from "@/assets/pads/sport-ronaldo1.jpg";
 import sportRonaldo2 from "@/assets/pads/sport-ronaldo2.jpg";
 import darkShadow from "@/assets/pads/dark-shadow.png";
+import darkBatman1 from "@/assets/pads/dark-batman1.jpg";
+import darkBatman2 from "@/assets/pads/dark-batman2.png";
+import darkSkull from "@/assets/pads/dark-skull.jpg";
+import sportMessi1 from "@/assets/pads/sport-messi1.png";
+import sportMessi2 from "@/assets/pads/sport-messi2.jpg";
+import sportNeymar from "@/assets/pads/sport-neymar.png";
+import sportKobe from "@/assets/pads/sport-kobe.png";
 
 export interface PadDesign {
   id: string;
@@ -179,6 +186,9 @@ export const padDesigns: PadDesign[] = [
   { id: "dark-8", title: "Crystal Sharp", image: darkCrystal, category: "dark" },
   { id: "dark-9", title: "Neon Wolf", image: darkWolf, category: "dark" },
   { id: "dark-10", title: "Shadow Figure", image: darkShadow, category: "dark" },
+  { id: "dark-11", title: "Batman Ink", image: darkBatman1, category: "dark" },
+  { id: "dark-12", title: "Batman Dark", image: darkBatman2, category: "dark" },
+  { id: "dark-13", title: "Skull Art", image: darkSkull, category: "dark" },
   
   // Gaming
   { id: "game-1", title: "Neon Strike", image: padNeonStrike, category: "gaming" },
@@ -211,6 +221,10 @@ export const padDesigns: PadDesign[] = [
   // Sport
   { id: "sport-1", title: "Ronaldo Fire", image: sportRonaldo1, category: "sport" },
   { id: "sport-2", title: "CR7 Gold", image: sportRonaldo2, category: "sport" },
+  { id: "sport-3", title: "Messi Pop Art", image: sportMessi1, category: "sport" },
+  { id: "sport-4", title: "Messi Dark", image: sportMessi2, category: "sport" },
+  { id: "sport-5", title: "Neymar Gold", image: sportNeymar, category: "sport" },
+  { id: "sport-6", title: "Kobe Legend", image: sportKobe, category: "sport" },
 ];
 
 export const sizes = [
