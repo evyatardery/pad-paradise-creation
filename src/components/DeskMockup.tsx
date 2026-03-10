@@ -22,9 +22,9 @@ interface PadSpec {
 }
 
 const PAD_SPECS: Record<string, PadSpec> = {
-  "90x40": { widthPct: 90 * SCALE, depthPct: cmToH(40) * SCALE },
-  "80x40": { widthPct: 80 * SCALE, depthPct: cmToH(40) * SCALE },
-  "45x40": { widthPct: 45 * SCALE, depthPct: cmToH(40) * SCALE },
+  "90x30": { widthPct: 90 * SCALE, depthPct: cmToH(30) * SCALE },
+  "80x30": { widthPct: 80 * SCALE, depthPct: cmToH(30) * SCALE },
+  "45x30": { widthPct: 45 * SCALE, depthPct: cmToH(30) * SCALE },
 };
 
 const KB_W = cmToW(36);
