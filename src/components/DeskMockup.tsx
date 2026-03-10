@@ -137,8 +137,8 @@ const DeskMockup = ({
         <div
           className="absolute rounded-md"
           style={{
-            top: `${padTop + 2.5}%`,
-            left: `${padLeft + 1}%`,
+            top: `${padTop + 4.5}%`,
+            left: `${padLeft + 1.2}%`,
             width: `${padW}%`,
             height: `${padH}%`,
             background: "rgba(0,0,0,0.5)",
