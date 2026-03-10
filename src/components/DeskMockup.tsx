@@ -147,6 +147,8 @@ const DeskMockup = forwardRef<HTMLDivElement, Props>(({
       </div>
     </div>
   );
-};
+});
+
+DeskMockup.displayName = "DeskMockup";
 
 export default DeskMockup;
