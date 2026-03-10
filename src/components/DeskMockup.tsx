@@ -77,7 +77,7 @@ const DeskMockup = ({
   const showKeyboard = !isMedium;
   const kbLeft = isXL
     ? padLeft + (padW - KB_W) / 2 - 3
-    : padLeft + padW * 0.02;
+    : padLeft + padW * 0.05;
   const kbTop = padTop + (padH - KB_H) / 2;
 
   // Mouse: centered for M, right side of pad for L/XL (not overlapping keyboard)
