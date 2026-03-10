@@ -4,13 +4,13 @@ import keyboardImg from "@/assets/keyboard-overlay.png";
 import mouseImg from "@/assets/mouse-overlay.png";
 
 /**
- * Cinematic 3/4 perspective desk mockup.
- * Accessories use real-world CM proportions relative to a 100cm desk.
- * Pad uses SCALE factor for visual breathing room.
+ * Cinematic top-down desk mockup with monitor, keyboard, mouse.
+ * Mouse sits ON the pad (lower-right). Keyboard on the pad (upper area).
+ * Monitor visible in background (baked into desk scene image).
  */
 
 const DESK_W_CM = 100;
-const DESK_H_CM = DESK_W_CM * (9 / 16); // ~56.25cm
+const DESK_H_CM = DESK_W_CM * (9 / 16);
 const SCALE = 0.55;
 
 const cmToW = (cm: number) => (cm / DESK_W_CM) * 100;
@@ -27,11 +27,10 @@ const PAD_SPECS: Record<string, PadSpec> = {
   "45x40": { widthPct: 45 * SCALE, depthPct: cmToH(40) * SCALE },
 };
 
-// Real-world accessory sizes → percentage of container (NOT scaled by SCALE)
-const KB_W = cmToW(44);   // ~44%
-const KB_H = cmToH(15);   // ~26.7%
-const MOUSE_W = cmToW(6.5);
-const MOUSE_H = cmToH(11);
+const KB_W = cmToW(36);
+const KB_H = cmToH(13);
+const MOUSE_W = cmToW(7);
+const MOUSE_H = cmToH(12);
 
 function parseSizeKey(sizeLabel: string): string {
   const match = sizeLabel.match(/(\d+x\d+)/);
@@ -61,22 +60,15 @@ const DeskMockup = ({
   const padW = pad.widthPct;
   const padH = pad.depthPct;
   const padLeft = (100 - padW) / 2;
-  // Center pad vertically in the lower 60% of scene
   const padTop = 48 - padH / 2;
 
-  // Keyboard centered horizontally, upper portion of pad
-  const kbLeft = (100 - KB_W) / 2;
-  const kbTop = padTop + padH * 0.05;
+  // Keyboard: centered on pad, upper portion
+  const kbLeft = padLeft + (padW - KB_W) / 2 - 4;
+  const kbTop = padTop + padH * 0.08;
 
-  // Mouse to the right of keyboard
-  const mouseLeft = kbLeft + KB_W + 2;
-  const mouseTop = kbTop + (KB_H - MOUSE_H) / 2;
-
-const PAD_THICKNESS = 3; // px for 3-4mm edge
-  const PAD_CLIP_PATH = "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)";
-  const PAD_BOTTOM_EDGE = "polygon(0% 100%, 100% 100%, 100% 105%, 0% 105%)";
-  const PAD_RIGHT_EDGE = "polygon(100% 0%, 100% 100%, 103% 100%, 103% 0%)";
-  const PAD_SURFACE_TRANSFORM = "none";
+  // Mouse: on the pad, lower-right area
+  const mouseLeft = padLeft + padW * 0.72;
+  const mouseTop = padTop + padH * 0.45;
 
   const textAlignStyle: Record<string, React.CSSProperties> = {
     left: { textAlign: "left", left: "8%", right: "auto", transform: "none" },
@@ -87,45 +79,42 @@ const PAD_THICKNESS = 3; // px for 3-4mm edge
   return (
     <div
       className="relative w-full rounded-xl border border-border/50"
-      style={{
-        aspectRatio: "16 / 9",
-        overflow: "hidden",
-      }}
+      style={{ aspectRatio: "16 / 9", overflow: "hidden" }}
     >
-      {/* Background desk scene — full bleed, no transform */}
+      {/* Background desk scene with monitor */}
       <img
         src={deskScene}
         alt="Gaming desk setup"
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ filter: "brightness(0.85)" }}
+        style={{ filter: "brightness(0.9)" }}
       />
 
-      {/* Ambient vignette for cinematic feel */}
+      {/* Cinematic vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at 50% 40%, transparent 50%, rgba(0,0,0,0.5) 100%)",
+          background:
+            "radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(0,0,0,0.55) 100%)",
         }}
       />
 
-      {/* Pad shadow */}
+      {/* ── Pad shadow (desk surface) ── */}
       <div
         className="absolute pointer-events-none"
         style={{
-          top: `${padTop + 3.5}%`,
-          left: `${padLeft + 2}%`,
+          top: `${padTop + 3}%`,
+          left: `${padLeft + 1.5}%`,
           width: `${padW}%`,
           height: `${padH}%`,
-          background: "hsl(var(--foreground) / 0.45)",
-          filter: "blur(18px)",
-          clipPath: PAD_CLIP_PATH,
-          transform: `${PAD_SURFACE_TRANSFORM} scale(1.04)`,
+          background: "rgba(0,0,0,0.5)",
+          filter: "blur(22px)",
+          borderRadius: "8px",
+          transform: "scale(1.03)",
           transformOrigin: "50% 100%",
-          transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       />
 
-      {/* Mousepad surface */}
+      {/* ── Mousepad surface ── */}
       <div
         className="absolute"
         style={{
@@ -135,20 +124,12 @@ const PAD_THICKNESS = 3; // px for 3-4mm edge
           height: `${padH}%`,
         }}
       >
-        <div
-          className="absolute inset-0"
-          style={{
-            transform: PAD_SURFACE_TRANSFORM,
-            transformOrigin: "50% 100%",
-          }}
-        >
+        <div className="absolute inset-0">
           <div
-            className="absolute inset-0 overflow-hidden"
+            className="absolute inset-0 overflow-hidden rounded-lg"
             style={{
-              clipPath: PAD_CLIP_PATH,
               boxShadow:
-                "0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.06)",
-              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                "0 8px 40px rgba(0,0,0,0.7), 0 2px 10px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.05)",
             }}
           >
             <img
@@ -157,12 +138,12 @@ const PAD_THICKNESS = 3; // px for 3-4mm edge
               className="absolute inset-0 w-full h-full object-cover"
             />
 
-            {/* Surface glare for realism */}
+            {/* Surface glare */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.03) 100%)",
+                  "linear-gradient(135deg, rgba(255,255,255,0.07) 0%, transparent 35%, transparent 65%, rgba(255,255,255,0.03) 100%)",
               }}
             />
 
@@ -188,44 +169,34 @@ const PAD_THICKNESS = 3; // px for 3-4mm edge
             )}
           </div>
 
+          {/* Pad bottom edge */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="absolute bottom-0 left-0 right-0 pointer-events-none"
             style={{
-              clipPath: PAD_BOTTOM_EDGE,
-              background:
-                "linear-gradient(to bottom, hsl(var(--muted-foreground) / 0.7), hsl(var(--foreground)))",
-              transform: `translateY(${PAD_THICKNESS}px)`,
-            }}
-          />
-
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              clipPath: PAD_RIGHT_EDGE,
-              background:
-                "linear-gradient(to right, hsl(var(--muted-foreground) / 0.7), hsl(var(--foreground)))",
-              transform: "translateX(1px)",
+              height: "3px",
+              background: "linear-gradient(to bottom, rgba(80,80,80,0.6), rgba(30,30,30,0.9))",
+              borderRadius: "0 0 8px 8px",
+              transform: "translateY(3px)",
             }}
           />
         </div>
       </div>
 
-      {/* Keyboard shadow */}
+      {/* ── Keyboard shadow (on pad) ── */}
       <div
         className="absolute pointer-events-none"
         style={{
-          top: `${kbTop + 2}%`,
-          left: `${kbLeft + 0.5}%`,
+          top: `${kbTop + 2.5}%`,
+          left: `${kbLeft + 0.8}%`,
           width: `${KB_W}%`,
           height: `${KB_H}%`,
-          background: "rgba(0,0,0,0.4)",
-          filter: "blur(10px)",
+          background: "rgba(0,0,0,0.45)",
+          filter: "blur(12px)",
           borderRadius: "6px",
-          transform: "skewX(-1deg)",
         }}
       />
 
-      {/* Keyboard */}
+      {/* ── Keyboard ── */}
       <div
         className="absolute pointer-events-none"
         style={{
@@ -233,19 +204,17 @@ const PAD_THICKNESS = 3; // px for 3-4mm edge
           left: `${kbLeft}%`,
           width: `${KB_W}%`,
           height: `${KB_H}%`,
-          transform: "rotate(12deg)",
-          transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
         <img
           src={keyboardImg}
-          alt="Gaming keyboard"
+          alt="RGB mechanical keyboard"
           className="w-full h-full object-contain"
-          style={{ filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.5))" }}
+          style={{ filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.6))" }}
         />
       </div>
 
-      {/* Mouse shadow */}
+      {/* ── Mouse shadow (on pad) ── */}
       <div
         className="absolute pointer-events-none"
         style={{
@@ -253,13 +222,13 @@ const PAD_THICKNESS = 3; // px for 3-4mm edge
           left: `${mouseLeft + 0.5}%`,
           width: `${MOUSE_W}%`,
           height: `${MOUSE_H}%`,
-          background: "rgba(0,0,0,0.35)",
-          filter: "blur(8px)",
+          background: "rgba(0,0,0,0.4)",
+          filter: "blur(10px)",
           borderRadius: "50%",
         }}
       />
 
-      {/* Mouse */}
+      {/* ── Mouse ── */}
       <div
         className="absolute pointer-events-none"
         style={{
@@ -267,16 +236,17 @@ const PAD_THICKNESS = 3; // px for 3-4mm edge
           left: `${mouseLeft}%`,
           width: `${MOUSE_W}%`,
           height: `${MOUSE_H}%`,
-          transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
         <img
           src={mouseImg}
           alt="Gaming mouse"
           className="w-full h-full object-contain"
-          style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.5))" }}
+          style={{ filter: "drop-shadow(0 3px 8px rgba(0,0,0,0.6))" }}
         />
       </div>
+
+      {/* Size badge */}
       <div className="absolute top-3 right-3 bg-background/70 backdrop-blur-sm text-primary text-xs font-bold px-2 py-1 rounded-md border border-primary/30">
         {sizeKey} cm
       </div>
