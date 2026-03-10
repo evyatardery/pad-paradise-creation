@@ -201,36 +201,40 @@ const DeskMockup = ({
       </div>
 
       {/* ── Keyboard shadow (on pad) ── */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: `${kbTop + 2.5}%`,
-          left: `${kbLeft + 0.8}%`,
-          width: `${KB_W}%`,
-          height: `${KB_H}%`,
-          background: "rgba(0,0,0,0.45)",
-          filter: "blur(12px)",
-          borderRadius: "6px",
-        }}
-      />
+      {showKeyboard && (
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            top: `${kbTop + 2.5}%`,
+            left: `${kbLeft + 0.8}%`,
+            width: `${KB_W}%`,
+            height: `${KB_H}%`,
+            background: "rgba(0,0,0,0.45)",
+            filter: "blur(12px)",
+            borderRadius: "6px",
+          }}
+        />
+      )}
 
       {/* ── Keyboard ── */}
-      <div
-        className="absolute pointer-events-none"
-        style={{
-          top: `${kbTop}%`,
-          left: `${kbLeft}%`,
-          width: `${KB_W}%`,
-          height: `${KB_H}%`,
-        }}
-      >
-        <img
-          src={keyboardImg}
-          alt="RGB mechanical keyboard"
-          className="w-full h-full object-contain"
-          style={{ filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.6))" }}
-        />
-      </div>
+      {showKeyboard && (
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            top: `${kbTop}%`,
+            left: `${kbLeft}%`,
+            width: `${KB_W}%`,
+            height: `${KB_H}%`,
+          }}
+        >
+          <img
+            src={keyboardImg}
+            alt="RGB mechanical keyboard"
+            className="w-full h-full object-contain"
+            style={{ filter: "drop-shadow(0 4px 10px rgba(0,0,0,0.6))" }}
+          />
+        </div>
+      )}
 
       {/* ── Mouse shadow (on pad) ── */}
       <div
