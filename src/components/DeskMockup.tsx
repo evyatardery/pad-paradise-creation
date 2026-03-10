@@ -104,7 +104,7 @@ const DeskMockup = ({
         }}
       />
 
-      {/* All desk items share this perspective container */}
+      {/* Perspective stage for desk items */}
       <div
         className="absolute"
         style={{
@@ -112,16 +112,24 @@ const DeskMockup = ({
           left: "5%",
           width: "90%",
           height: "90%",
-          perspective: "600px",
-          perspectiveOrigin: "72% 26%",
+          perspective: "1200px",
+          perspectiveOrigin: "80% 28%",
         }}
       >
         <div
           style={{
             position: "absolute",
             inset: 0,
-            transform: "rotateX(34deg) rotateY(-14deg) rotateZ(11deg)",
-            transformOrigin: "50% 50%",
+          }}
+        >
+        {/* Pad plane */}
+        <div
+          className="absolute"
+          style={{
+            inset: 0,
+            transform:
+              "perspective(1200px) rotateX(50deg) rotateY(-14deg) rotateZ(-20deg) skewX(10deg)",
+            transformOrigin: "50% 54%",
             transformStyle: "preserve-3d",
           }}
         >
@@ -240,7 +248,7 @@ const DeskMockup = ({
             left: `${kbLeft}%`,
             width: `${KB_W}%`,
             height: `${KB_H}%`,
-            transform: "rotate(-3deg)",
+            transform: "rotate(12deg)",
             transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
@@ -285,8 +293,8 @@ const DeskMockup = ({
           />
         </div>
         </div>
+        </div>
       </div>
-
       {/* Size badge (outside 3D layer) */}
       <div className="absolute top-3 right-3 bg-background/70 backdrop-blur-sm text-primary text-xs font-bold px-2 py-1 rounded-md border border-primary/30">
         {sizeKey} cm
