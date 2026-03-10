@@ -76,7 +76,7 @@ const DeskMockup = ({
   // Medium: keyboard LEFT of pad (touching), mouse centered on pad
   // L/XL: keyboard on pad upper area, mouse on pad right side
   const kbLeft = isMedium
-    ? padLeft - KB_W - 1.5
+    ? padLeft - KB_W - 0.5
     : padLeft + (padW - KB_W) / 2;
   const kbTop = isMedium
     ? padTop + (padH - KB_H) / 2
