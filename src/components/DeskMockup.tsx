@@ -41,7 +41,6 @@ interface Props {
   overlayAlign?: "left" | "center" | "right";
 }
 
-import { forwardRef } from "react";
 
 const DeskMockup = forwardRef<HTMLDivElement, Props>(({
   designImage,
