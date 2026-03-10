@@ -4,16 +4,23 @@ import keyboardImg from "@/assets/keyboard-overlay.png";
 import mouseImg from "@/assets/mouse-overlay.png";
 
 /**
- * Cinematic top-down desk mockup with monitor, keyboard, mouse.
- * Mouse sits ON the pad (lower-right). Keyboard on the pad (upper area).
- * Monitor visible in background (baked into desk scene image).
+ * Cinematic top-down desk mockup.
+ * Scene is slightly pulled back (~25cm margin) so you see a bit of room around the desk.
+ * All proportions based on real cm measurements mapped to the visible scene area.
  */
 
+// Scene = desk + ~25cm margin horizontally, ~15cm vertically
+const SCENE_W_CM = 190;
+const SCENE_H_CM = 120;
 const DESK_W_CM = 140;
 const DESK_H_CM = 90;
 
-const cmToW = (cm: number) => (cm / DESK_W_CM) * 100;
-const cmToH = (cm: number) => (cm / DESK_H_CM) * 100;
+const cmToW = (cm: number) => (cm / SCENE_W_CM) * 100;
+const cmToH = (cm: number) => (cm / SCENE_H_CM) * 100;
+
+// Desk offset within scene (centered)
+const DESK_LEFT = cmToW((SCENE_W_CM - DESK_W_CM) / 2);
+const DESK_TOP = cmToH((SCENE_H_CM - DESK_H_CM) / 2);
 
 interface PadSpec {
   widthPct: number;
@@ -26,10 +33,11 @@ const PAD_SPECS: Record<string, PadSpec> = {
   "22.5x18.5": { widthPct: cmToW(22.5), depthPct: cmToH(18.5) },
 };
 
-const KB_W = cmToW(76);
-const KB_H = cmToH(30);
-const MOUSE_W = cmToW(15);
-const MOUSE_H = cmToH(24);
+// Real accessory sizes
+const KB_W = cmToW(38);
+const KB_H = cmToH(15);
+const MOUSE_W = cmToW(7);
+const MOUSE_H = cmToH(12);
 
 function parseSizeKey(sizeLabel: string): string {
   const match = sizeLabel.match(/([\d.]+x[\d.]+)/);
@@ -59,25 +67,28 @@ const DeskMockup = ({
 
   const padW = pad.widthPct;
   const padH = pad.depthPct;
-  const padLeft = (100 - padW) / 2;
-  const padTop = 48 - padH / 2;
+  // Pad centered on desk, desk centered in scene
+  const deskCenterX = DESK_LEFT + cmToW(DESK_W_CM) / 2;
+  const deskCenterY = DESK_TOP + cmToH(DESK_H_CM) / 2;
+  const padLeft = deskCenterX - padW / 2;
+  const padTop = deskCenterY - padH / 2 + 5;
 
-  // For Medium: keyboard next to pad (left side), mouse on pad
-  // For L/XL: keyboard on pad, mouse on pad
+  // Medium: keyboard LEFT of pad (touching), mouse centered on pad
+  // L/XL: keyboard on pad upper area, mouse on pad right side
   const kbLeft = isMedium
-    ? padLeft - KB_W - 2
-    : padLeft + (padW - KB_W) / 2 - 4;
+    ? padLeft - KB_W - 1.5
+    : padLeft + (padW - KB_W) / 2;
   const kbTop = isMedium
     ? padTop + (padH - KB_H) / 2
-    : padTop + padH * 0.08;
+    : padTop + padH * 0.05;
 
-  // Mouse: on the pad
+  // Mouse fully inside the pad
   const mouseLeft = isMedium
     ? padLeft + (padW - MOUSE_W) / 2
-    : padLeft + padW * 0.72;
+    : padLeft + padW - MOUSE_W - padW * 0.08;
   const mouseTop = isMedium
     ? padTop + (padH - MOUSE_H) / 2
-    : padTop + padH * 0.45;
+    : padTop + padH * 0.5;
 
   const textAlignStyle: Record<string, React.CSSProperties> = {
     left: { textAlign: "left", left: "8%", right: "auto", transform: "none" },
@@ -88,7 +99,7 @@ const DeskMockup = ({
   return (
     <div
       className="relative w-full rounded-xl border border-border/50"
-      style={{ aspectRatio: "140 / 90", overflow: "hidden" }}
+      style={{ aspectRatio: "190 / 120", overflow: "hidden" }}
     >
       {/* Background desk scene with monitor */}
       <img
