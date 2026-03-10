@@ -147,8 +147,6 @@ const DeskMockup = ({
       </div>
     </div>
   );
-});
-
-DeskMockup.displayName = "DeskMockup";
+};
 
 export default DeskMockup;
