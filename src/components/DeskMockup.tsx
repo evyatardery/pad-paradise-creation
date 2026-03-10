@@ -73,20 +73,20 @@ const DeskMockup = ({
   const padLeft = deskCenterX - padW / 2;
   const padTop = deskCenterY - padH / 2 + 5;
 
-  // M: no keyboard. L: keyboard centered on pad. XL: keyboard shifted left a bit.
+  // M: no keyboard. L: keyboard left side of pad, mouse right. XL: keyboard shifted left.
   const showKeyboard = !isMedium;
   const kbLeft = isXL
     ? padLeft + (padW - KB_W) / 2 - 3
-    : padLeft + (padW - KB_W) / 2;
-  const kbTop = padTop + padH * 0.05;
+    : padLeft + padW * 0.02;
+  const kbTop = padTop + (padH - KB_H) / 2;
 
-  // Mouse: always on the pad, centered for M, right side for L/XL
+  // Mouse: centered for M, right side of pad for L/XL (not overlapping keyboard)
   const mouseLeft = isMedium
     ? padLeft + (padW - MOUSE_W) / 2
-    : padLeft + padW - MOUSE_W - padW * 0.08;
+    : padLeft + padW - MOUSE_W - padW * 0.05;
   const mouseTop = isMedium
     ? padTop + (padH - MOUSE_H) / 2
-    : padTop + padH * 0.15;
+    : padTop + (padH - MOUSE_H) / 2;
 
   const textAlignStyle: Record<string, React.CSSProperties> = {
     left: { textAlign: "left", left: "8%", right: "auto", transform: "none" },
