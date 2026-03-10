@@ -104,18 +104,23 @@ const DeskMockup = ({
         }}
       />
 
-      {/* 3D-tilted content layer — perspective aligned to desk surface */}
+      {/* All desk items share this perspective container */}
       <div
-        className="absolute inset-0"
+        className="absolute"
         style={{
-          perspective: "800px",
-          perspectiveOrigin: "50% 35%",
+          top: "5%",
+          left: "5%",
+          width: "90%",
+          height: "90%",
+          perspective: "600px",
+          perspectiveOrigin: "50% 25%",
         }}
       >
         <div
-          className="absolute inset-0"
           style={{
-            transform: "rotateX(22deg) rotateY(-3deg) rotateZ(2deg) translateY(2%)",
+            position: "absolute",
+            inset: 0,
+            transform: "rotateX(35deg) rotateZ(-4deg)",
             transformOrigin: "50% 50%",
             transformStyle: "preserve-3d",
           }}
