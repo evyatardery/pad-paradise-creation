@@ -279,6 +279,7 @@ const DeskMockup = ({
             style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.5))" }}
           />
         </div>
+        </div>
       </div>
 
       {/* Size badge (outside 3D layer) */}
