@@ -42,14 +42,14 @@ interface Props {
 }
 
 
-const DeskMockup = forwardRef<HTMLDivElement, Props>(({
+const DeskMockup = ({
   designImage,
   designTitle,
   sizeLabel = "XL 80x40",
   overlayText,
   overlayFont,
   overlayAlign = "center",
-}, ref) => {
+}: Props) => {
   const sizeKey = parseSizeKey(sizeLabel);
   const { widthPct, aspectRatio } = PAD_PROPORTIONS[sizeKey] ?? PAD_PROPORTIONS["80x40"];
 
