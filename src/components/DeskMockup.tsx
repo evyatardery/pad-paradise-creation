@@ -94,7 +94,7 @@ const DeskMockup = ({
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(0,0,0,0.55) 100%)",
+            "radial-gradient(ellipse at 50% 40%, transparent 45%, rgba(0,0,0,0.35) 100%)",
         }}
       />
 
