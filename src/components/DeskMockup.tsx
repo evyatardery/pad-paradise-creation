@@ -247,7 +247,7 @@ const DeskMockup = ({
             left: `${kbLeft}%`,
             width: `${KB_W}%`,
             height: `${KB_H}%`,
-            transform: "rotate(-3deg)",
+            transform: "rotate(12deg)",
             transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
           }}
         >
