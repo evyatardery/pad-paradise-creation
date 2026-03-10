@@ -22,10 +22,11 @@ const PAD_SPECS: Record<string, PadSpec> = {
   "45x40": { widthPct: 45 * SCALE, depthPct: 71 * SCALE },
 };
 
-const KB_W = 45 * SCALE;   // keyboard width %
-const KB_H = 26.7 * SCALE; // keyboard depth %
-const MOUSE_W = 7 * SCALE;
-const MOUSE_H = 21.3 * SCALE;
+// Accessories are absolute (not scaled by SCALE) — they're real-world fixed sizes
+const KB_W_CM = 44;
+const KB_H_CM = 15;
+const MOUSE_W_CM = 6.5;
+const MOUSE_H_CM = 11;
 
 function parseSizeKey(sizeLabel: string): string {
   const match = sizeLabel.match(/(\d+x\d+)/);
