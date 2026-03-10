@@ -113,7 +113,7 @@ const DeskMockup = ({
           width: "90%",
           height: "90%",
           perspective: "1200px",
-          perspectiveOrigin: "78% 30%",
+          perspectiveOrigin: "80% 28%",
         }}
       >
         <div
