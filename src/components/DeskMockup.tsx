@@ -104,7 +104,7 @@ const DeskMockup = ({
         }}
       />
 
-      {/* All desk items share this perspective container */}
+      {/* Perspective stage for desk items */}
       <div
         className="absolute"
         style={{
@@ -112,15 +112,22 @@ const DeskMockup = ({
           left: "5%",
           width: "90%",
           height: "90%",
-          perspective: "600px",
-          perspectiveOrigin: "72% 26%",
+          perspective: "1200px",
+          perspectiveOrigin: "78% 30%",
         }}
       >
         <div
           style={{
             position: "absolute",
             inset: 0,
-            transform: "rotateX(34deg) rotateY(-14deg) rotateZ(11deg)",
+          }}
+        >
+        {/* Pad plane */}
+        <div
+          className="absolute"
+          style={{
+            inset: 0,
+            transform: "perspective(1200px) rotateX(50deg) rotateZ(18deg) skewX(-10deg)",
             transformOrigin: "50% 50%",
             transformStyle: "preserve-3d",
           }}
