@@ -55,19 +55,29 @@ const DeskMockup = ({
 }: Props) => {
   const sizeKey = parseSizeKey(sizeLabel);
   const pad = PAD_SPECS[sizeKey] ?? PAD_SPECS["60x30"];
+  const isMedium = sizeKey === "22.5x18.5";
 
   const padW = pad.widthPct;
   const padH = pad.depthPct;
   const padLeft = (100 - padW) / 2;
   const padTop = 48 - padH / 2;
 
-  // Keyboard: centered on pad, upper portion
-  const kbLeft = padLeft + (padW - KB_W) / 2 - 4;
-  const kbTop = padTop + padH * 0.08;
+  // For Medium: keyboard next to pad (left side), mouse on pad
+  // For L/XL: keyboard on pad, mouse on pad
+  const kbLeft = isMedium
+    ? padLeft - KB_W - 2
+    : padLeft + (padW - KB_W) / 2 - 4;
+  const kbTop = isMedium
+    ? padTop + (padH - KB_H) / 2
+    : padTop + padH * 0.08;
 
-  // Mouse: on the pad, lower-right area
-  const mouseLeft = padLeft + padW * 0.72;
-  const mouseTop = padTop + padH * 0.45;
+  // Mouse: on the pad
+  const mouseLeft = isMedium
+    ? padLeft + (padW - MOUSE_W) / 2
+    : padLeft + padW * 0.72;
+  const mouseTop = isMedium
+    ? padTop + (padH - MOUSE_H) / 2
+    : padTop + padH * 0.45;
 
   const textAlignStyle: Record<string, React.CSSProperties> = {
     left: { textAlign: "left", left: "8%", right: "auto", transform: "none" },
