@@ -72,10 +72,11 @@ const DeskMockup = ({
   const mouseLeft = kbLeft + KB_W + 2;
   const mouseTop = kbTop + (KB_H - MOUSE_H) / 2;
 
-  const PAD_THICKNESS = 3; // px for 3-4mm edge
-  const PAD_CLIP_PATH = "polygon(16% 18%, 74% 8%, 92% 74%, 28% 90%)";
-  const PAD_BOTTOM_EDGE = "polygon(28% 90%, 92% 74%, 95% 80%, 31% 96%)";
-  const PAD_RIGHT_EDGE = "polygon(74% 8%, 92% 74%, 95% 80%, 78% 14%)";
+const PAD_THICKNESS = 3; // px for 3-4mm edge
+  const PAD_CLIP_PATH = "polygon(18% 16%, 76% 10%, 88% 76%, 24% 88%)";
+  const PAD_BOTTOM_EDGE = "polygon(24% 88%, 88% 76%, 90% 82%, 26% 94%)";
+  const PAD_RIGHT_EDGE = "polygon(76% 10%, 88% 76%, 90% 82%, 78% 16%)";
+  const PAD_SURFACE_TRANSFORM = "skewY(-10deg) rotate(-8deg)";
 
   const textAlignStyle: Record<string, React.CSSProperties> = {
     left: { textAlign: "left", left: "8%", right: "auto", transform: "none" },
