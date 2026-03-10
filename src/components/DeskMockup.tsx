@@ -73,6 +73,9 @@ const DeskMockup = ({
   const mouseTop = kbTop + (KB_H - MOUSE_H) / 2;
 
   const PAD_THICKNESS = 3; // px for 3-4mm edge
+  const PAD_CLIP_PATH = "polygon(16% 18%, 74% 8%, 92% 74%, 28% 90%)";
+  const PAD_BOTTOM_EDGE = "polygon(28% 90%, 92% 74%, 95% 80%, 31% 96%)";
+  const PAD_RIGHT_EDGE = "polygon(74% 8%, 92% 74%, 95% 80%, 78% 14%)";
 
   const textAlignStyle: Record<string, React.CSSProperties> = {
     left: { textAlign: "left", left: "8%", right: "auto", transform: "none" },
@@ -104,198 +107,178 @@ const DeskMockup = ({
         }}
       />
 
-      {/* Perspective stage for desk items */}
+      {/* Pad shadow */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: `${padTop + 4}%`,
+          left: `${padLeft + 2.5}%`,
+          width: `${padW}%`,
+          height: `${padH}%`,
+          background: "hsl(var(--foreground) / 0.5)",
+          filter: "blur(20px)",
+          clipPath: PAD_CLIP_PATH,
+          transform: "perspective(1000px) rotateX(60deg) rotateZ(-25deg) scale(1.2)",
+          transformOrigin: "50% 100%",
+          transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      />
+
+      {/* Mousepad surface */}
       <div
         className="absolute"
         style={{
-          top: "8%",
-          left: "5%",
-          width: "90%",
-          height: "88%",
+          top: `${padTop}%`,
+          left: `${padLeft}%`,
+          width: `${padW}%`,
+          height: `${padH}%`,
           perspective: "1000px",
-          perspectiveOrigin: "78% 30%",
           transformStyle: "preserve-3d",
         }}
       >
         <div
+          className="absolute inset-0"
           style={{
-            position: "absolute",
-            inset: 0,
-          }}
-        >
-        {/* Pad plane */}
-        <div
-          className="absolute"
-          style={{
-            inset: 0,
             transform: "rotateX(60deg) rotateZ(-25deg) scale(1.2)",
-            transformOrigin: "50% 62%",
+            transformOrigin: "50% 100%",
             transformStyle: "preserve-3d",
           }}
         >
-        {/* Pad diagonal shadow */}
-        <div
-          className="absolute rounded-md"
-          style={{
-            top: `${padTop + 4.5}%`,
-            left: `${padLeft + 1.2}%`,
-            width: `${padW}%`,
-            height: `${padH}%`,
-            background: "rgba(0,0,0,0.5)",
-            filter: "blur(18px)",
-            transform: "skewX(-2deg)",
-            transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-        />
+          <div
+            className="absolute inset-0 overflow-hidden"
+            style={{
+              clipPath: PAD_CLIP_PATH,
+              boxShadow:
+                "0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.06)",
+              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+          >
+            <img
+              src={designImage}
+              alt={designTitle}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
 
-        {/* Pad thickness / 3D edge (bottom face) */}
-        <div
-          className="absolute rounded-b-md"
-          style={{
-            top: `calc(${padTop + padH}% - 1px)`,
-            left: `${padLeft + 0.15}%`,
-            width: `${padW}%`,
-            height: `${PAD_THICKNESS}px`,
-            background: "linear-gradient(to bottom, #1a1a1a, #0d0d0d)",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.4)",
-            transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-        />
+            {/* Surface glare for realism */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.03) 100%)",
+              }}
+            />
 
-        {/* Pad right edge for 3D depth */}
-        <div
-          className="absolute"
-          style={{
-            top: `${padTop + 0.3}%`,
-            left: `calc(${padLeft + padW}% - 1px)`,
-            width: `${PAD_THICKNESS - 1}px`,
-            height: `${padH}%`,
-            background: "linear-gradient(to right, #1a1a1a, #111)",
-            transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-        />
+            {/* Text overlay */}
+            {overlayText && (
+              <div
+                className="absolute bottom-[14%] font-bold px-3 py-1 rounded-md"
+                style={{
+                  fontSize: "clamp(0.5rem, 1.5vw, 1rem)",
+                  fontFamily: overlayFont || "inherit",
+                  color: "hsl(var(--primary))",
+                  backgroundColor: "rgba(0,0,0,0.65)",
+                  textShadow: "0 0 8px hsl(var(--primary) / 0.6)",
+                  maxWidth: "90%",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  ...textAlignStyle[overlayAlign],
+                }}
+              >
+                {overlayText}
+              </div>
+            )}
+          </div>
 
-        {/* The mousepad surface */}
-        <div
-          className="absolute rounded-md overflow-hidden"
-          style={{
-            top: `${padTop}%`,
-            left: `${padLeft}%`,
-            width: `${padW}%`,
-            height: `${padH}%`,
-            boxShadow:
-              "0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.06)",
-            transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-        >
-          <img
-            src={designImage}
-            alt={designTitle}
-            className="w-full h-full object-cover"
-          />
-
-          {/* Surface glare for realism */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
+              clipPath: PAD_BOTTOM_EDGE,
               background:
-                "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.03) 100%)",
+                "linear-gradient(to bottom, hsl(var(--muted-foreground) / 0.7), hsl(var(--foreground)))",
+              transform: `translateY(${PAD_THICKNESS}px)`,
             }}
           />
 
-          {/* Text overlay */}
-          {overlayText && (
-            <div
-              className="absolute bottom-[10%] font-bold px-3 py-1 rounded-md"
-              style={{
-                fontSize: "clamp(0.5rem, 1.5vw, 1rem)",
-                fontFamily: overlayFont || "inherit",
-                color: "hsl(var(--primary))",
-                backgroundColor: "rgba(0,0,0,0.65)",
-                textShadow: "0 0 8px hsl(var(--primary) / 0.6)",
-                maxWidth: "90%",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                ...textAlignStyle[overlayAlign],
-              }}
-            >
-              {overlayText}
-            </div>
-          )}
-        </div>
-
-        {/* Keyboard shadow */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            top: `${kbTop + 2}%`,
-            left: `${kbLeft + 0.5}%`,
-            width: `${KB_W}%`,
-            height: `${KB_H}%`,
-            background: "rgba(0,0,0,0.4)",
-            filter: "blur(10px)",
-            borderRadius: "6px",
-            transform: "skewX(-1deg)",
-          }}
-        />
-
-        {/* Keyboard */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            top: `${kbTop}%`,
-            left: `${kbLeft}%`,
-            width: `${KB_W}%`,
-            height: `${KB_H}%`,
-            transform: "rotate(12deg)",
-            transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-        >
-          <img
-            src={keyboardImg}
-            alt="Gaming keyboard"
-            className="w-full h-full object-contain"
-            style={{ filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.5))" }}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              clipPath: PAD_RIGHT_EDGE,
+              background:
+                "linear-gradient(to right, hsl(var(--muted-foreground) / 0.7), hsl(var(--foreground)))",
+              transform: "translateX(1px)",
+            }}
           />
-        </div>
-
-        {/* Mouse shadow */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            top: `${mouseTop + 2}%`,
-            left: `${mouseLeft + 0.5}%`,
-            width: `${MOUSE_W}%`,
-            height: `${MOUSE_H}%`,
-            background: "rgba(0,0,0,0.35)",
-            filter: "blur(8px)",
-            borderRadius: "50%",
-          }}
-        />
-
-        {/* Mouse */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            top: `${mouseTop}%`,
-            left: `${mouseLeft}%`,
-            width: `${MOUSE_W}%`,
-            height: `${MOUSE_H}%`,
-            transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-          }}
-        >
-          <img
-            src={mouseImg}
-            alt="Gaming mouse"
-            className="w-full h-full object-contain"
-            style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.5))" }}
-          />
-        </div>
-        </div>
         </div>
       </div>
-      {/* Size badge (outside 3D layer) */}
+
+      {/* Keyboard shadow */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: `${kbTop + 2}%`,
+          left: `${kbLeft + 0.5}%`,
+          width: `${KB_W}%`,
+          height: `${KB_H}%`,
+          background: "rgba(0,0,0,0.4)",
+          filter: "blur(10px)",
+          borderRadius: "6px",
+          transform: "skewX(-1deg)",
+        }}
+      />
+
+      {/* Keyboard */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: `${kbTop}%`,
+          left: `${kbLeft}%`,
+          width: `${KB_W}%`,
+          height: `${KB_H}%`,
+          transform: "rotate(12deg)",
+          transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      >
+        <img
+          src={keyboardImg}
+          alt="Gaming keyboard"
+          className="w-full h-full object-contain"
+          style={{ filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.5))" }}
+        />
+      </div>
+
+      {/* Mouse shadow */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: `${mouseTop + 2}%`,
+          left: `${mouseLeft + 0.5}%`,
+          width: `${MOUSE_W}%`,
+          height: `${MOUSE_H}%`,
+          background: "rgba(0,0,0,0.35)",
+          filter: "blur(8px)",
+          borderRadius: "50%",
+        }}
+      />
+
+      {/* Mouse */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: `${mouseTop}%`,
+          left: `${mouseLeft}%`,
+          width: `${MOUSE_W}%`,
+          height: `${MOUSE_H}%`,
+          transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      >
+        <img
+          src={mouseImg}
+          alt="Gaming mouse"
+          className="w-full h-full object-contain"
+          style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.5))" }}
+        />
+      </div>
       <div className="absolute top-3 right-3 bg-background/70 backdrop-blur-sm text-primary text-xs font-bold px-2 py-1 rounded-md border border-primary/30">
         {sizeKey} cm
       </div>
