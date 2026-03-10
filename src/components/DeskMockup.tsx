@@ -5,27 +5,33 @@ import mouseImg from "@/assets/mouse-overlay.png";
 
 /**
  * Cinematic 3/4 perspective desk mockup.
- * Uses CSS perspective + rotateX to create depth.
- * Pad is scaled down to ~60% of previous size for breathing room.
+ * Accessories use real-world CM proportions relative to a 100cm desk.
+ * Pad uses SCALE factor for visual breathing room.
  */
 
-const SCALE = 0.55; // Scale factor to shrink pad on desk
+const DESK_W_CM = 100;
+const DESK_H_CM = DESK_W_CM * (9 / 16); // ~56.25cm
+const SCALE = 0.55;
+
+const cmToW = (cm: number) => (cm / DESK_W_CM) * 100;
+const cmToH = (cm: number) => (cm / DESK_H_CM) * 100;
 
 interface PadSpec {
-  widthPct: number;  // % of container width
-  depthPct: number;  // % of container height
+  widthPct: number;
+  depthPct: number;
 }
 
 const PAD_SPECS: Record<string, PadSpec> = {
-  "90x40": { widthPct: 90 * SCALE, depthPct: 71 * SCALE },
-  "80x40": { widthPct: 80 * SCALE, depthPct: 71 * SCALE },
-  "45x40": { widthPct: 45 * SCALE, depthPct: 71 * SCALE },
+  "90x40": { widthPct: 90 * SCALE, depthPct: cmToH(40) * SCALE },
+  "80x40": { widthPct: 80 * SCALE, depthPct: cmToH(40) * SCALE },
+  "45x40": { widthPct: 45 * SCALE, depthPct: cmToH(40) * SCALE },
 };
 
-const KB_W = 45 * SCALE;   // keyboard width %
-const KB_H = 26.7 * SCALE; // keyboard depth %
-const MOUSE_W = 7 * SCALE;
-const MOUSE_H = 21.3 * SCALE;
+// Real-world accessory sizes → percentage of container (NOT scaled by SCALE)
+const KB_W = cmToW(44);   // ~44%
+const KB_H = cmToH(15);   // ~26.7%
+const MOUSE_W = cmToW(6.5);
+const MOUSE_H = cmToH(11);
 
 function parseSizeKey(sizeLabel: string): string {
   const match = sizeLabel.match(/(\d+x\d+)/);
