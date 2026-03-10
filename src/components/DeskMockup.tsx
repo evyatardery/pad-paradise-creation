@@ -76,7 +76,7 @@ const DeskMockup = forwardRef<HTMLDivElement, Props>(({
   };
 
   return (
-    <div className="relative w-full aspect-video rounded-xl overflow-hidden neon-box">
+    <div ref={ref} className="relative w-full aspect-video rounded-xl overflow-hidden neon-box">
       {/* Layer 1: Desk surface background */}
       <img
         src={mockupDeskBg}
