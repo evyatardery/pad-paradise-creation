@@ -86,7 +86,7 @@ const DeskMockup = ({
         src={deskScene}
         alt="Gaming desk setup"
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ filter: "brightness(0.9)" }}
+        style={{ filter: "brightness(1.15)" }}
       />
 
       {/* Cinematic vignette */}
