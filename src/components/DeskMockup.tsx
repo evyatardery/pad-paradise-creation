@@ -127,8 +127,9 @@ const DeskMockup = ({
           className="absolute"
           style={{
             inset: 0,
-            transform: "perspective(1200px) rotateX(50deg) rotateZ(18deg) skewX(-10deg)",
-            transformOrigin: "50% 50%",
+            transform:
+              "perspective(1200px) rotateX(50deg) rotateY(-14deg) rotateZ(-20deg) skewX(10deg)",
+            transformOrigin: "50% 54%",
             transformStyle: "preserve-3d",
           }}
         >
