@@ -269,7 +269,7 @@ export const padDesigns: PadDesign[] = [
 export const sizes = [
   { label: "Large 45x30", price: 69 },
   { label: "XL 80x30", price: 89 },
-  { label: "XXL 90x40", price: 109 },
+  { label: "XXL 90x30", price: 109 },
 ];
 
 export function getDesignsByCategory(categoryId: string): PadDesign[] {
