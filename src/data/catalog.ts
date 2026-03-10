@@ -77,6 +77,14 @@ import colorfulNeonLove from "@/assets/pads/colorful-neon-love.jpg";
 import abstractNeonForest from "@/assets/pads/abstract-neon-forest.png";
 import animeMoonSamurai from "@/assets/pads/anime-moon-samurai.jpeg";
 import darkNeonMask from "@/assets/pads/dark-neon-mask.jpg";
+import animeNeonGirl from "@/assets/pads/anime-neon-girl.png";
+import darkNeonRing from "@/assets/pads/dark-neon-ring.png";
+import animeGhoulSplash from "@/assets/pads/anime-ghoul-splash.jpg";
+import darkChromeFigure from "@/assets/pads/dark-chrome-figure.png";
+import animeSamuraiGirl from "@/assets/pads/anime-samurai-girl.jpg";
+import animeBlueLock from "@/assets/pads/anime-blue-lock.jpeg";
+import animeDemonEyes from "@/assets/pads/anime-demon-eyes.png";
+import animeLuffyDark from "@/assets/pads/anime-luffy-dark.jpg";
 
 export interface PadDesign {
   id: string;
