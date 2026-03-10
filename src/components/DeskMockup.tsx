@@ -112,14 +112,14 @@ const PAD_THICKNESS = 3; // px for 3-4mm edge
       <div
         className="absolute pointer-events-none"
         style={{
-          top: `${padTop + 4}%`,
-          left: `${padLeft + 2.5}%`,
+          top: `${padTop + 3.5}%`,
+          left: `${padLeft + 2}%`,
           width: `${padW}%`,
           height: `${padH}%`,
-          background: "hsl(var(--foreground) / 0.5)",
-          filter: "blur(20px)",
+          background: "hsl(var(--foreground) / 0.45)",
+          filter: "blur(18px)",
           clipPath: PAD_CLIP_PATH,
-          transform: "perspective(1000px) rotateX(60deg) rotateZ(-25deg) scale(1.2)",
+          transform: `${PAD_SURFACE_TRANSFORM} scale(1.04)`,
           transformOrigin: "50% 100%",
           transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
         }}
