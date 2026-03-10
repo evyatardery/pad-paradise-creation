@@ -108,7 +108,7 @@ const DeskMockup = ({
       <div
         className="absolute inset-0"
         style={{
-          transform: "perspective(1000px) rotateX(8deg) rotateZ(1.5deg) translateY(3%)",
+          transform: "perspective(1000px) rotateX(8deg) rotateZ(3.5deg) translateY(3%)",
           transformOrigin: "50% 55%",
         }}
       >
