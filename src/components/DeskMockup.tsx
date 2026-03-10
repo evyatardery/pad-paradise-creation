@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import mockupDeskBg from "@/assets/mockup-desk-bg.jpg";
 import mockupOverlay from "@/assets/mockup-overlay.png";
 
