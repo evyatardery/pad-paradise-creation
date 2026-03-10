@@ -9,9 +9,9 @@ import mouseImg from "@/assets/mouse-overlay.png";
  * Monitor visible in background (baked into desk scene image).
  */
 
-const DESK_W_CM = 100;
+const DESK_W_CM = 140;
 const DESK_H_CM = DESK_W_CM * (9 / 16);
-const SCALE = 0.55;
+const SCALE = 1;
 
 const cmToW = (cm: number) => (cm / DESK_W_CM) * 100;
 const cmToH = (cm: number) => (cm / DESK_H_CM) * 100;
