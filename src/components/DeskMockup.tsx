@@ -133,16 +133,13 @@ const PAD_THICKNESS = 3; // px for 3-4mm edge
           left: `${padLeft}%`,
           width: `${padW}%`,
           height: `${padH}%`,
-          perspective: "1000px",
-          transformStyle: "preserve-3d",
         }}
       >
         <div
           className="absolute inset-0"
           style={{
-            transform: "rotateX(60deg) rotateZ(-25deg) scale(1.2)",
+            transform: PAD_SURFACE_TRANSFORM,
             transformOrigin: "50% 100%",
-            transformStyle: "preserve-3d",
           }}
         >
           <div
