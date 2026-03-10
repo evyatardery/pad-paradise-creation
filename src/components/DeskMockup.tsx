@@ -26,10 +26,10 @@ const PAD_SPECS: Record<string, PadSpec> = {
   "22.5x18.5": { widthPct: cmToW(22.5), depthPct: cmToH(18.5) },
 };
 
-const KB_W = cmToW(38);
-const KB_H = cmToH(15);
-const MOUSE_W = cmToW(10);
-const MOUSE_H = cmToH(16);
+const KB_W = cmToW(76);
+const KB_H = cmToH(30);
+const MOUSE_W = cmToW(15);
+const MOUSE_H = cmToH(24);
 
 function parseSizeKey(sizeLabel: string): string {
   const match = sizeLabel.match(/([\d.]+x[\d.]+)/);
