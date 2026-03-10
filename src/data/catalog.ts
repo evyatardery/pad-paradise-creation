@@ -49,6 +49,18 @@ import animeJjk from "@/assets/pads/anime-jjk.jpeg";
 import animeNeonCity from "@/assets/pads/anime-neon-city.jpg";
 import animeCyberpunk from "@/assets/pads/anime-cyberpunk.png";
 
+// New batch
+import darkCrystal from "@/assets/pads/dark-crystal.jpg";
+import abstractTopo from "@/assets/pads/abstract-topo.png";
+import gameDokkaebi from "@/assets/pads/game-dokkaebi.png";
+import gameVigil from "@/assets/pads/game-vigil.png";
+import animeSao2 from "@/assets/pads/anime-sao2.png";
+import darkWolf from "@/assets/pads/dark-wolf.jpg";
+import carsFord from "@/assets/pads/cars-ford.jpg";
+import sportRonaldo1 from "@/assets/pads/sport-ronaldo1.jpg";
+import sportRonaldo2 from "@/assets/pads/sport-ronaldo2.jpg";
+import darkShadow from "@/assets/pads/dark-shadow.png";
+
 export interface PadDesign {
   id: string;
   title: string;
