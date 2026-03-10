@@ -67,7 +67,7 @@ const PadModal = ({ pad, onClose }: Props) => {
 
             {/* Image / Mockup */}
             {showMockup ? (
-              <DeskMockup designImage={pad.image} designTitle={pad.title} />
+              <DeskMockup designImage={pad.image} designTitle={pad.title} sizeLabel={sizes[sizeIdx].label} />
             ) : (
               <img
                 src={pad.image}
