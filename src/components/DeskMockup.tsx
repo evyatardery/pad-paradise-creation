@@ -22,13 +22,13 @@ interface PadSpec {
 }
 
 const PAD_SPECS: Record<string, PadSpec> = {
-  "90x30": { widthPct: 90 * SCALE, depthPct: cmToH(30) * SCALE },
-  "80x30": { widthPct: 80 * SCALE, depthPct: cmToH(30) * SCALE },
-  "45x30": { widthPct: 45 * SCALE, depthPct: cmToH(30) * SCALE },
+  "90x30": { widthPct: cmToW(90), depthPct: cmToH(30) },
+  "80x30": { widthPct: cmToW(80), depthPct: cmToH(30) },
+  "45x30": { widthPct: cmToW(45), depthPct: cmToH(30) },
 };
 
-const KB_W = cmToW(36);
-const KB_H = cmToH(13);
+const KB_W = cmToW(35);
+const KB_H = cmToH(12);
 const MOUSE_W = cmToW(7);
 const MOUSE_H = cmToH(12);
 
