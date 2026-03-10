@@ -73,17 +73,18 @@ const DeskMockup = ({
   const padLeft = deskCenterX - padW / 2;
   const padTop = deskCenterY - padH / 2 + 5;
 
-  // M: no keyboard. L: keyboard left side of pad, mouse right. XL: keyboard shifted left.
+  // M: no keyboard. L/XL: keyboard + mouse side by side on pad.
   const showKeyboard = !isMedium;
+  // Keyboard on left portion, mouse on right — no overlap
   const kbLeft = isXL
     ? padLeft + (padW - KB_W) / 2 - 3
-    : padLeft + padW * 0.02;
+    : padLeft + (padW - KB_W - MOUSE_W - 2) / 2;
   const kbTop = padTop + (padH - KB_H) / 2;
 
-  // Mouse: centered for M, right side of pad for L/XL (not overlapping keyboard)
+  // Mouse right of keyboard
   const mouseLeft = isMedium
     ? padLeft + (padW - MOUSE_W) / 2
-    : padLeft + padW - MOUSE_W - padW * 0.05;
+    : kbLeft + KB_W + 2;
   const mouseTop = isMedium
     ? padTop + (padH - MOUSE_H) / 2
     : padTop + (padH - MOUSE_H) / 2;
