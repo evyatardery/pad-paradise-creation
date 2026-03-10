@@ -107,6 +107,13 @@ export const categories: Category[] = [
     coverImage: padNeonStrike,
     description: "פדים בסגנון גיימינג קלאסי"
   },
+  {
+    id: "anime",
+    title: "אנימה",
+    icon: "⚔️",
+    coverImage: animeItachi,
+    description: "עיצובים בסגנון אנימה ומנגה"
+  },
 ];
 
 export const padDesigns: PadDesign[] = [
