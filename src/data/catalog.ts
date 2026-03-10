@@ -67,6 +67,16 @@ import sportMessi1 from "@/assets/pads/sport-messi1.png";
 import sportMessi2 from "@/assets/pads/sport-messi2.jpg";
 import sportNeymar from "@/assets/pads/sport-neymar.png";
 import sportKobe from "@/assets/pads/sport-kobe.png";
+import gameNeonCar1 from "@/assets/pads/game-neon-car-1.png";
+import gameNeonCar2 from "@/assets/pads/game-neon-car-2.png";
+import gameBugCar from "@/assets/pads/game-bug-car.jpg";
+import gameNeonPs from "@/assets/pads/game-neon-ps.png";
+import gameSonicNeon from "@/assets/pads/game-sonic-neon.jpg";
+import cyberScorpion from "@/assets/pads/cyber-scorpion.png";
+import colorfulNeonLove from "@/assets/pads/colorful-neon-love.jpg";
+import abstractNeonForest from "@/assets/pads/abstract-neon-forest.png";
+import animeMoonSamurai from "@/assets/pads/anime-moon-samurai.jpeg";
+import darkNeonMask from "@/assets/pads/dark-neon-mask.jpg";
 
 export interface PadDesign {
   id: string;
