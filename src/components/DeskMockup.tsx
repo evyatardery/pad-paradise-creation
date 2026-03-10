@@ -82,10 +82,10 @@ const DeskMockup = ({
 
   return (
     <div
-      className="relative w-full rounded-xl overflow-hidden border border-border/50"
+      className="relative w-full rounded-xl border border-border/50"
       style={{
         aspectRatio: "16 / 9",
-        perspective: "1200px",
+        overflow: "hidden",
       }}
     >
       {/* Background desk scene — full bleed, no transform */}
