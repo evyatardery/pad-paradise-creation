@@ -108,9 +108,8 @@ const DeskMockup = ({
       <div
         className="absolute inset-0"
         style={{
-          transformStyle: "preserve-3d",
-          transform: "perspective(900px) rotateX(12deg) rotateY(-2deg) rotateZ(1.5deg) translateY(4%)",
-          transformOrigin: "50% 60%",
+          transform: "perspective(1000px) rotateX(8deg) rotateZ(1.5deg) translateY(3%)",
+          transformOrigin: "50% 55%",
         }}
       >
         {/* Pad diagonal shadow */}
