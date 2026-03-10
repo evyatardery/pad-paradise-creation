@@ -126,6 +126,13 @@ export const categories: Category[] = [
     coverImage: animeItachi,
     description: "עיצובים בסגנון אנימה ומנגה"
   },
+  {
+    id: "sport",
+    title: "ספורט",
+    icon: "⚽",
+    coverImage: sportRonaldo1,
+    description: "עיצובי ספורט וכדורגל"
+  },
 ];
 
 export const padDesigns: PadDesign[] = [
