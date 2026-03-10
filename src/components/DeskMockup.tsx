@@ -54,7 +54,7 @@ const DeskMockup = ({
   overlayAlign = "center",
 }: Props) => {
   const sizeKey = parseSizeKey(sizeLabel);
-  const pad = PAD_SPECS[sizeKey] ?? PAD_SPECS["80x30"];
+  const pad = PAD_SPECS[sizeKey] ?? PAD_SPECS["60x30"];
 
   const padW = pad.widthPct;
   const padH = pad.depthPct;
