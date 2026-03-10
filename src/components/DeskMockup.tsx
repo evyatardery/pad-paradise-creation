@@ -62,7 +62,7 @@ const DeskMockup = ({
   const padH = pad.depthPct;
   const padLeft = (100 - padW) / 2;
   // Center pad vertically in the lower 60% of scene
-  const padTop = 42 - padH / 2;
+  const padTop = 48 - padH / 2;
 
   // Keyboard centered horizontally, upper portion of pad
   const kbLeft = (100 - KB_W) / 2;
