@@ -104,14 +104,22 @@ const DeskMockup = ({
         }}
       />
 
-      {/* 3D-tilted content layer */}
+      {/* 3D-tilted content layer — perspective aligned to desk surface */}
       <div
         className="absolute inset-0"
         style={{
-          transform: "perspective(1000px) rotateX(8deg) rotateZ(3.5deg) translateY(3%)",
-          transformOrigin: "50% 55%",
+          perspective: "800px",
+          perspectiveOrigin: "50% 35%",
         }}
       >
+        <div
+          className="absolute inset-0"
+          style={{
+            transform: "rotateX(22deg) rotateY(-3deg) rotateZ(2deg) translateY(2%)",
+            transformOrigin: "50% 50%",
+            transformStyle: "preserve-3d",
+          }}
+        >
         {/* Pad diagonal shadow */}
         <div
           className="absolute rounded-md"
@@ -270,6 +278,7 @@ const DeskMockup = ({
             className="w-full h-full object-contain"
             style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.5))" }}
           />
+        </div>
         </div>
       </div>
 
