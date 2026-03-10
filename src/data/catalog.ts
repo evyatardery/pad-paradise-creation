@@ -159,6 +159,7 @@ export const padDesigns: PadDesign[] = [
   { id: "abs-5", title: "Abstract Flow", image: design1, category: "abstract" },
   { id: "abs-6", title: "Dark Spheres", image: design26, category: "abstract" },
   { id: "abs-7", title: "Gold Waves", image: design13, category: "abstract" },
+  { id: "abs-8", title: "Topography", image: abstractTopo, category: "abstract" },
   
   // Colorful
   { id: "col-1", title: "Rainbow Bars", image: design17, category: "colorful" },
@@ -175,6 +176,9 @@ export const padDesigns: PadDesign[] = [
   { id: "dark-5", title: "Shadow Grid", image: design9, category: "dark" },
   { id: "dark-6", title: "Dark DNA", image: design16, category: "dark" },
   { id: "dark-7", title: "Noir Texture", image: design12, category: "dark" },
+  { id: "dark-8", title: "Crystal Sharp", image: darkCrystal, category: "dark" },
+  { id: "dark-9", title: "Neon Wolf", image: darkWolf, category: "dark" },
+  { id: "dark-10", title: "Shadow Figure", image: darkShadow, category: "dark" },
   
   // Gaming
   { id: "game-1", title: "Neon Strike", image: padNeonStrike, category: "gaming" },
@@ -187,6 +191,9 @@ export const padDesigns: PadDesign[] = [
   { id: "game-8", title: "Electric Blue", image: design21, category: "gaming" },
   { id: "game-9", title: "Dark Grid", image: design25, category: "gaming" },
   { id: "game-10", title: "Anime Girls RGB", image: design27, category: "gaming" },
+  { id: "game-11", title: "Dokkaebi", image: gameDokkaebi, category: "gaming" },
+  { id: "game-12", title: "Vigil", image: gameVigil, category: "gaming" },
+  { id: "game-13", title: "Ford", image: carsFord, category: "gaming" },
   
   // Anime
   { id: "anime-1", title: "Fortnite", image: animeFortnite, category: "anime" },
@@ -199,6 +206,11 @@ export const padDesigns: PadDesign[] = [
   { id: "anime-8", title: "Jujutsu Kaisen", image: animeJjk, category: "anime" },
   { id: "anime-9", title: "Neon City", image: animeNeonCity, category: "anime" },
   { id: "anime-10", title: "Cyberpunk", image: animeCyberpunk, category: "anime" },
+  { id: "anime-11", title: "SAO Heathcliff", image: animeSao2, category: "anime" },
+
+  // Sport
+  { id: "sport-1", title: "Ronaldo Fire", image: sportRonaldo1, category: "sport" },
+  { id: "sport-2", title: "CR7 Gold", image: sportRonaldo2, category: "sport" },
 ];
 
 export const sizes = [
