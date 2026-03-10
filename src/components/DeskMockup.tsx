@@ -40,14 +40,16 @@ interface Props {
   overlayAlign?: "left" | "center" | "right";
 }
 
-const DeskMockup = ({
+import { forwardRef } from "react";
+
+const DeskMockup = forwardRef<HTMLDivElement, Props>(({
   designImage,
   designTitle,
   sizeLabel = "XL 80x40",
   overlayText,
   overlayFont,
   overlayAlign = "center",
-}: Props) => {
+}, ref) => {
   const sizeKey = parseSizeKey(sizeLabel);
   const { widthPct, aspectRatio } = PAD_PROPORTIONS[sizeKey] ?? PAD_PROPORTIONS["80x40"];
 
