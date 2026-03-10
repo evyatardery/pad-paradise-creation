@@ -22,9 +22,9 @@ interface PadSpec {
 }
 
 const PAD_SPECS: Record<string, PadSpec> = {
-  "90x40": { widthPct: 90 * SCALE, depthPct: cmToH(40) * SCALE },
-  "80x40": { widthPct: 80 * SCALE, depthPct: cmToH(40) * SCALE },
-  "45x40": { widthPct: 45 * SCALE, depthPct: cmToH(40) * SCALE },
+  "90x30": { widthPct: 90 * SCALE, depthPct: cmToH(30) * SCALE },
+  "80x30": { widthPct: 80 * SCALE, depthPct: cmToH(30) * SCALE },
+  "45x30": { widthPct: 45 * SCALE, depthPct: cmToH(30) * SCALE },
 };
 
 const KB_W = cmToW(36);
@@ -34,7 +34,7 @@ const MOUSE_H = cmToH(12);
 
 function parseSizeKey(sizeLabel: string): string {
   const match = sizeLabel.match(/(\d+x\d+)/);
-  return match ? match[1] : "80x40";
+  return match ? match[1] : "80x30";
 }
 
 interface Props {
@@ -55,7 +55,7 @@ const DeskMockup = ({
   overlayAlign = "center",
 }: Props) => {
   const sizeKey = parseSizeKey(sizeLabel);
-  const pad = PAD_SPECS[sizeKey] ?? PAD_SPECS["80x40"];
+  const pad = PAD_SPECS[sizeKey] ?? PAD_SPECS["80x30"];
 
   const padW = pad.widthPct;
   const padH = pad.depthPct;
@@ -86,7 +86,7 @@ const DeskMockup = ({
         src={deskScene}
         alt="Gaming desk setup"
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ filter: "brightness(0.9)" }}
+        style={{ filter: "brightness(1.15)" }}
       />
 
       {/* Cinematic vignette */}
@@ -94,7 +94,7 @@ const DeskMockup = ({
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(0,0,0,0.55) 100%)",
+            "radial-gradient(ellipse at 50% 40%, transparent 45%, rgba(0,0,0,0.35) 100%)",
         }}
       />
 
