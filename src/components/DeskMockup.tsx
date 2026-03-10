@@ -113,14 +113,14 @@ const DeskMockup = ({
           width: "90%",
           height: "90%",
           perspective: "600px",
-          perspectiveOrigin: "50% 25%",
+          perspectiveOrigin: "72% 26%",
         }}
       >
         <div
           style={{
             position: "absolute",
             inset: 0,
-            transform: "rotateX(35deg) rotateZ(-4deg)",
+            transform: "rotateX(34deg) rotateY(-14deg) rotateZ(11deg)",
             transformOrigin: "50% 50%",
             transformStyle: "preserve-3d",
           }}
