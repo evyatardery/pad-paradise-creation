@@ -167,6 +167,7 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-4", title: "Sci-Fi Corridor", image: design24, category: "cyber" },
   { id: "cyber-5", title: "Hexagon Grid", image: design18, category: "cyber" },
   { id: "cyber-6", title: "Cyber Grid", image: padCyberGrid, category: "cyber" },
+  { id: "cyber-7", title: "Neon Scorpion", image: cyberScorpion, category: "cyber" },
   
   // Abstract
   { id: "abs-1", title: "Dark Flower", image: design3, category: "abstract" },
@@ -177,6 +178,7 @@ export const padDesigns: PadDesign[] = [
   { id: "abs-6", title: "Dark Spheres", image: design26, category: "abstract" },
   { id: "abs-7", title: "Gold Waves", image: design13, category: "abstract" },
   { id: "abs-8", title: "Topography", image: abstractTopo, category: "abstract" },
+  { id: "abs-9", title: "Neon Forest", image: abstractNeonForest, category: "abstract" },
   
   // Colorful
   { id: "col-1", title: "Rainbow Bars", image: design17, category: "colorful" },
@@ -184,6 +186,7 @@ export const padDesigns: PadDesign[] = [
   { id: "col-3", title: "RGB Wave", image: padRgbWave, category: "colorful" },
   { id: "col-4", title: "Galaxy Burst", image: padGalaxy, category: "colorful" },
   { id: "col-5", title: "Hexagon Gradient", image: design18, category: "colorful" },
+  { id: "col-6", title: "I Love You Neon", image: colorfulNeonLove, category: "colorful" },
   
   // Dark
   { id: "dark-1", title: "Dark Spheres", image: design26, category: "dark" },
@@ -199,6 +202,7 @@ export const padDesigns: PadDesign[] = [
   { id: "dark-11", title: "Batman Ink", image: darkBatman1, category: "dark" },
   { id: "dark-12", title: "Batman Dark", image: darkBatman2, category: "dark" },
   { id: "dark-13", title: "Skull Art", image: darkSkull, category: "dark" },
+  { id: "dark-14", title: "Neon Mask", image: darkNeonMask, category: "dark" },
   
   // Gaming
   { id: "game-1", title: "Neon Strike", image: padNeonStrike, category: "gaming" },
@@ -214,6 +218,11 @@ export const padDesigns: PadDesign[] = [
   { id: "game-11", title: "Dokkaebi", image: gameDokkaebi, category: "gaming" },
   { id: "game-12", title: "Vigil", image: gameVigil, category: "gaming" },
   { id: "game-13", title: "Ford", image: carsFord, category: "gaming" },
+  { id: "game-14", title: "Neon Car V1", image: gameNeonCar1, category: "gaming" },
+  { id: "game-15", title: "Neon Car V2", image: gameNeonCar2, category: "gaming" },
+  { id: "game-16", title: "Bug Racer", image: gameBugCar, category: "gaming" },
+  { id: "game-17", title: "Neon PS Symbols", image: gameNeonPs, category: "gaming" },
+  { id: "game-18", title: "Sonic Neon", image: gameSonicNeon, category: "gaming" },
   
   // Anime
   { id: "anime-1", title: "Fortnite", image: animeFortnite, category: "gaming" },
@@ -227,6 +236,7 @@ export const padDesigns: PadDesign[] = [
   { id: "anime-9", title: "Neon City", image: animeNeonCity, category: "anime" },
   { id: "anime-10", title: "Cyberpunk", image: animeCyberpunk, category: "anime" },
   { id: "anime-11", title: "SAO Heathcliff", image: animeSao2, category: "anime" },
+  { id: "anime-12", title: "Moon Samurai", image: animeMoonSamurai, category: "anime" },
 
   // Sport
   { id: "sport-1", title: "Ronaldo Fire", image: sportRonaldo1, category: "sport" },
