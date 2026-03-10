@@ -60,6 +60,13 @@ import carsFord from "@/assets/pads/cars-ford.jpg";
 import sportRonaldo1 from "@/assets/pads/sport-ronaldo1.jpg";
 import sportRonaldo2 from "@/assets/pads/sport-ronaldo2.jpg";
 import darkShadow from "@/assets/pads/dark-shadow.png";
+import darkBatman1 from "@/assets/pads/dark-batman1.jpg";
+import darkBatman2 from "@/assets/pads/dark-batman2.png";
+import darkSkull from "@/assets/pads/dark-skull.jpg";
+import sportMessi1 from "@/assets/pads/sport-messi1.png";
+import sportMessi2 from "@/assets/pads/sport-messi2.jpg";
+import sportNeymar from "@/assets/pads/sport-neymar.png";
+import sportKobe from "@/assets/pads/sport-kobe.png";
 
 export interface PadDesign {
   id: string;
