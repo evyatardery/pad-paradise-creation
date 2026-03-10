@@ -37,6 +37,18 @@ import design25 from "@/assets/pads/design-25.jpg";
 import design26 from "@/assets/pads/design-26.jpg";
 import design27 from "@/assets/pads/design-27.png";
 
+// Anime designs
+import animeFortnite from "@/assets/pads/anime-fortnite.jpg";
+import anime2 from "@/assets/pads/anime-2.avif";
+import animeForest from "@/assets/pads/anime-forest.jpg";
+import animeGhoul from "@/assets/pads/anime-ghoul.jpg";
+import animePikachu from "@/assets/pads/anime-pikachu.png";
+import animeItachi from "@/assets/pads/anime-itachi.png";
+import animeSao from "@/assets/pads/anime-sao.jpg";
+import animeJjk from "@/assets/pads/anime-jjk.jpeg";
+import animeNeonCity from "@/assets/pads/anime-neon-city.jpg";
+import animeCyberpunk from "@/assets/pads/anime-cyberpunk.png";
+
 export interface PadDesign {
   id: string;
   title: string;
