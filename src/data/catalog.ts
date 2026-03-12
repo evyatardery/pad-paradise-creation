@@ -85,6 +85,14 @@ import animeSamuraiGirl from "@/assets/pads/anime-samurai-girl.jpg";
 import animeBlueLock from "@/assets/pads/anime-blue-lock.jpeg";
 import animeDemonEyes from "@/assets/pads/anime-demon-eyes.png";
 import animeLuffyDark from "@/assets/pads/anime-luffy-dark.jpg";
+import animeMadara from "@/assets/pads/anime-madara.jpg";
+import animeSwordGirl from "@/assets/pads/anime-sword-girl.jpg";
+import animeBattleBw from "@/assets/pads/anime-battle-bw.jpg";
+import darkAstronauts from "@/assets/pads/dark-astronauts.png";
+import darkGeoTriangles from "@/assets/pads/dark-geo-triangles.png";
+import abstractTopoLines from "@/assets/pads/abstract-topo-lines.png";
+import colorfulMarbleCyan from "@/assets/pads/colorful-marble-cyan.png";
+import abstractMarbleBw from "@/assets/pads/abstract-marble-bw.png";
 
 export interface PadDesign {
   id: string;
