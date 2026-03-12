@@ -260,10 +260,22 @@ export const padDesigns: PadDesign[] = [
   { id: "anime-16", title: "Blue Lock", image: animeBlueLock, category: "anime" },
   { id: "anime-17", title: "Demon Eyes", image: animeDemonEyes, category: "anime" },
   { id: "anime-18", title: "Luffy Dark", image: animeLuffyDark, category: "anime" },
+  { id: "anime-19", title: "Madara Uchiha", image: animeMadara, category: "anime" },
+  { id: "anime-20", title: "Sword Girl", image: animeSwordGirl, category: "anime" },
+  { id: "anime-21", title: "Battle B&W", image: animeBattleBw, category: "anime" },
 
   // Dark (continued)
   { id: "dark-15", title: "Neon Ring", image: darkNeonRing, category: "dark" },
   { id: "dark-16", title: "Chrome Figure", image: darkChromeFigure, category: "dark" },
+  { id: "dark-17", title: "Astronauts", image: darkAstronauts, category: "dark" },
+  { id: "dark-18", title: "Geo Triangles", image: darkGeoTriangles, category: "dark" },
+
+  // Abstract (continued)
+  { id: "abs-10", title: "Topo Lines", image: abstractTopoLines, category: "abstract" },
+  { id: "abs-11", title: "Marble B&W", image: abstractMarbleBw, category: "abstract" },
+
+  // Colorful (continued)
+  { id: "col-7", title: "Marble Cyan", image: colorfulMarbleCyan, category: "colorful" },
 
   // Sport
   { id: "sport-1", title: "Ronaldo Fire", image: sportRonaldo1, category: "sport" },
