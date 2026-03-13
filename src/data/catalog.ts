@@ -141,7 +141,7 @@ export const categories: Category[] = [
     id: "gaming",
     title: "גיימינג",
     icon: "🎮",
-    coverImage: padNeonStrike,
+    coverImage: gameDokkaebi,
     description: "פדים בסגנון גיימינג קלאסי"
   },
   {
