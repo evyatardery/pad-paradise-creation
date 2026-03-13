@@ -1,12 +1,4 @@
-// Original pads
-import padNeonStrike from "@/assets/pad-neon-strike.jpg";
-import padGalaxy from "@/assets/pad-galaxy.jpg";
-import padCyberGrid from "@/assets/pad-cyber-grid.jpg";
-import padLava from "@/assets/pad-lava.jpg";
-import padAnime from "@/assets/pad-anime.jpg";
-import padRgbWave from "@/assets/pad-rgb-wave.jpg";
-import padDarkPro from "@/assets/pad-dark-pro.jpg";
-import padLightning from "@/assets/pad-lightning.jpg";
+// New designs
 
 // New designs
 import design1 from "@/assets/pads/abstract-1.png";
