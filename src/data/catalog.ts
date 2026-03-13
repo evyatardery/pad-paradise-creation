@@ -174,7 +174,7 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-3", title: "Blue Tunnel", image: design14, category: "cyber" },
   { id: "cyber-4", title: "Sci-Fi Corridor", image: design24, category: "cyber" },
   { id: "cyber-5", title: "Hexagon Grid", image: design18, category: "cyber" },
-  { id: "cyber-6", title: "Cyber Grid", image: padCyberGrid, category: "cyber" },
+  
   { id: "cyber-7", title: "Neon Scorpion", image: cyberScorpion, category: "cyber" },
   
   // Abstract
