@@ -1,12 +1,4 @@
-// Original pads
-import padNeonStrike from "@/assets/pad-neon-strike.jpg";
-import padGalaxy from "@/assets/pad-galaxy.jpg";
-import padCyberGrid from "@/assets/pad-cyber-grid.jpg";
-import padLava from "@/assets/pad-lava.jpg";
-import padAnime from "@/assets/pad-anime.jpg";
-import padRgbWave from "@/assets/pad-rgb-wave.jpg";
-import padDarkPro from "@/assets/pad-dark-pro.jpg";
-import padLightning from "@/assets/pad-lightning.jpg";
+// New designs
 
 // New designs
 import design1 from "@/assets/pads/abstract-1.png";
@@ -149,7 +141,7 @@ export const categories: Category[] = [
     id: "gaming",
     title: "גיימינג",
     icon: "🎮",
-    coverImage: padNeonStrike,
+    coverImage: gameDokkaebi,
     description: "פדים בסגנון גיימינג קלאסי"
   },
   {
@@ -182,7 +174,7 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-3", title: "Blue Tunnel", image: design14, category: "cyber" },
   { id: "cyber-4", title: "Sci-Fi Corridor", image: design24, category: "cyber" },
   { id: "cyber-5", title: "Hexagon Grid", image: design18, category: "cyber" },
-  { id: "cyber-6", title: "Cyber Grid", image: padCyberGrid, category: "cyber" },
+  
   { id: "cyber-7", title: "Neon Scorpion", image: cyberScorpion, category: "cyber" },
   
   // Abstract
@@ -199,13 +191,11 @@ export const padDesigns: PadDesign[] = [
   // Colorful
   { id: "col-1", title: "Rainbow Bars", image: design17, category: "colorful" },
   { id: "col-2", title: "Pink Blocks", image: design19, category: "colorful" },
-  { id: "col-3", title: "RGB Wave", image: padRgbWave, category: "colorful" },
-  { id: "col-4", title: "Galaxy Burst", image: padGalaxy, category: "colorful" },
   { id: "col-6", title: "I Love You Neon", image: colorfulNeonLove, category: "colorful" },
   
   // Dark
   { id: "dark-1", title: "Dark Spheres", image: design26, category: "dark" },
-  { id: "dark-2", title: "Dark Pro", image: padDarkPro, category: "dark" },
+  
   { id: "dark-3", title: "Dark Cubes", image: design4, category: "dark" },
   { id: "dark-4", title: "Black Lightning", image: design15, category: "dark" },
   { id: "dark-5", title: "Shadow Grid", image: design9, category: "dark" },
@@ -220,10 +210,6 @@ export const padDesigns: PadDesign[] = [
   { id: "dark-14", title: "Neon Mask", image: darkNeonMask, category: "dark" },
   
   // Gaming
-  { id: "game-1", title: "Neon Strike", image: padNeonStrike, category: "gaming" },
-  { id: "game-2", title: "Lava Gaming", image: padLava, category: "gaming" },
-  { id: "game-3", title: "Anime Power", image: padAnime, category: "gaming" },
-  { id: "game-4", title: "Lightning", image: padLightning, category: "gaming" },
   { id: "game-5", title: "Fire Abstract", image: design6, category: "gaming" },
   { id: "game-6", title: "Red Energy", image: design8, category: "gaming" },
   { id: "game-7", title: "Neon Bars", image: design20, category: "gaming" },
