@@ -201,7 +201,6 @@ export const padDesigns: PadDesign[] = [
   { id: "col-2", title: "Pink Blocks", image: design19, category: "colorful" },
   { id: "col-3", title: "RGB Wave", image: padRgbWave, category: "colorful" },
   { id: "col-4", title: "Galaxy Burst", image: padGalaxy, category: "colorful" },
-  { id: "col-5", title: "Hexagon Gradient", image: design18, category: "colorful" },
   { id: "col-6", title: "I Love You Neon", image: colorfulNeonLove, category: "colorful" },
   
   // Dark
