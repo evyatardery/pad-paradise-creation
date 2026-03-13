@@ -195,7 +195,7 @@ export const padDesigns: PadDesign[] = [
   
   // Dark
   { id: "dark-1", title: "Dark Spheres", image: design26, category: "dark" },
-  { id: "dark-2", title: "Dark Pro", image: padDarkPro, category: "dark" },
+  
   { id: "dark-3", title: "Dark Cubes", image: design4, category: "dark" },
   { id: "dark-4", title: "Black Lightning", image: design15, category: "dark" },
   { id: "dark-5", title: "Shadow Grid", image: design9, category: "dark" },
