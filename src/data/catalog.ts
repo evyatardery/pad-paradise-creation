@@ -210,10 +210,6 @@ export const padDesigns: PadDesign[] = [
   { id: "dark-14", title: "Neon Mask", image: darkNeonMask, category: "dark" },
   
   // Gaming
-  { id: "game-1", title: "Neon Strike", image: padNeonStrike, category: "gaming" },
-  { id: "game-2", title: "Lava Gaming", image: padLava, category: "gaming" },
-  { id: "game-3", title: "Anime Power", image: padAnime, category: "gaming" },
-  { id: "game-4", title: "Lightning", image: padLightning, category: "gaming" },
   { id: "game-5", title: "Fire Abstract", image: design6, category: "gaming" },
   { id: "game-6", title: "Red Energy", image: design8, category: "gaming" },
   { id: "game-7", title: "Neon Bars", image: design20, category: "gaming" },
