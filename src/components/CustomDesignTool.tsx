@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Upload, Type } from "lucide-react";
-import { sizes, orderOnWhatsApp } from "@/data/catalog";
+import { sizes } from "@/data/catalog";
 import DeskMockup from "./DeskMockup";
 
 const fonts = [
