@@ -134,7 +134,7 @@ export const categories: Category[] = [
     id: "dark",
     title: "כהה ומינימלי",
     icon: "🖤",
-    coverImage: design26,
+    coverImage: darkShadow,
     description: "עיצובים כהים ואלגנטיים"
   },
   {
