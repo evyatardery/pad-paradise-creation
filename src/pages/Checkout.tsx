@@ -61,7 +61,7 @@ const Checkout = () => {
     const result = checkoutSchema.safeParse(form);
     if (!result.success) {
       const fieldErrors: Partial<Record<keyof CheckoutForm, string>> = {};
-      result.error.errors.forEach((err) => {
+      result.error.issues.forEach((err) => {
         const field = err.path[0] as keyof CheckoutForm;
         if (!fieldErrors[field]) fieldErrors[field] = err.message;
       });
