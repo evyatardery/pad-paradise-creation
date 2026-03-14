@@ -22,6 +22,7 @@ const CustomDesignTool = () => {
   const [sizeIdx, setSizeIdx] = useState(1);
   const [showMockup, setShowMockup] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
