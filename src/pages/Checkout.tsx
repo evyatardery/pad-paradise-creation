@@ -42,7 +42,7 @@ const Checkout = () => {
       const result = checkoutSchema.shape[field].safeParse(value);
       setErrors((prev) => ({
         ...prev,
-        [field]: result.success ? undefined : result.error.errors[0]?.message,
+        [field]: result.success ? undefined : result.error.issues[0]?.message,
       }));
     }
   };
