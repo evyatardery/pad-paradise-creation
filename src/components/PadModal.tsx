@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { PadDesign, sizes, orderOnWhatsApp } from "@/data/catalog";
+import { PadDesign, sizes } from "@/data/catalog";
 import DeskMockup from "./DeskMockup";
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 const PadModal = ({ pad, onClose }: Props) => {
   const [sizeIdx, setSizeIdx] = useState(1);
   const [showMockup, setShowMockup] = useState(false);
+  const navigate = useNavigate();
 
   if (!pad) return null;
 
@@ -100,10 +102,10 @@ const PadModal = ({ pad, onClose }: Props) => {
 
             {/* Order button */}
             <button
-              onClick={() => orderOnWhatsApp(`${pad.title} - ${sizes[sizeIdx].label}`)}
+              onClick={() => navigate(`/checkout?design=${encodeURIComponent(pad.id)}&name=${encodeURIComponent(pad.title)}&size=${sizeIdx}`)}
               className="w-full bg-primary text-primary-foreground font-bold py-4 rounded-xl text-lg hover:scale-[1.02] transition-transform neon-box animate-pulse-glow"
             >
-              📱 הזמן עכשיו בוואטסאפ - ₪{sizes[sizeIdx].price}
+              💳 לתשלום - ₪{sizes[sizeIdx].price}
             </button>
           </div>
         </motion.div>

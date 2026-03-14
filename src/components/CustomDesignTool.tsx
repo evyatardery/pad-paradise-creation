@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Upload, Type } from "lucide-react";
-import { sizes, orderOnWhatsApp } from "@/data/catalog";
+import { sizes } from "@/data/catalog";
 import DeskMockup from "./DeskMockup";
 
 const fonts = [
@@ -21,6 +22,7 @@ const CustomDesignTool = () => {
   const [sizeIdx, setSizeIdx] = useState(1);
   const [showMockup, setShowMockup] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -200,14 +202,10 @@ const CustomDesignTool = () => {
 
         {/* Order */}
         <button
-          onClick={() =>
-            orderOnWhatsApp(
-              `פד מותאם אישית - ${sizes[sizeIdx].label}${text ? ` - טקסט: ${text}` : ""}`
-            )
-          }
+          onClick={() => navigate(`/checkout?name=${encodeURIComponent("פד מותאם אישית")}&size=${sizeIdx}&custom=1`)}
           className="w-full bg-primary text-primary-foreground font-bold py-4 rounded-xl text-lg hover:scale-[1.02] transition-transform neon-box animate-pulse-glow"
         >
-          📱 הזמן עכשיו בוואטסאפ - ₪{sizes[sizeIdx].price}
+          💳 לתשלום - ₪{sizes[sizeIdx].price}
         </button>
       </motion.div>
     </section>
