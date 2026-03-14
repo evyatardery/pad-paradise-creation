@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { PadDesign, sizes, orderOnWhatsApp } from "@/data/catalog";
+import { PadDesign, sizes } from "@/data/catalog";
 import DeskMockup from "./DeskMockup";
 
 interface Props {
