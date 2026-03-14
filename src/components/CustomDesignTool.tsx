@@ -202,14 +202,10 @@ const CustomDesignTool = () => {
 
         {/* Order */}
         <button
-          onClick={() =>
-            orderOnWhatsApp(
-              `פד מותאם אישית - ${sizes[sizeIdx].label}${text ? ` - טקסט: ${text}` : ""}`
-            )
-          }
+          onClick={() => navigate(`/checkout?name=${encodeURIComponent("פד מותאם אישית")}&size=${sizeIdx}&custom=1`)}
           className="w-full bg-primary text-primary-foreground font-bold py-4 rounded-xl text-lg hover:scale-[1.02] transition-transform neon-box animate-pulse-glow"
         >
-          📱 הזמן עכשיו בוואטסאפ - ₪{sizes[sizeIdx].price}
+          💳 לתשלום - ₪{sizes[sizeIdx].price}
         </button>
       </motion.div>
     </section>
