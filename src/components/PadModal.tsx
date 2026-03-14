@@ -105,7 +105,7 @@ const PadModal = ({ pad, onClose }: Props) => {
               onClick={() => navigate(`/checkout?design=${encodeURIComponent(pad.id)}&name=${encodeURIComponent(pad.title)}&size=${sizeIdx}`)}
               className="w-full bg-primary text-primary-foreground font-bold py-4 rounded-xl text-lg hover:scale-[1.02] transition-transform neon-box animate-pulse-glow"
             >
-              💳 לתשלום - ₪{sizes[sizeIdx].price}
+              🚀 זה שלי! להשלמת ההזמנה
             </button>
           </div>
         </motion.div>
