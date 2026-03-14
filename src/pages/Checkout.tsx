@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Package, Shield, Truck, CreditCard } from "lucide-react";
+import { ArrowRight, Package, Shield, CreditCard, MessageCircle } from "lucide-react";
 import { sizes } from "@/data/catalog";
 import { z } from "zod";
 
