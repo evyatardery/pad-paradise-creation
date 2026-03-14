@@ -246,10 +246,6 @@ const Checkout = () => {
                   <span className="text-muted-foreground">מחיר פד</span>
                   <span className="text-card-foreground">₪{size.price}</span>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">משלוח</span>
-                  <span className="text-primary font-semibold">חינם! 🎉</span>
-                </div>
               </div>
 
               <div className="flex justify-between items-center mb-6">
