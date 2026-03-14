@@ -102,10 +102,10 @@ const PadModal = ({ pad, onClose }: Props) => {
 
             {/* Order button */}
             <button
-              onClick={() => orderOnWhatsApp(`${pad.title} - ${sizes[sizeIdx].label}`)}
+              onClick={() => navigate(`/checkout?design=${encodeURIComponent(pad.id)}&name=${encodeURIComponent(pad.title)}&size=${sizeIdx}`)}
               className="w-full bg-primary text-primary-foreground font-bold py-4 rounded-xl text-lg hover:scale-[1.02] transition-transform neon-box animate-pulse-glow"
             >
-              📱 הזמן עכשיו בוואטסאפ - ₪{sizes[sizeIdx].price}
+              💳 לתשלום - ₪{sizes[sizeIdx].price}
             </button>
           </div>
         </motion.div>
