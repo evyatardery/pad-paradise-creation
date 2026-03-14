@@ -120,7 +120,7 @@ export const categories: Category[] = [
     id: "abstract",
     title: "מופשט",
     icon: "🌀",
-    coverImage: design7,
+    coverImage: abstractTopo,
     description: "צורות אורגניות ודפוסים ייחודיים"
   },
   {
