@@ -13,6 +13,7 @@ interface Props {
 const PadModal = ({ pad, onClose }: Props) => {
   const [sizeIdx, setSizeIdx] = useState(1);
   const [showMockup, setShowMockup] = useState(false);
+  const navigate = useNavigate();
 
   if (!pad) return null;
 
