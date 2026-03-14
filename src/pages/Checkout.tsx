@@ -257,7 +257,6 @@ const Checkout = () => {
               <div className="space-y-3">
                 {[
                   { icon: Shield, text: "תשלום מאובטח 100%" },
-                  { icon: Truck, text: "משלוח חינם לכל הארץ" },
                   { icon: Package, text: "אריזה מוגנת" },
                 ].map(({ icon: Icon, text }, i) => (
                   <div key={i} className="flex items-center gap-3 text-muted-foreground">
