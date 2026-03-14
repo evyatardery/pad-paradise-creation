@@ -71,7 +71,6 @@ const HeroSection = ({ onNavigate }: HeroSectionProps) => {
           className="flex gap-8 justify-center mt-16 flex-wrap"
         >
           {[
-            { icon: "🚚", text: "משלוח חינם" },
             { icon: "🎨", text: "30+ עיצובים" },
             { icon: "💎", text: "איכות פרימיום" },
           ].map((f, i) => (
