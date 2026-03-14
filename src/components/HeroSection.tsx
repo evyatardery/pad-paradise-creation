@@ -71,7 +71,7 @@ const HeroSection = ({ onNavigate }: HeroSectionProps) => {
           className="flex gap-8 justify-center mt-16 flex-wrap"
         >
           {[
-            { icon: "🎨", text: "30+ עיצובים" },
+            { icon: "🎨", text: "84 עיצובים" },
             { icon: "💎", text: "איכות פרימיום" },
           ].map((f, i) => (
             <div key={i} className="flex items-center gap-2 text-card-foreground/80">
