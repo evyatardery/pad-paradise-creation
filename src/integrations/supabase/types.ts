@@ -14,7 +14,90 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      orders: {
+        Row: {
+          created_at: string
+          custom_font: string | null
+          custom_text: string | null
+          custom_text_align: string | null
+          customer_email: string | null
+          customer_name: string
+          customer_phone: string
+          design_id: string | null
+          design_image_url: string | null
+          design_name: string
+          dimensions: string
+          id: string
+          is_custom_design: boolean
+          order_form_url: string | null
+          order_number: string
+          paid_at: string | null
+          payment_provider: string | null
+          payment_transaction_id: string | null
+          print_file_url: string | null
+          quantity: number
+          shipping_address: string
+          status: string
+          total_price: number
+          unit_price: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          custom_font?: string | null
+          custom_text?: string | null
+          custom_text_align?: string | null
+          customer_email?: string | null
+          customer_name: string
+          customer_phone: string
+          design_id?: string | null
+          design_image_url?: string | null
+          design_name: string
+          dimensions: string
+          id?: string
+          is_custom_design?: boolean
+          order_form_url?: string | null
+          order_number: string
+          paid_at?: string | null
+          payment_provider?: string | null
+          payment_transaction_id?: string | null
+          print_file_url?: string | null
+          quantity?: number
+          shipping_address: string
+          status?: string
+          total_price: number
+          unit_price: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          custom_font?: string | null
+          custom_text?: string | null
+          custom_text_align?: string | null
+          customer_email?: string | null
+          customer_name?: string
+          customer_phone?: string
+          design_id?: string | null
+          design_image_url?: string | null
+          design_name?: string
+          dimensions?: string
+          id?: string
+          is_custom_design?: boolean
+          order_form_url?: string | null
+          order_number?: string
+          paid_at?: string | null
+          payment_provider?: string | null
+          payment_transaction_id?: string | null
+          print_file_url?: string | null
+          quantity?: number
+          shipping_address?: string
+          status?: string
+          total_price?: number
+          unit_price?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
