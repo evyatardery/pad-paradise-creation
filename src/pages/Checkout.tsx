@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Package, Shield, Truck, CreditCard } from "lucide-react";
+import { ArrowRight, Package, Shield, CreditCard, MessageCircle } from "lucide-react";
 import { sizes } from "@/data/catalog";
 import { z } from "zod";
 
@@ -219,8 +219,23 @@ const Checkout = () => {
                 className="w-full bg-primary text-primary-foreground font-black py-4 rounded-xl text-lg neon-box-strong flex items-center justify-center gap-3"
               >
                 <CreditCard size={22} />
-                <span>לתשלום - ₪{size.price}</span>
+                <span>לתשלום באשראי - ₪{size.price}</span>
               </motion.button>
+
+              <div className="relative flex items-center justify-center">
+                <div className="border-t border-border w-full" />
+                <span className="absolute bg-background px-3 text-muted-foreground text-xs">או</span>
+              </div>
+
+              <a
+                href={`https://wa.me/972552589255?text=${encodeURIComponent(`שלום, אני רוצה לשלם ב-Bit/PayBox עבור: ${designName} - ${size.label}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full border-2 border-[hsl(142_70%_49%)] text-[hsl(142_70%_49%)] font-bold py-3.5 rounded-xl text-base hover:bg-[hsl(142_70%_49%)]/10 transition-all flex items-center justify-center gap-3"
+              >
+                <MessageCircle size={20} />
+                <span>תשלום ב-Bit / PayBox דרך וואטסאפ</span>
+              </a>
             </form>
           </motion.div>
 
