@@ -2,7 +2,7 @@
  * OrderService — handles order creation, file generation, and storage upload.
  */
 import { supabase } from "@/integrations/supabase/client";
-import { generatePrintFile, type PrintFileOptions } from "./printFileGenerator";
+import { generatePrintFile, parseDimensions, type PrintFileOptions } from "./printFileGenerator";
 import { generateOrderFormPDF, type OrderFormData } from "./orderFormGenerator";
 
 export interface CreateOrderInput {
