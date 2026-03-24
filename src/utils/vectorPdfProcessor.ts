@@ -44,7 +44,7 @@ function drawCropMarks(
 
   // Top-right
   page.drawLine({ start: { x: trimR + off, y: trimT }, end: { x: trimR + off + len, y: trimT }, thickness, color });
-  page.drawLine({ start: { x: trimR, y: trimT + off }, end: { x: trimR, y: trimR + off + len }, thickness, color });
+  page.drawLine({ start: { x: trimR, y: trimT + off }, end: { x: trimR, y: trimT + off + len }, thickness, color });
 
   // Bottom-left
   page.drawLine({ start: { x: trimL - off - len, y: trimB }, end: { x: trimL - off, y: trimB }, thickness, color });
