@@ -160,21 +160,40 @@ function createCroppedDataUrl(
  * Marks sit in the bleed area, with a small gap from the trim edge.
  */
 function drawCropMarks(doc: jsPDF, trimL: number, trimT: number, trimR: number, trimB: number) {
+  // White outline for contrast
+  doc.setDrawColor(255, 255, 255);
+  doc.setLineWidth(0.5);
+
+  const drawWhiteMark = (x1: number, y1: number, x2: number, y2: number) => {
+    doc.line(x1, y1, x2, y2);
+  };
+
+  // Top-left
+  drawWhiteMark(trimL - MARK_OFFSET - MARK_LEN, trimT, trimL - MARK_OFFSET, trimT);
+  drawWhiteMark(trimL, trimT - MARK_OFFSET - MARK_LEN, trimL, trimT - MARK_OFFSET);
+  // Top-right
+  drawWhiteMark(trimR + MARK_OFFSET, trimT, trimR + MARK_OFFSET + MARK_LEN, trimT);
+  drawWhiteMark(trimR, trimT - MARK_OFFSET - MARK_LEN, trimR, trimT - MARK_OFFSET);
+  // Bottom-left
+  drawWhiteMark(trimL - MARK_OFFSET - MARK_LEN, trimB, trimL - MARK_OFFSET, trimB);
+  drawWhiteMark(trimL, trimB + MARK_OFFSET, trimL, trimB + MARK_OFFSET + MARK_LEN);
+  // Bottom-right
+  drawWhiteMark(trimR + MARK_OFFSET, trimB, trimR + MARK_OFFSET + MARK_LEN, trimB);
+  drawWhiteMark(trimR, trimB + MARK_OFFSET, trimR, trimB + MARK_OFFSET + MARK_LEN);
+
+  // Black marks on top
   doc.setDrawColor(0, 0, 0);
-  doc.setLineWidth(0.15);
+  doc.setLineWidth(0.3);
 
   // Top-left
   doc.line(trimL - MARK_OFFSET - MARK_LEN, trimT, trimL - MARK_OFFSET, trimT);
   doc.line(trimL, trimT - MARK_OFFSET - MARK_LEN, trimL, trimT - MARK_OFFSET);
-
   // Top-right
   doc.line(trimR + MARK_OFFSET, trimT, trimR + MARK_OFFSET + MARK_LEN, trimT);
   doc.line(trimR, trimT - MARK_OFFSET - MARK_LEN, trimR, trimT - MARK_OFFSET);
-
   // Bottom-left
   doc.line(trimL - MARK_OFFSET - MARK_LEN, trimB, trimL - MARK_OFFSET, trimB);
   doc.line(trimL, trimB + MARK_OFFSET, trimL, trimB + MARK_OFFSET + MARK_LEN);
-
   // Bottom-right
   doc.line(trimR + MARK_OFFSET, trimB, trimR + MARK_OFFSET + MARK_LEN, trimB);
   doc.line(trimR, trimB + MARK_OFFSET, trimR, trimB + MARK_OFFSET + MARK_LEN);

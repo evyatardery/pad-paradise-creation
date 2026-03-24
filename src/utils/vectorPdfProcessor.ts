@@ -46,20 +46,20 @@ function drawCropMarks(
   };
 
   // Top-left
-  page.drawLine({ start: { x: trimL - off - len, y: trimT }, end: { x: trimL - off, y: trimT }, thickness, color });
-  page.drawLine({ start: { x: trimL, y: trimT + off }, end: { x: trimL, y: trimT + off + len }, thickness, color });
+  drawMark(trimL - off - len, trimT, trimL - off, trimT);
+  drawMark(trimL, trimT + off, trimL, trimT + off + len);
 
   // Top-right
-  page.drawLine({ start: { x: trimR + off, y: trimT }, end: { x: trimR + off + len, y: trimT }, thickness, color });
-  page.drawLine({ start: { x: trimR, y: trimT + off }, end: { x: trimR, y: trimT + off + len }, thickness, color });
+  drawMark(trimR + off, trimT, trimR + off + len, trimT);
+  drawMark(trimR, trimT + off, trimR, trimT + off + len);
 
   // Bottom-left
-  page.drawLine({ start: { x: trimL - off - len, y: trimB }, end: { x: trimL - off, y: trimB }, thickness, color });
-  page.drawLine({ start: { x: trimL, y: trimB - off - len }, end: { x: trimL, y: trimB - off }, thickness, color });
+  drawMark(trimL - off - len, trimB, trimL - off, trimB);
+  drawMark(trimL, trimB - off - len, trimL, trimB - off);
 
   // Bottom-right
-  page.drawLine({ start: { x: trimR + off, y: trimB }, end: { x: trimR + off + len, y: trimB }, thickness, color });
-  page.drawLine({ start: { x: trimR, y: trimB - off - len }, end: { x: trimR, y: trimB - off }, thickness, color });
+  drawMark(trimR + off, trimB, trimR + off + len, trimB);
+  drawMark(trimR, trimB - off - len, trimR, trimB - off);
 }
 
 /**
