@@ -34,13 +34,26 @@ const Checkout = () => {
   const [testLoading, setTestLoading] = useState(false);
   const [preflight, setPreflight] = useState<PreflightResult | null>(null);
 
-  // Run preflight quality check when design image or size changes
+  // Run preflight quality check — skip for vector PDFs (always perfect quality)
   useEffect(() => {
     if (!designImage) return;
+    if (sourcePdf) {
+      // Vector PDF source = perfect quality, no check needed
+      setPreflight({
+        ok: true,
+        imageWidth: 0,
+        imageHeight: 0,
+        requiredWidth: 0,
+        requiredHeight: 0,
+        dpi: 300,
+        warning: undefined,
+      } as PreflightResult);
+      return;
+    }
     preflightCheck(designImage, size.label)
       .then(setPreflight)
       .catch(() => setPreflight(null));
-  }, [designImage, size.label]);
+  }, [designImage, size.label, sourcePdf]);
 
   const [form, setForm] = useState<CheckoutForm>({
     name: "",
