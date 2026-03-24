@@ -7,8 +7,8 @@
 import jsPDF from "jspdf";
 
 const BLEED_MM = 5;
-const MARK_LEN = 5; // crop mark length in mm
-const MARK_OFFSET = 0.5; // gap between mark and trim edge
+const MARK_LEN = 8; // crop mark length in mm
+const MARK_OFFSET = 1; // gap between mark and trim edge
 
 /** Parse dimension string like "80x30" → { widthMm, heightMm } */
 export function parseDimensions(dim: string): { widthMm: number; heightMm: number } {
