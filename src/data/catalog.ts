@@ -86,12 +86,15 @@ import abstractTopoLines from "@/assets/pads/abstract-topo-lines.png";
 import colorfulMarbleCyan from "@/assets/pads/colorful-marble-cyan.png";
 import abstractMarbleBw from "@/assets/pads/abstract-marble-bw.png";
 import cyberRedBlaze from "@/assets/pads/cyber-red-blaze.jpg";
+import cyberRedBlazePdf from "@/assets/pads/cyber-red-blaze.pdf?url";
 
 export interface PadDesign {
   id: string;
   title: string;
   image: string;
   category: string;
+  /** Path to original vector PDF for high-quality print output */
+  sourcePdf?: string;
 }
 
 export interface Category {
@@ -177,7 +180,7 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-5", title: "Hexagon Grid", image: design18, category: "cyber" },
   
   { id: "cyber-7", title: "Neon Scorpion", image: cyberScorpion, category: "cyber" },
-  { id: "cyber-8", title: "Red Blaze", image: cyberRedBlaze, category: "cyber" },
+  { id: "cyber-8", title: "Red Blaze", image: cyberRedBlaze, category: "cyber", sourcePdf: cyberRedBlazePdf },
   
   // Abstract
   { id: "abs-1", title: "Dark Flower", image: design3, category: "abstract" },
