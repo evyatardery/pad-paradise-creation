@@ -276,6 +276,24 @@ const Checkout = () => {
                 )}
               </div>
 
+              {/* Preflight quality warning */}
+              {preflight && !preflight.ok && (
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/10 border border-destructive/30">
+                  <AlertTriangle className="text-destructive shrink-0 mt-0.5" size={20} />
+                  <div className="text-sm">
+                    <p className="font-bold text-destructive mb-1">⚠️ איכות תמונה נמוכה</p>
+                    <p className="text-destructive/80">{preflight.warning}</p>
+                  </div>
+                </div>
+              )}
+
+              {preflight && preflight.ok && (
+                <div className="flex items-center gap-2 p-3 rounded-xl bg-primary/10 border border-primary/30 text-sm text-primary">
+                  <Shield size={16} />
+                  <span>✅ איכות תמונה מעולה ({preflight.dpi} DPI)</span>
+                </div>
+              )}
+
               {/* Submit */}
               <motion.button
                 type="submit"
