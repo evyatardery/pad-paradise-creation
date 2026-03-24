@@ -27,7 +27,7 @@ const TestSample = () => {
 
       setPrintBlob(printResult.blob);
       setPrintFilename(printResult.filename);
-      setPreviewUrl(printResult.canvas.toDataURL("image/png", 0.3));
+      setPreviewUrl(printResult.previewDataUrl);
 
       // 2. Generate order form PDF with dummy data
       const formBlob = generateOrderFormPDF({
@@ -94,7 +94,7 @@ const TestSample = () => {
             {previewUrl && (
               <div className="rounded-xl overflow-hidden border border-border">
                 <p className="bg-card text-card-foreground text-sm font-semibold px-4 py-2 border-b border-border">
-                  📐 תצוגה מקדימה של קובץ ההדפסה (300 DPI, בליד 5mm, סימני חיתוך)
+                  📐 תצוגה מקדימה של קובץ ההדפסה (300 DPI, בליד 3mm, PDF)
                 </p>
                 <img src={previewUrl} alt="Print preview" className="w-full" />
               </div>
@@ -115,7 +115,7 @@ const TestSample = () => {
                 className="w-full flex items-center justify-center gap-3 bg-secondary text-secondary-foreground font-semibold py-3 rounded-xl hover:bg-secondary/80 transition-colors"
               >
                 <Printer size={20} />
-                🖨️ הורד קובץ הדפסה (300 DPI PNG)
+                🖨️ הורד קובץ הדפסה (PDF 300 DPI)
               </button>
 
               <button
