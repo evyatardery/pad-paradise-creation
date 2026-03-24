@@ -92,6 +92,8 @@ export interface PadDesign {
   title: string;
   image: string;
   category: string;
+  /** Path to original vector PDF for high-quality print output */
+  sourcePdf?: string;
 }
 
 export interface Category {
