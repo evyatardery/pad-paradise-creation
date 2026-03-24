@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Package, Shield, CreditCard, MessageCircle, FlaskConical } from "lucide-react";
+import { ArrowRight, Package, Shield, CreditCard, MessageCircle, FlaskConical, AlertTriangle } from "lucide-react";
 import { sizes } from "@/data/catalog";
 import { z } from "zod";
 import { processOrder } from "@/utils/orderService";
+import { preflightCheck, type PreflightResult } from "@/utils/printFileGenerator";
 import { toast } from "sonner";
 
 const checkoutSchema = z.object({
@@ -30,6 +31,15 @@ const Checkout = () => {
 
   const size = sizes[sizeIdx] || sizes[1];
   const [testLoading, setTestLoading] = useState(false);
+  const [preflight, setPreflight] = useState<PreflightResult | null>(null);
+
+  // Run preflight quality check when design image or size changes
+  useEffect(() => {
+    if (!designImage) return;
+    preflightCheck(designImage, size.label)
+      .then(setPreflight)
+      .catch(() => setPreflight(null));
+  }, [designImage, size.label]);
 
   const [form, setForm] = useState<CheckoutForm>({
     name: "",
@@ -265,6 +275,24 @@ const Checkout = () => {
                   <p className="text-destructive text-xs mt-1">{errors.city}</p>
                 )}
               </div>
+
+              {/* Preflight quality warning */}
+              {preflight && !preflight.ok && (
+                <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/10 border border-destructive/30">
+                  <AlertTriangle className="text-destructive shrink-0 mt-0.5" size={20} />
+                  <div className="text-sm">
+                    <p className="font-bold text-destructive mb-1">⚠️ איכות תמונה נמוכה</p>
+                    <p className="text-destructive/80">{preflight.warning}</p>
+                  </div>
+                </div>
+              )}
+
+              {preflight && preflight.ok && (
+                <div className="flex items-center gap-2 p-3 rounded-xl bg-primary/10 border border-primary/30 text-sm text-primary">
+                  <Shield size={16} />
+                  <span>✅ איכות תמונה מעולה ({preflight.dpi} DPI)</span>
+                </div>
+              )}
 
               {/* Submit */}
               <motion.button

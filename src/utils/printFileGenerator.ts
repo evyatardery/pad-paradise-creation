@@ -36,6 +36,65 @@ export interface PrintFileResult {
   previewDataUrl: string;
 }
 
+export interface PreflightResult {
+  ok: boolean;
+  imageWidth: number;
+  imageHeight: number;
+  requiredWidth: number;
+  requiredHeight: number;
+  dpi: number;
+  warning?: string;
+}
+
+/**
+ * Check if an image has sufficient resolution for print quality.
+ * Returns a warning if the effective DPI would be below 150 (minimum acceptable).
+ */
+export async function preflightCheck(
+  imageSrc: string,
+  dimensionLabel: string
+): Promise<PreflightResult> {
+  const { widthMm, heightMm } = parseDimensions(dimensionLabel);
+  const pageW = widthMm + 2 * BLEED_MM;
+  const pageH = heightMm + 2 * BLEED_MM;
+
+  const img = await loadImage(imageSrc);
+  const imgW = img.naturalWidth;
+  const imgH = img.naturalHeight;
+
+  // Calculate effective DPI based on the dimension that constrains
+  const dpiW = imgW / (pageW / 25.4);
+  const dpiH = imgH / (pageH / 25.4);
+  const effectiveDpi = Math.min(dpiW, dpiH);
+
+  // For 300 DPI target
+  const requiredWidth = Math.ceil((pageW / 25.4) * 300);
+  const requiredHeight = Math.ceil((pageH / 25.4) * 300);
+
+  const minDimension = Math.min(imgW, imgH);
+
+  if (minDimension < 2000 || effectiveDpi < 150) {
+    return {
+      ok: false,
+      imageWidth: imgW,
+      imageHeight: imgH,
+      requiredWidth,
+      requiredHeight,
+      dpi: Math.round(effectiveDpi),
+      warning: `איכות התמונה נמוכה (${imgW}x${imgH} פיקסלים, ~${Math.round(effectiveDpi)} DPI). התוצאה עלולה לצאת מטושטשת. מומלץ תמונה של לפחות ${requiredWidth}x${requiredHeight} פיקסלים.`,
+    };
+  }
+
+  return {
+    ok: true,
+    imageWidth: imgW,
+    imageHeight: imgH,
+    requiredWidth,
+    requiredHeight,
+    dpi: Math.round(effectiveDpi),
+  };
+}
+
 /**
  * Load an image element at full native resolution.
  */
