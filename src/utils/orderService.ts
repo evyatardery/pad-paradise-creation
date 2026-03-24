@@ -47,12 +47,15 @@ export async function processOrder(input: CreateOrderInput): Promise<OrderResult
   let printFilename: string;
 
   if (input.sourcePdfUrl) {
-    // Use original vector PDF directly — best quality for sublimation
-    const response = await fetch(input.sourcePdfUrl);
-    if (!response.ok) throw new Error("Failed to fetch source PDF");
-    printBlob = await response.blob();
+    // Process vector PDF: resize to pad dimensions + bleed + crop marks
     const { widthMm, heightMm } = parseDimensions(input.dimensionLabel);
-    printFilename = `PADZONE_print_${widthMm / 10}x${heightMm / 10}cm_vector.pdf`;
+    const vectorResult = await processVectorPdf({
+      sourcePdfUrl: input.sourcePdfUrl,
+      widthMm,
+      heightMm,
+    });
+    printBlob = vectorResult.blob;
+    printFilename = vectorResult.filename;
   } else {
     // Fallback: generate PDF from raster image
     const printOptions: PrintFileOptions = {
