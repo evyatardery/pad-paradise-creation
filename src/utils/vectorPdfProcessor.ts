@@ -6,8 +6,8 @@
 import { PDFDocument, rgb } from "pdf-lib";
 
 const BLEED_MM = 5;
-const MARK_LEN = 5;
-const MARK_OFFSET = 0.5;
+const MARK_LEN = 8;
+const MARK_OFFSET = 1;
 
 /** mm to PDF points (1mm = 2.83465pt) */
 const mmToPt = (mm: number) => mm * 2.83465;
@@ -35,24 +35,31 @@ function drawCropMarks(
 ) {
   const len = mmToPt(MARK_LEN);
   const off = mmToPt(MARK_OFFSET);
-  const thickness = 0.5;
+  const thickness = 1.5;
   const color = rgb(0, 0, 0);
+  const white = rgb(1, 1, 1);
+
+  // Draw white outline first for contrast, then black on top
+  const drawMark = (x1: number, y1: number, x2: number, y2: number) => {
+    page.drawLine({ start: { x: x1, y: y1 }, end: { x: x2, y: y2 }, thickness: thickness + 1.5, color: white });
+    page.drawLine({ start: { x: x1, y: y1 }, end: { x: x2, y: y2 }, thickness, color });
+  };
 
   // Top-left
-  page.drawLine({ start: { x: trimL - off - len, y: trimT }, end: { x: trimL - off, y: trimT }, thickness, color });
-  page.drawLine({ start: { x: trimL, y: trimT + off }, end: { x: trimL, y: trimT + off + len }, thickness, color });
+  drawMark(trimL - off - len, trimT, trimL - off, trimT);
+  drawMark(trimL, trimT + off, trimL, trimT + off + len);
 
   // Top-right
-  page.drawLine({ start: { x: trimR + off, y: trimT }, end: { x: trimR + off + len, y: trimT }, thickness, color });
-  page.drawLine({ start: { x: trimR, y: trimT + off }, end: { x: trimR, y: trimT + off + len }, thickness, color });
+  drawMark(trimR + off, trimT, trimR + off + len, trimT);
+  drawMark(trimR, trimT + off, trimR, trimT + off + len);
 
   // Bottom-left
-  page.drawLine({ start: { x: trimL - off - len, y: trimB }, end: { x: trimL - off, y: trimB }, thickness, color });
-  page.drawLine({ start: { x: trimL, y: trimB - off - len }, end: { x: trimL, y: trimB - off }, thickness, color });
+  drawMark(trimL - off - len, trimB, trimL - off, trimB);
+  drawMark(trimL, trimB - off - len, trimL, trimB - off);
 
   // Bottom-right
-  page.drawLine({ start: { x: trimR + off, y: trimB }, end: { x: trimR + off + len, y: trimB }, thickness, color });
-  page.drawLine({ start: { x: trimR, y: trimB - off - len }, end: { x: trimR, y: trimB - off }, thickness, color });
+  drawMark(trimR + off, trimB, trimR + off + len, trimB);
+  drawMark(trimR, trimB - off - len, trimR, trimB - off);
 }
 
 /**
