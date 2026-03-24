@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Package, Shield, CreditCard, MessageCircle } from "lucide-react";
+import { ArrowRight, Package, Shield, CreditCard, MessageCircle, FlaskConical } from "lucide-react";
 import { sizes } from "@/data/catalog";
 import { z } from "zod";
+import { processOrder } from "@/utils/orderService";
+import { toast } from "sonner";
 
 const checkoutSchema = z.object({
   name: z.string().trim().min(2, "שם חייב להכיל לפחות 2 תווים").max(100),
@@ -23,8 +25,11 @@ const Checkout = () => {
   const designName = searchParams.get("name") || "פד מותאם אישית";
   const sizeIdx = Number(searchParams.get("size") || "1");
   const isCustom = searchParams.get("custom") === "1";
+  const isTestMode = searchParams.get("test") === "1";
+  const designImage = searchParams.get("image") || "";
 
   const size = sizes[sizeIdx] || sizes[1];
+  const [testLoading, setTestLoading] = useState(false);
 
   const [form, setForm] = useState<CheckoutForm>({
     name: "",
@@ -87,6 +92,56 @@ const Checkout = () => {
     // TODO: Redirect to GROW payment page
     // For now, navigate to success page for testing
     navigate("/order-success");
+  };
+
+  const handleTestOrder = async () => {
+    const result = checkoutSchema.safeParse(form);
+    if (!result.success) {
+      const fieldErrors: Partial<Record<keyof CheckoutForm, string>> = {};
+      result.error.issues.forEach((err) => {
+        const field = err.path[0] as keyof CheckoutForm;
+        if (!fieldErrors[field]) fieldErrors[field] = err.message;
+      });
+      setErrors(fieldErrors);
+      setTouched({ name: true, phone: true, email: true, address: true, city: true });
+      return;
+    }
+
+    setTestLoading(true);
+    try {
+      const orderResult = await processOrder({
+        customerName: result.data.name,
+        customerEmail: result.data.email || undefined,
+        customerPhone: result.data.phone,
+        shippingAddress: `${result.data.address}, ${result.data.city}`,
+        designId: designId || undefined,
+        designName,
+        designImageSrc: designImage || "/placeholder.svg",
+        dimensionLabel: size.label,
+        quantity: 1,
+        unitPrice: size.price,
+        isCustomDesign: isCustom,
+        paymentTransactionId: `TEST-${Date.now()}`,
+      });
+
+      toast.success(`הזמנת בדיקה נוצרה! ${orderResult.orderNumber}`);
+      sessionStorage.setItem("checkout_data", JSON.stringify({
+        ...result.data,
+        designId,
+        designName,
+        sizeIdx,
+        sizeLabel: size.label,
+        price: size.price,
+        isCustom,
+      }));
+      sessionStorage.setItem("last_order_id", orderResult.orderId);
+      sessionStorage.setItem("last_order_number", orderResult.orderNumber);
+      navigate("/order-success");
+    } catch (err: any) {
+      toast.error(`שגיאה ביצירת הזמנה: ${err.message}`);
+    } finally {
+      setTestLoading(false);
+    }
   };
 
   const inputClass = (field: keyof CheckoutForm) =>
@@ -236,6 +291,27 @@ const Checkout = () => {
                 <MessageCircle size={20} />
                 <span>תשלום ב-Bit / PayBox דרך וואטסאפ</span>
               </a>
+
+              {isTestMode && (
+                <>
+                  <div className="relative flex items-center justify-center">
+                    <div className="border-t border-destructive/30 w-full" />
+                    <span className="absolute bg-background px-3 text-destructive text-xs font-bold">🧪 מצב בדיקה</span>
+                  </div>
+
+                  <motion.button
+                    type="button"
+                    onClick={handleTestOrder}
+                    disabled={testLoading}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full border-2 border-destructive text-destructive font-bold py-3.5 rounded-xl text-base hover:bg-destructive/10 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                  >
+                    <FlaskConical size={20} />
+                    <span>{testLoading ? "יוצר הזמנה..." : "🧪 הזמנת בדיקה (ללא תשלום)"}</span>
+                  </motion.button>
+                </>
+              )}
             </form>
           </motion.div>
 
