@@ -28,6 +28,7 @@ const Checkout = () => {
   const isCustom = searchParams.get("custom") === "1";
   const isTestMode = searchParams.get("test") === "1";
   const designImage = searchParams.get("image") || "";
+  const sourcePdf = searchParams.get("sourcePdf") || "";
 
   const size = sizes[sizeIdx] || sizes[1];
   const [testLoading, setTestLoading] = useState(false);
