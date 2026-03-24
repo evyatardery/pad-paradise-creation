@@ -125,7 +125,7 @@ export async function processOrder(input: CreateOrderInput): Promise<OrderResult
   const [printUpload, formUpload] = await Promise.all([
     supabase.storage
       .from("order-files")
-      .upload(`${orderDir}/${printResult.filename}`, printResult.blob, {
+      .upload(`${orderDir}/${printFilename}`, printBlob, {
         contentType: "application/pdf",
         upsert: true,
       }),
@@ -153,7 +153,7 @@ export async function processOrder(input: CreateOrderInput): Promise<OrderResult
     orderId: order.id,
     orderNumber: order.order_number,
     orderFormBlob,
-    printFileBlob: printResult.blob,
-    printFilename: printResult.filename,
+    printFileBlob: printBlob,
+    printFilename,
   };
 }
