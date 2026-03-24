@@ -20,6 +20,8 @@ export interface CreateOrderInput {
   customText?: string;
   customFont?: string;
   customTextAlign?: string;
+  /** URL to original vector PDF — used directly as print file when available */
+  sourcePdfUrl?: string;
   paymentTransactionId?: string;
 }
 
