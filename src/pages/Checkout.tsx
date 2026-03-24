@@ -25,8 +25,11 @@ const Checkout = () => {
   const designName = searchParams.get("name") || "פד מותאם אישית";
   const sizeIdx = Number(searchParams.get("size") || "1");
   const isCustom = searchParams.get("custom") === "1";
+  const isTestMode = searchParams.get("test") === "1";
+  const designImage = searchParams.get("image") || "";
 
   const size = sizes[sizeIdx] || sizes[1];
+  const [testLoading, setTestLoading] = useState(false);
 
   const [form, setForm] = useState<CheckoutForm>({
     name: "",
