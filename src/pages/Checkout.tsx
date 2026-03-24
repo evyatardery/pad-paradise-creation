@@ -292,7 +292,7 @@ const Checkout = () => {
                 <span>תשלום ב-Bit / PayBox דרך וואטסאפ</span>
               </a>
 
-              {isTestMode && (
+              {(
                 <>
                   <div className="relative flex items-center justify-center">
                     <div className="border-t border-destructive/30 w-full" />
