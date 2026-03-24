@@ -252,24 +252,24 @@ const Admin = () => {
                       <div className="flex gap-1">
                         {order.print_file_url && (
                           <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-8 w-8"
-                            title="הורד קובץ הדפסה"
-                            onClick={() => downloadFile(order.print_file_url!, `print-${order.order_number}.png`)}
+                            variant="outline"
+                            size="sm"
+                            className="h-7 text-xs gap-1 border-primary/30 text-primary hover:bg-primary/10"
+                            onClick={() => downloadFile(order.print_file_url!, `print-${order.order_number}.pdf`)}
                           >
-                            <Download className="w-4 h-4" />
+                            <Download className="w-3 h-3" />
+                            הדפסה
                           </Button>
                         )}
                         {order.order_form_url && (
                           <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-8 w-8"
-                            title="הורד טופס הזמנה"
+                            variant="outline"
+                            size="sm"
+                            className="h-7 text-xs gap-1 border-blue-500/30 text-blue-400 hover:bg-blue-500/10"
                             onClick={() => downloadFile(order.order_form_url!, `form-${order.order_number}.pdf`)}
                           >
-                            <Download className="w-4 h-4 text-blue-400" />
+                            <Download className="w-3 h-3" />
+                            טופס
                           </Button>
                         )}
                       </div>
