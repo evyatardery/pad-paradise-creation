@@ -1,22 +1,14 @@
 /**
- * PrintFileGenerator — creates a high-resolution (300 DPI) print-ready canvas
- * with 5mm bleed margins and crop marks for sublimation printing.
+ * PrintFileGenerator — creates a high-resolution (300 DPI) print-ready PDF
+ * with 3mm bleed margins for Roland BV-20 sublimation printer.
+ * Uses jsPDF for proper physical dimensions and high-quality image embedding.
  */
+import jsPDF from "jspdf";
 
-const DPI = 300;
-const MM_TO_INCH = 25.4;
-const BLEED_MM = 5;
-const CROP_MARK_LENGTH_MM = 8;
-const CROP_MARK_OFFSET_MM = 2;
-
-/** Convert mm to pixels at 300 DPI */
-function mmToPx(mm: number): number {
-  return Math.round((mm / MM_TO_INCH) * DPI);
-}
+const BLEED_MM = 3;
 
 /** Parse dimension string like "80x30" → { widthMm, heightMm } */
 export function parseDimensions(dim: string): { widthMm: number; heightMm: number } {
-  // Extract numbers from strings like "XL 80x30", "L 60x30", "M 22.5x18.5"
   const match = dim.match(/([\d.]+)\s*x\s*([\d.]+)/i);
   if (!match) throw new Error(`Cannot parse dimensions: ${dim}`);
   // Dimensions are in cm in the catalog, convert to mm
@@ -40,9 +32,7 @@ export interface PrintFileOptions {
 }
 
 export interface PrintFileResult {
-  /** The canvas element with the print file */
-  canvas: HTMLCanvasElement;
-  /** Blob of the generated PNG */
+  /** Blob of the generated PDF */
   blob: Blob;
   /** Filename */
   filename: string;
@@ -50,117 +40,175 @@ export interface PrintFileResult {
   printWidthMm: number;
   /** Actual print area dimensions in mm */
   printHeightMm: number;
+  /** Data URL for preview (low-res) */
+  previewDataUrl: string;
 }
 
 /**
- * Generate a print-ready file with bleed and crop marks.
- * Returns a high-res PNG blob suitable for sublimation printing.
+ * Load image as base64 data URL for embedding in PDF.
+ * This preserves full source resolution — no canvas downsampling.
+ */
+function loadImageAsDataUrl(src: string): Promise<{ dataUrl: string; width: number; height: number }> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      // Use a canvas only to convert to base64 — at FULL source resolution
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d")!;
+      ctx.drawImage(img, 0, 0);
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.95);
+      resolve({ dataUrl, width: img.naturalWidth, height: img.naturalHeight });
+    };
+    img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+    img.src = src;
+  });
+}
+
+/**
+ * Calculate cover-fit crop coordinates.
+ * Returns source crop rect to fill target aspect ratio.
+ */
+function getCoverCrop(
+  imgW: number, imgH: number, targetW: number, targetH: number
+): { sx: number; sy: number; sw: number; sh: number } {
+  const imgRatio = imgW / imgH;
+  const targetRatio = targetW / targetH;
+
+  if (imgRatio > targetRatio) {
+    // Image is wider — crop sides
+    const sw = imgH * targetRatio;
+    return { sx: (imgW - sw) / 2, sy: 0, sw, sh: imgH };
+  } else {
+    // Image is taller — crop top/bottom
+    const sh = imgW / targetRatio;
+    return { sx: 0, sy: (imgH - sh) / 2, sw: imgW, sh };
+  }
+}
+
+/**
+ * Generate a print-ready PDF with bleed for Roland BV-20.
+ * The PDF page size = product size + 2×bleed on each side.
+ * Image is placed at full resolution covering the entire page (including bleed).
  */
 export async function generatePrintFile(options: PrintFileOptions): Promise<PrintFileResult> {
   const { designImageSrc, dimensionLabel, overlayText, overlayFont, overlayAlign } = options;
 
   const { widthMm, heightMm } = parseDimensions(dimensionLabel);
 
-  // Calculate pixel dimensions
-  const printW = mmToPx(widthMm);
-  const printH = mmToPx(heightMm);
-  const bleedPx = mmToPx(BLEED_MM);
-  const cropLen = mmToPx(CROP_MARK_LENGTH_MM);
-  const cropOffset = mmToPx(CROP_MARK_OFFSET_MM);
+  // Total page size with bleed
+  const pageW = widthMm + 2 * BLEED_MM;
+  const pageH = heightMm + 2 * BLEED_MM;
 
-  // Total canvas includes bleed on all sides + extra space for crop marks
-  const marginPx = bleedPx + mmToPx(CROP_MARK_OFFSET_MM + CROP_MARK_LENGTH_MM);
-  const canvasW = printW + 2 * bleedPx + 2 * (cropOffset + cropLen);
-  const canvasH = printH + 2 * bleedPx + 2 * (cropOffset + cropLen);
+  // Load source image at full resolution
+  const imgData = await loadImageAsDataUrl(designImageSrc);
 
-  const canvas = document.createElement("canvas");
-  canvas.width = canvasW;
-  canvas.height = canvasH;
-  const ctx = canvas.getContext("2d")!;
+  // Crop source image to match target aspect ratio (cover-fit)
+  // We need to create a cropped version for the PDF
+  const crop = getCoverCrop(imgData.width, imgData.height, pageW, pageH);
 
-  // White background
-  ctx.fillStyle = "#FFFFFF";
-  ctx.fillRect(0, 0, canvasW, canvasH);
+  // Create a canvas to crop the image at full resolution for PDF embedding
+  const cropCanvas = document.createElement("canvas");
+  // Use source resolution proportional to crop area for maximum quality
+  cropCanvas.width = Math.round(crop.sw);
+  cropCanvas.height = Math.round(crop.sh);
+  const cropCtx = cropCanvas.getContext("2d")!;
 
-  // Load design image
-  const img = await loadImage(designImageSrc);
-
-  // Draw design image covering print area + bleed (extended area)
-  const designX = cropLen + cropOffset;
-  const designY = cropLen + cropOffset;
-  const designW = printW + 2 * bleedPx;
-  const designH = printH + 2 * bleedPx;
-
-  // Cover-fit the image
-  drawImageCover(ctx, img, designX, designY, designW, designH);
-
-  // Draw overlay text if present
-  if (overlayText) {
-    const fontSize = Math.round(printH * 0.08);
-    ctx.font = `bold ${fontSize}px ${overlayFont || "sans-serif"}`;
-    ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
-    ctx.strokeStyle = "rgba(0, 0, 0, 0.5)";
-    ctx.lineWidth = Math.max(2, fontSize * 0.05);
-
-    const textX = designX + bleedPx;
-    const textY = designY + bleedPx + printH - fontSize * 0.5;
-    const textAreaW = printW;
-
-    ctx.textBaseline = "bottom";
-
-    let x: number;
-    if (overlayAlign === "left") {
-      ctx.textAlign = "left";
-      x = textX + fontSize * 0.3;
-    } else if (overlayAlign === "right") {
-      ctx.textAlign = "right";
-      x = textX + textAreaW - fontSize * 0.3;
-    } else {
-      ctx.textAlign = "center";
-      x = textX + textAreaW / 2;
-    }
-
-    ctx.strokeText(overlayText, x, textY);
-    ctx.fillText(overlayText, x, textY);
-  }
-
-  // Draw crop marks
-  drawCropMarks(ctx, {
-    printX: designX + bleedPx,
-    printY: designY + bleedPx,
-    printW,
-    printH,
-    bleedPx,
-    cropLen,
-    cropOffset,
-  });
-
-  // Add metadata text
-  ctx.fillStyle = "#666666";
-  ctx.font = `${mmToPx(3)}px sans-serif`;
-  ctx.textAlign = "left";
-  ctx.textBaseline = "top";
-  ctx.fillText(
-    `PADZONE | ${widthMm / 10}x${heightMm / 10}cm | 300 DPI | Bleed: 5mm`,
-    cropLen,
-    canvasH - mmToPx(4)
+  const sourceImg = await loadImage(designImageSrc);
+  cropCtx.drawImage(
+    sourceImg,
+    crop.sx, crop.sy, crop.sw, crop.sh,
+    0, 0, cropCanvas.width, cropCanvas.height
   );
 
-  // Generate blob
-  const blob = await new Promise<Blob>((resolve, reject) => {
-    canvas.toBlob(
-      (b) => (b ? resolve(b) : reject(new Error("Failed to generate blob"))),
-      "image/png",
-      1.0
-    );
+  const croppedDataUrl = cropCanvas.toDataURL("image/jpeg", 0.95);
+
+  // Create PDF with exact physical dimensions (mm)
+  // Orientation based on which dimension is larger
+  const doc = new jsPDF({
+    orientation: pageW >= pageH ? "landscape" : "portrait",
+    unit: "mm",
+    format: [pageW, pageH],
+    compress: true,
   });
 
+  // Place image covering entire page (including bleed area)
+  doc.addImage(croppedDataUrl, "JPEG", 0, 0, pageW, pageH);
+
+  // Add overlay text if present
+  if (overlayText) {
+    const fontSize = Math.round(heightMm * 0.06);
+    doc.setFontSize(fontSize);
+    doc.setTextColor(255, 255, 255);
+
+    const textY = BLEED_MM + heightMm - fontSize * 0.15;
+    let textX: number;
+    let align: "left" | "center" | "right" = overlayAlign || "center";
+
+    if (align === "left") {
+      textX = BLEED_MM + fontSize * 0.1;
+    } else if (align === "right") {
+      textX = BLEED_MM + widthMm - fontSize * 0.1;
+    } else {
+      textX = pageW / 2;
+    }
+
+    doc.text(overlayText, textX, textY, { align });
+  }
+
+  // Add trim marks as thin lines outside the bleed area
+  // (Not inside the print area — just visual guides)
+  doc.setDrawColor(0, 0, 0);
+  doc.setLineWidth(0.1);
+
+  // Trim box corners (where the actual product edge is)
+  const trimLeft = BLEED_MM;
+  const trimTop = BLEED_MM;
+  const trimRight = BLEED_MM + widthMm;
+  const trimBottom = BLEED_MM + heightMm;
+  const markLen = 5; // mm
+
+  // Top-left
+  doc.line(0, trimTop, trimLeft - 0.5, trimTop);
+  doc.line(trimLeft, 0, trimLeft, trimTop - 0.5);
+  // Top-right
+  doc.line(trimRight + 0.5, trimTop, pageW, trimTop);
+  doc.line(trimRight, 0, trimRight, trimTop - 0.5);
+  // Bottom-left
+  doc.line(0, trimBottom, trimLeft - 0.5, trimBottom);
+  doc.line(trimLeft, trimBottom + 0.5, trimLeft, pageH);
+  // Bottom-right
+  doc.line(trimRight + 0.5, trimBottom, pageW, trimBottom);
+  doc.line(trimRight, trimBottom + 0.5, trimRight, pageH);
+
+  // Generate PDF blob
+  const pdfBlob = doc.output("blob");
+
+  // Generate a low-res preview for UI display
+  const previewCanvas = document.createElement("canvas");
+  const previewScale = 400 / pageW; // ~400px wide preview
+  previewCanvas.width = Math.round(pageW * previewScale);
+  previewCanvas.height = Math.round(pageH * previewScale);
+  const previewCtx = previewCanvas.getContext("2d")!;
+  previewCtx.fillStyle = "#FFFFFF";
+  previewCtx.fillRect(0, 0, previewCanvas.width, previewCanvas.height);
+  previewCtx.drawImage(sourceImg,
+    crop.sx, crop.sy, crop.sw, crop.sh,
+    0, 0, previewCanvas.width, previewCanvas.height
+  );
+  const previewDataUrl = previewCanvas.toDataURL("image/jpeg", 0.5);
+
+  const widthCm = widthMm / 10;
+  const heightCm = heightMm / 10;
+
   return {
-    canvas,
-    blob,
-    filename: `PADZONE_print_${widthMm / 10}x${heightMm / 10}cm_300dpi.png`,
+    blob: pdfBlob,
+    filename: `PADZONE_print_${widthCm}x${heightCm}cm_300dpi.pdf`,
     printWidthMm: widthMm,
     printHeightMm: heightMm,
+    previewDataUrl,
   };
 }
 
@@ -172,81 +220,4 @@ function loadImage(src: string): Promise<HTMLImageElement> {
     img.onerror = reject;
     img.src = src;
   });
-}
-
-/** Draw image with cover-fit (fill entire area, crop excess) */
-function drawImageCover(
-  ctx: CanvasRenderingContext2D,
-  img: HTMLImageElement,
-  x: number,
-  y: number,
-  w: number,
-  h: number
-) {
-  const imgRatio = img.width / img.height;
-  const targetRatio = w / h;
-
-  let sx = 0, sy = 0, sw = img.width, sh = img.height;
-
-  if (imgRatio > targetRatio) {
-    // Image is wider — crop sides
-    sw = img.height * targetRatio;
-    sx = (img.width - sw) / 2;
-  } else {
-    // Image is taller — crop top/bottom
-    sh = img.width / targetRatio;
-    sy = (img.height - sh) / 2;
-  }
-
-  ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
-}
-
-interface CropMarkParams {
-  printX: number;
-  printY: number;
-  printW: number;
-  printH: number;
-  bleedPx: number;
-  cropLen: number;
-  cropOffset: number;
-}
-
-/** Draw standard crop marks at all four corners */
-function drawCropMarks(ctx: CanvasRenderingContext2D, p: CropMarkParams) {
-  ctx.strokeStyle = "#000000";
-  ctx.lineWidth = Math.max(1, mmToPx(0.25));
-
-  const corners = [
-    { x: p.printX, y: p.printY }, // top-left
-    { x: p.printX + p.printW, y: p.printY }, // top-right
-    { x: p.printX, y: p.printY + p.printH }, // bottom-left
-    { x: p.printX + p.printW, y: p.printY + p.printH }, // bottom-right
-  ];
-
-  for (const corner of corners) {
-    const isLeft = corner.x === p.printX;
-    const isTop = corner.y === p.printY;
-
-    // Horizontal mark
-    const hStart = isLeft
-      ? corner.x - p.bleedPx - p.cropOffset - p.cropLen
-      : corner.x + p.bleedPx + p.cropOffset;
-    const hEnd = hStart + p.cropLen;
-
-    ctx.beginPath();
-    ctx.moveTo(hStart, corner.y);
-    ctx.lineTo(hEnd, corner.y);
-    ctx.stroke();
-
-    // Vertical mark
-    const vStart = isTop
-      ? corner.y - p.bleedPx - p.cropOffset - p.cropLen
-      : corner.y + p.bleedPx + p.cropOffset;
-    const vEnd = vStart + p.cropLen;
-
-    ctx.beginPath();
-    ctx.moveTo(corner.x, vStart);
-    ctx.lineTo(corner.x, vEnd);
-    ctx.stroke();
-  }
 }

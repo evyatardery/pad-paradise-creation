@@ -111,7 +111,7 @@ export async function processOrder(input: CreateOrderInput): Promise<OrderResult
     supabase.storage
       .from("order-files")
       .upload(`${orderDir}/${printResult.filename}`, printResult.blob, {
-        contentType: "image/png",
+        contentType: "application/pdf",
         upsert: true,
       }),
     supabase.storage
