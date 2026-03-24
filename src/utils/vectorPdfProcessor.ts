@@ -117,7 +117,7 @@ export async function processVectorPdf(options: VectorPrintOptions): Promise<Vec
 
   // Save without compression
   const outputBytes = await outputPdf.save();
-  const blob = new Blob([outputBytes], { type: "application/pdf" });
+  const blob = new Blob([outputBytes.buffer as ArrayBuffer], { type: "application/pdf" });
 
   const widthCm = widthMm / 10;
   const heightCm = heightMm / 10;
