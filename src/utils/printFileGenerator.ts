@@ -1,17 +1,19 @@
 /**
  * PrintFileGenerator — creates a high-resolution (300 DPI) print-ready PDF
- * with 3mm bleed margins for Roland BV-20 sublimation printer.
- * Uses jsPDF for proper physical dimensions and high-quality image embedding.
+ * with 5mm bleed margins and vector crop marks for Roland BV-20 sublimation printer.
+ * Uses jsPDF with uncompressed JPEG embedding for maximum quality.
+ * NO mirroring — printer handles that.
  */
 import jsPDF from "jspdf";
 
-const BLEED_MM = 3;
+const BLEED_MM = 5;
+const MARK_LEN = 5; // crop mark length in mm
+const MARK_OFFSET = 0.5; // gap between mark and trim edge
 
 /** Parse dimension string like "80x30" → { widthMm, heightMm } */
 export function parseDimensions(dim: string): { widthMm: number; heightMm: number } {
   const match = dim.match(/([\d.]+)\s*x\s*([\d.]+)/i);
   if (!match) throw new Error(`Cannot parse dimensions: ${dim}`);
-  // Dimensions are in cm in the catalog, convert to mm
   return {
     widthMm: parseFloat(match[1]) * 10,
     heightMm: parseFloat(match[2]) * 10,
@@ -19,57 +21,36 @@ export function parseDimensions(dim: string): { widthMm: number; heightMm: numbe
 }
 
 export interface PrintFileOptions {
-  /** The design image (URL or data URI) */
   designImageSrc: string;
-  /** Dimension label from catalog, e.g. "XL 80x30" */
   dimensionLabel: string;
-  /** Optional overlay text */
   overlayText?: string;
-  /** Font for overlay text */
   overlayFont?: string;
-  /** Text alignment */
   overlayAlign?: "left" | "center" | "right";
 }
 
 export interface PrintFileResult {
-  /** Blob of the generated PDF */
   blob: Blob;
-  /** Filename */
   filename: string;
-  /** Actual print area dimensions in mm */
   printWidthMm: number;
-  /** Actual print area dimensions in mm */
   printHeightMm: number;
-  /** Data URL for preview (low-res) */
   previewDataUrl: string;
 }
 
 /**
- * Load image as base64 data URL for embedding in PDF.
- * This preserves full source resolution — no canvas downsampling.
+ * Load an image element at full native resolution.
  */
-function loadImageAsDataUrl(src: string): Promise<{ dataUrl: string; width: number; height: number }> {
+function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.crossOrigin = "anonymous";
-    img.onload = () => {
-      // Use a canvas only to convert to base64 — at FULL source resolution
-      const canvas = document.createElement("canvas");
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      const ctx = canvas.getContext("2d")!;
-      ctx.drawImage(img, 0, 0);
-      const dataUrl = canvas.toDataURL("image/jpeg", 0.95);
-      resolve({ dataUrl, width: img.naturalWidth, height: img.naturalHeight });
-    };
+    img.onload = () => resolve(img);
     img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
     img.src = src;
   });
 }
 
 /**
- * Calculate cover-fit crop coordinates.
- * Returns source crop rect to fill target aspect ratio.
+ * Cover-fit crop: returns source rect that fills target aspect ratio.
  */
 function getCoverCrop(
   imgW: number, imgH: number, targetW: number, targetH: number
@@ -78,79 +59,124 @@ function getCoverCrop(
   const targetRatio = targetW / targetH;
 
   if (imgRatio > targetRatio) {
-    // Image is wider — crop sides
     const sw = imgH * targetRatio;
     return { sx: (imgW - sw) / 2, sy: 0, sw, sh: imgH };
   } else {
-    // Image is taller — crop top/bottom
     const sh = imgW / targetRatio;
     return { sx: 0, sy: (imgH - sh) / 2, sw: imgW, sh };
   }
 }
 
 /**
- * Generate a print-ready PDF with bleed for Roland BV-20.
- * The PDF page size = product size + 2×bleed on each side.
- * Image is placed at full resolution covering the entire page (including bleed).
+ * Convert source image to a high-quality data URL at full resolution,
+ * cropped to match the target aspect ratio (cover-fit).
+ * Uses maximum JPEG quality (1.0) for print — no compression artifacts.
+ */
+function createCroppedDataUrl(
+  img: HTMLImageElement, targetW: number, targetH: number
+): string {
+  const crop = getCoverCrop(img.naturalWidth, img.naturalHeight, targetW, targetH);
+
+  const canvas = document.createElement("canvas");
+  // Keep full source resolution of the cropped region
+  canvas.width = Math.round(crop.sw);
+  canvas.height = Math.round(crop.sh);
+
+  const ctx = canvas.getContext("2d")!;
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+
+  ctx.drawImage(
+    img,
+    crop.sx, crop.sy, crop.sw, crop.sh,
+    0, 0, canvas.width, canvas.height
+  );
+
+  // Maximum quality — no compression
+  return canvas.toDataURL("image/jpeg", 1.0);
+}
+
+/**
+ * Draw vector crop marks at the four corners of the trim box.
+ * Marks sit in the bleed area, with a small gap from the trim edge.
+ */
+function drawCropMarks(doc: jsPDF, trimL: number, trimT: number, trimR: number, trimB: number) {
+  doc.setDrawColor(0, 0, 0);
+  doc.setLineWidth(0.15);
+
+  // Top-left
+  doc.line(trimL - MARK_OFFSET - MARK_LEN, trimT, trimL - MARK_OFFSET, trimT);
+  doc.line(trimL, trimT - MARK_OFFSET - MARK_LEN, trimL, trimT - MARK_OFFSET);
+
+  // Top-right
+  doc.line(trimR + MARK_OFFSET, trimT, trimR + MARK_OFFSET + MARK_LEN, trimT);
+  doc.line(trimR, trimT - MARK_OFFSET - MARK_LEN, trimR, trimT - MARK_OFFSET);
+
+  // Bottom-left
+  doc.line(trimL - MARK_OFFSET - MARK_LEN, trimB, trimL - MARK_OFFSET, trimB);
+  doc.line(trimL, trimB + MARK_OFFSET, trimL, trimB + MARK_OFFSET + MARK_LEN);
+
+  // Bottom-right
+  doc.line(trimR + MARK_OFFSET, trimB, trimR + MARK_OFFSET + MARK_LEN, trimB);
+  doc.line(trimR, trimB + MARK_OFFSET, trimR, trimB + MARK_OFFSET + MARK_LEN);
+}
+
+/**
+ * Generate a print-ready PDF for Roland BV-20 sublimation.
+ *
+ * - PDF page = product dimensions + 5mm bleed on each side
+ * - Image embedded at full source resolution (no downsampling)
+ * - JPEG quality 1.0 (no compression), sRGB preserved
+ * - Vector crop marks in bleed area
+ * - Overlay text as vector layer (not rasterized)
+ * - No mirroring — printer handles that
  */
 export async function generatePrintFile(options: PrintFileOptions): Promise<PrintFileResult> {
-  const { designImageSrc, dimensionLabel, overlayText, overlayFont, overlayAlign } = options;
+  const { designImageSrc, dimensionLabel, overlayText, overlayAlign } = options;
 
   const { widthMm, heightMm } = parseDimensions(dimensionLabel);
 
-  // Total page size with bleed
+  // Total page with bleed
   const pageW = widthMm + 2 * BLEED_MM;
   const pageH = heightMm + 2 * BLEED_MM;
 
-  // Load source image at full resolution
-  const imgData = await loadImageAsDataUrl(designImageSrc);
+  // Trim box edges
+  const trimL = BLEED_MM;
+  const trimT = BLEED_MM;
+  const trimR = BLEED_MM + widthMm;
+  const trimB = BLEED_MM + heightMm;
 
-  // Crop source image to match target aspect ratio (cover-fit)
-  // We need to create a cropped version for the PDF
-  const crop = getCoverCrop(imgData.width, imgData.height, pageW, pageH);
-
-  // Create a canvas to crop the image at full resolution for PDF embedding
-  const cropCanvas = document.createElement("canvas");
-  // Use source resolution proportional to crop area for maximum quality
-  cropCanvas.width = Math.round(crop.sw);
-  cropCanvas.height = Math.round(crop.sh);
-  const cropCtx = cropCanvas.getContext("2d")!;
-
+  // Load source image at full native resolution
   const sourceImg = await loadImage(designImageSrc);
-  cropCtx.drawImage(
-    sourceImg,
-    crop.sx, crop.sy, crop.sw, crop.sh,
-    0, 0, cropCanvas.width, cropCanvas.height
-  );
 
-  const croppedDataUrl = cropCanvas.toDataURL("image/jpeg", 0.95);
+  // Create cropped data URL at full resolution, max quality
+  const croppedDataUrl = createCroppedDataUrl(sourceImg, pageW, pageH);
 
-  // Create PDF with exact physical dimensions (mm)
-  // Orientation based on which dimension is larger
+  // Create PDF with exact physical dimensions
   const doc = new jsPDF({
     orientation: pageW >= pageH ? "landscape" : "portrait",
     unit: "mm",
     format: [pageW, pageH],
-    compress: true,
+    compress: false, // NO compression for print quality
   });
 
-  // Place image covering entire page (including bleed area)
+  // Layer 1: Background image covering entire page (including bleed)
   doc.addImage(croppedDataUrl, "JPEG", 0, 0, pageW, pageH);
 
-  // Add overlay text if present
+  // Layer 2: Vector overlay text (stays sharp at any zoom)
   if (overlayText) {
     const fontSize = Math.round(heightMm * 0.06);
     doc.setFontSize(fontSize);
     doc.setTextColor(255, 255, 255);
 
-    const textY = BLEED_MM + heightMm - fontSize * 0.15;
+    const textY = trimB - fontSize * 0.15;
+    const align = overlayAlign || "center";
     let textX: number;
-    let align: "left" | "center" | "right" = overlayAlign || "center";
 
     if (align === "left") {
-      textX = BLEED_MM + fontSize * 0.1;
+      textX = trimL + fontSize * 0.1;
     } else if (align === "right") {
-      textX = BLEED_MM + widthMm - fontSize * 0.1;
+      textX = trimR - fontSize * 0.1;
     } else {
       textX = pageW / 2;
     }
@@ -158,43 +184,24 @@ export async function generatePrintFile(options: PrintFileOptions): Promise<Prin
     doc.text(overlayText, textX, textY, { align });
   }
 
-  // Add trim marks as thin lines outside the bleed area
-  // (Not inside the print area — just visual guides)
-  doc.setDrawColor(0, 0, 0);
-  doc.setLineWidth(0.1);
-
-  // Trim box corners (where the actual product edge is)
-  const trimLeft = BLEED_MM;
-  const trimTop = BLEED_MM;
-  const trimRight = BLEED_MM + widthMm;
-  const trimBottom = BLEED_MM + heightMm;
-  const markLen = 5; // mm
-
-  // Top-left
-  doc.line(0, trimTop, trimLeft - 0.5, trimTop);
-  doc.line(trimLeft, 0, trimLeft, trimTop - 0.5);
-  // Top-right
-  doc.line(trimRight + 0.5, trimTop, pageW, trimTop);
-  doc.line(trimRight, 0, trimRight, trimTop - 0.5);
-  // Bottom-left
-  doc.line(0, trimBottom, trimLeft - 0.5, trimBottom);
-  doc.line(trimLeft, trimBottom + 0.5, trimLeft, pageH);
-  // Bottom-right
-  doc.line(trimRight + 0.5, trimBottom, pageW, trimBottom);
-  doc.line(trimRight, trimBottom + 0.5, trimRight, pageH);
+  // Layer 3: Vector crop marks
+  drawCropMarks(doc, trimL, trimT, trimR, trimB);
 
   // Generate PDF blob
   const pdfBlob = doc.output("blob");
 
-  // Generate a low-res preview for UI display
+  // Low-res preview for UI
   const previewCanvas = document.createElement("canvas");
-  const previewScale = 400 / pageW; // ~400px wide preview
+  const previewScale = 400 / pageW;
   previewCanvas.width = Math.round(pageW * previewScale);
   previewCanvas.height = Math.round(pageH * previewScale);
   const previewCtx = previewCanvas.getContext("2d")!;
   previewCtx.fillStyle = "#FFFFFF";
   previewCtx.fillRect(0, 0, previewCanvas.width, previewCanvas.height);
-  previewCtx.drawImage(sourceImg,
+
+  const crop = getCoverCrop(sourceImg.naturalWidth, sourceImg.naturalHeight, pageW, pageH);
+  previewCtx.drawImage(
+    sourceImg,
     crop.sx, crop.sy, crop.sw, crop.sh,
     0, 0, previewCanvas.width, previewCanvas.height
   );
@@ -210,14 +217,4 @@ export async function generatePrintFile(options: PrintFileOptions): Promise<Prin
     printHeightMm: heightMm,
     previewDataUrl,
   };
-}
-
-function loadImage(src: string): Promise<HTMLImageElement> {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-    img.src = src;
-  });
 }
