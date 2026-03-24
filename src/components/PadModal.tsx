@@ -102,7 +102,7 @@ const PadModal = ({ pad, onClose }: Props) => {
 
             {/* Order button */}
             <button
-              onClick={() => navigate(`/checkout?design=${encodeURIComponent(pad.id)}&name=${encodeURIComponent(pad.title)}&size=${sizeIdx}&image=${encodeURIComponent(pad.image)}`)}
+              onClick={() => navigate(`/checkout?design=${encodeURIComponent(pad.id)}&name=${encodeURIComponent(pad.title)}&size=${sizeIdx}&image=${encodeURIComponent(pad.image)}${pad.sourcePdf ? `&sourcePdf=${encodeURIComponent(pad.sourcePdf)}` : ""}`)}
               className="w-full bg-primary text-primary-foreground font-bold py-4 rounded-xl text-lg hover:scale-[1.02] transition-transform neon-box animate-pulse-glow"
             >
               🚀 זה שלי! להשלמת ההזמנה

@@ -180,7 +180,7 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-5", title: "Hexagon Grid", image: design18, category: "cyber" },
   
   { id: "cyber-7", title: "Neon Scorpion", image: cyberScorpion, category: "cyber" },
-  { id: "cyber-8", title: "Red Blaze", image: cyberRedBlaze, category: "cyber" },
+  { id: "cyber-8", title: "Red Blaze", image: cyberRedBlaze, category: "cyber", sourcePdf: cyberRedBlazePdf },
   
   // Abstract
   { id: "abs-1", title: "Dark Flower", image: design3, category: "abstract" },
