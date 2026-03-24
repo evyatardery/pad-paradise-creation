@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Package, Shield, CreditCard, MessageCircle, FlaskConical } from "lucide-react";
+import { ArrowRight, Package, Shield, CreditCard, MessageCircle, FlaskConical, AlertTriangle } from "lucide-react";
 import { sizes } from "@/data/catalog";
 import { z } from "zod";
 import { processOrder } from "@/utils/orderService";
+import { preflightCheck, type PreflightResult } from "@/utils/printFileGenerator";
 import { toast } from "sonner";
 
 const checkoutSchema = z.object({
