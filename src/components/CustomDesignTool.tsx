@@ -202,7 +202,7 @@ const CustomDesignTool = () => {
 
         {/* Order */}
         <button
-          onClick={() => navigate(`/checkout?name=${encodeURIComponent("פד מותאם אישית")}&size=${sizeIdx}&custom=1`)}
+          onClick={() => navigate(`/checkout?name=${encodeURIComponent("פד מותאם אישית")}&size=${sizeIdx}&custom=1${image ? `&image=${encodeURIComponent(image)}` : ""}`)}
           className="w-full bg-primary text-primary-foreground font-bold py-4 rounded-xl text-lg hover:scale-[1.02] transition-transform neon-box animate-pulse-glow"
         >
           💳 לתשלום - ₪{sizes[sizeIdx].price}
