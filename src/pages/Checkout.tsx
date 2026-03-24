@@ -31,6 +31,15 @@ const Checkout = () => {
 
   const size = sizes[sizeIdx] || sizes[1];
   const [testLoading, setTestLoading] = useState(false);
+  const [preflight, setPreflight] = useState<PreflightResult | null>(null);
+
+  // Run preflight quality check when design image or size changes
+  useEffect(() => {
+    if (!designImage) return;
+    preflightCheck(designImage, size.label)
+      .then(setPreflight)
+      .catch(() => setPreflight(null));
+  }, [designImage, size.label]);
 
   const [form, setForm] = useState<CheckoutForm>({
     name: "",
