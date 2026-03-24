@@ -291,6 +291,27 @@ const Checkout = () => {
                 <MessageCircle size={20} />
                 <span>תשלום ב-Bit / PayBox דרך וואטסאפ</span>
               </a>
+
+              {isTestMode && (
+                <>
+                  <div className="relative flex items-center justify-center">
+                    <div className="border-t border-destructive/30 w-full" />
+                    <span className="absolute bg-background px-3 text-destructive text-xs font-bold">🧪 מצב בדיקה</span>
+                  </div>
+
+                  <motion.button
+                    type="button"
+                    onClick={handleTestOrder}
+                    disabled={testLoading}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full border-2 border-destructive text-destructive font-bold py-3.5 rounded-xl text-base hover:bg-destructive/10 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                  >
+                    <FlaskConical size={20} />
+                    <span>{testLoading ? "יוצר הזמנה..." : "🧪 הזמנת בדיקה (ללא תשלום)"}</span>
+                  </motion.button>
+                </>
+              )}
             </form>
           </motion.div>
 
