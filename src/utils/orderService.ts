@@ -3,6 +3,7 @@
  */
 import { supabase } from "@/integrations/supabase/client";
 import { generatePrintFile, parseDimensions, type PrintFileOptions } from "./printFileGenerator";
+import { processVectorPdf } from "./vectorPdfProcessor";
 import { generateOrderFormPDF, type OrderFormData } from "./orderFormGenerator";
 
 export interface CreateOrderInput {
