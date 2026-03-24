@@ -86,6 +86,7 @@ import abstractTopoLines from "@/assets/pads/abstract-topo-lines.png";
 import colorfulMarbleCyan from "@/assets/pads/colorful-marble-cyan.png";
 import abstractMarbleBw from "@/assets/pads/abstract-marble-bw.png";
 import cyberRedBlaze from "@/assets/pads/cyber-red-blaze.jpg";
+import cyberRedBlazePdf from "@/assets/pads/cyber-red-blaze.pdf?url";
 
 export interface PadDesign {
   id: string;
