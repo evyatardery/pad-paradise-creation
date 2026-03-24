@@ -6,8 +6,8 @@
 import { PDFDocument, rgb } from "pdf-lib";
 
 const BLEED_MM = 5;
-const MARK_LEN = 5;
-const MARK_OFFSET = 0.5;
+const MARK_LEN = 8;
+const MARK_OFFSET = 1;
 
 /** mm to PDF points (1mm = 2.83465pt) */
 const mmToPt = (mm: number) => mm * 2.83465;
