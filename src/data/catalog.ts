@@ -85,6 +85,7 @@ import darkGeoTriangles from "@/assets/pads/dark-geo-triangles.png";
 import abstractTopoLines from "@/assets/pads/abstract-topo-lines.png";
 import colorfulMarbleCyan from "@/assets/pads/colorful-marble-cyan.png";
 import abstractMarbleBw from "@/assets/pads/abstract-marble-bw.png";
+import cyberRedBlaze from "@/assets/pads/cyber-red-blaze.jpg";
 
 export interface PadDesign {
   id: string;
@@ -176,6 +177,7 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-5", title: "Hexagon Grid", image: design18, category: "cyber" },
   
   { id: "cyber-7", title: "Neon Scorpion", image: cyberScorpion, category: "cyber" },
+  { id: "cyber-8", title: "Red Blaze", image: cyberRedBlaze, category: "cyber" },
   
   // Abstract
   { id: "abs-1", title: "Dark Flower", image: design3, category: "abstract" },
