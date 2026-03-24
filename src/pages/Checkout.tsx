@@ -132,6 +132,7 @@ const Checkout = () => {
         quantity: 1,
         unitPrice: size.price,
         isCustomDesign: isCustom,
+        sourcePdfUrl: sourcePdf || undefined,
         paymentTransactionId: `TEST-${Date.now()}`,
       });
 
