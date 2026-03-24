@@ -35,8 +35,15 @@ function drawCropMarks(
 ) {
   const len = mmToPt(MARK_LEN);
   const off = mmToPt(MARK_OFFSET);
-  const thickness = 0.5;
+  const thickness = 1.5;
   const color = rgb(0, 0, 0);
+  const white = rgb(1, 1, 1);
+
+  // Draw white outline first for contrast, then black on top
+  const drawMark = (x1: number, y1: number, x2: number, y2: number) => {
+    page.drawLine({ start: { x: x1, y: y1 }, end: { x: x2, y: y2 }, thickness: thickness + 1.5, color: white });
+    page.drawLine({ start: { x: x1, y: y1 }, end: { x: x2, y: y2 }, thickness, color });
+  };
 
   // Top-left
   page.drawLine({ start: { x: trimL - off - len, y: trimT }, end: { x: trimL - off, y: trimT }, thickness, color });
