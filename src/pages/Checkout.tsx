@@ -94,6 +94,56 @@ const Checkout = () => {
     navigate("/order-success");
   };
 
+  const handleTestOrder = async () => {
+    const result = checkoutSchema.safeParse(form);
+    if (!result.success) {
+      const fieldErrors: Partial<Record<keyof CheckoutForm, string>> = {};
+      result.error.issues.forEach((err) => {
+        const field = err.path[0] as keyof CheckoutForm;
+        if (!fieldErrors[field]) fieldErrors[field] = err.message;
+      });
+      setErrors(fieldErrors);
+      setTouched({ name: true, phone: true, email: true, address: true, city: true });
+      return;
+    }
+
+    setTestLoading(true);
+    try {
+      const orderResult = await processOrder({
+        customerName: result.data.name,
+        customerEmail: result.data.email || undefined,
+        customerPhone: result.data.phone,
+        shippingAddress: `${result.data.address}, ${result.data.city}`,
+        designId: designId || undefined,
+        designName,
+        designImageSrc: designImage || "/placeholder.svg",
+        dimensionLabel: size.label,
+        quantity: 1,
+        unitPrice: size.price,
+        isCustomDesign: isCustom,
+        paymentTransactionId: `TEST-${Date.now()}`,
+      });
+
+      toast.success(`הזמנת בדיקה נוצרה! ${orderResult.orderNumber}`);
+      sessionStorage.setItem("checkout_data", JSON.stringify({
+        ...result.data,
+        designId,
+        designName,
+        sizeIdx,
+        sizeLabel: size.label,
+        price: size.price,
+        isCustom,
+      }));
+      sessionStorage.setItem("last_order_id", orderResult.orderId);
+      sessionStorage.setItem("last_order_number", orderResult.orderNumber);
+      navigate("/order-success");
+    } catch (err: any) {
+      toast.error(`שגיאה ביצירת הזמנה: ${err.message}`);
+    } finally {
+      setTestLoading(false);
+    }
+  };
+
   const inputClass = (field: keyof CheckoutForm) =>
     `w-full bg-input text-card-foreground rounded-xl px-4 py-3.5 outline-none transition-all border-2 ${
       errors[field] && touched[field]
