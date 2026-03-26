@@ -87,6 +87,7 @@ import colorfulMarbleCyan from "@/assets/pads/colorful-marble-cyan.png";
 import abstractMarbleBw from "@/assets/pads/abstract-marble-bw.png";
 import abstractWireframe from "@/assets/pads/abstract-wireframe.jpg";
 import abstractPattern from "@/assets/pads/abstract-pattern.jpg";
+import abstractPatternPdf from "@/assets/pads/abstract-pattern.pdf?url";
 import cyberRedBlaze from "@/assets/pads/cyber-red-blaze.jpg";
 import cyberRedBlazePdf from "@/assets/pads/cyber-red-blaze.pdf?url";
 
@@ -266,7 +267,7 @@ export const padDesigns: PadDesign[] = [
   { id: "abs-10", title: "Topo Lines", image: abstractTopoLines, category: "abstract" },
   { id: "abs-11", title: "Marble B&W", image: abstractMarbleBw, category: "abstract" },
   { id: "abs-12", title: "Wireframe Tech", image: abstractWireframe, category: "abstract" },
-  { id: "abs-13", title: "Organic Pattern", image: abstractPattern, category: "abstract" },
+  { id: "abs-13", title: "Organic Pattern", image: abstractPattern, category: "abstract", sourcePdf: abstractPatternPdf },
 
   // Colorful (continued)
   { id: "abs-12", title: "Marble Cyan", image: colorfulMarbleCyan, category: "abstract" },
