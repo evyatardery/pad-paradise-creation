@@ -87,6 +87,7 @@ import colorfulMarbleCyan from "@/assets/pads/colorful-marble-cyan.png";
 import abstractMarbleBw from "@/assets/pads/abstract-marble-bw.png";
 import abstractWireframe from "@/assets/pads/abstract-wireframe.jpg";
 import abstractPattern from "@/assets/pads/abstract-pattern.jpg";
+import abstractPatternPdf from "@/assets/pads/abstract-pattern.pdf?url";
 import cyberRedBlaze from "@/assets/pads/cyber-red-blaze.jpg";
 import cyberRedBlazePdf from "@/assets/pads/cyber-red-blaze.pdf?url";
 
