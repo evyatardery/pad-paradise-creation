@@ -93,6 +93,28 @@ import cyberRedBlazePdf from "@/assets/pads/cyber-red-blaze.pdf?url";
 import abstractDots from "@/assets/pads/abstract-dots.jpg";
 import abstractDotsPdf from "@/assets/pads/abstract-dots.pdf?url";
 
+// New EPS batch
+import sportMessiArgentina from "@/assets/pads/sport-messi-argentina.jpg";
+import sportMessiArgentinaPdf from "@/assets/pads/sport-messi-argentina.pdf?url";
+import animeCosmicGirl from "@/assets/pads/anime-cosmic-girl.jpg";
+import animeCosmicGirlPdf from "@/assets/pads/anime-cosmic-girl.pdf?url";
+import colorfulTealFigure from "@/assets/pads/colorful-teal-figure.jpg";
+import colorfulTealFigurePdf from "@/assets/pads/colorful-teal-figure.pdf?url";
+import abstractHalftoneSwirl from "@/assets/pads/abstract-halftone-swirl.jpg";
+import abstractHalftoneSwirlPdf from "@/assets/pads/abstract-halftone-swirl.pdf?url";
+import abstractHalftoneWave from "@/assets/pads/abstract-halftone-wave.jpg";
+import abstractHalftoneWavePdf from "@/assets/pads/abstract-halftone-wave.pdf?url";
+import darkInkBrush from "@/assets/pads/dark-ink-brush.jpg";
+import darkInkBrushPdf from "@/assets/pads/dark-ink-brush.pdf?url";
+import gameAstroGamer from "@/assets/pads/game-astro-gamer.jpg";
+import gameAstroGamerPdf from "@/assets/pads/game-astro-gamer.pdf?url";
+import gamePsNeonIcons from "@/assets/pads/game-ps-neon-icons.jpg";
+import gamePsNeonIconsPdf from "@/assets/pads/game-ps-neon-icons.pdf?url";
+import cyberNeonLines from "@/assets/pads/cyber-neon-lines.jpg";
+import cyberNeonLinesPdf from "@/assets/pads/cyber-neon-lines.pdf?url";
+import gameGamerText from "@/assets/pads/game-gamer-text.jpg";
+import gameGamerTextPdf from "@/assets/pads/game-gamer-text.pdf?url";
+
 export interface PadDesign {
   id: string;
   title: string;
