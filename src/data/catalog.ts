@@ -90,6 +90,8 @@ import abstractPattern from "@/assets/pads/abstract-pattern.jpg";
 import abstractPatternPdf from "@/assets/pads/abstract-pattern.pdf?url";
 import cyberRedBlaze from "@/assets/pads/cyber-red-blaze.jpg";
 import cyberRedBlazePdf from "@/assets/pads/cyber-red-blaze.pdf?url";
+import abstractDots from "@/assets/pads/abstract-dots.jpg";
+import abstractDotsPdf from "@/assets/pads/abstract-dots.pdf?url";
 
 export interface PadDesign {
   id: string;
@@ -268,6 +270,7 @@ export const padDesigns: PadDesign[] = [
   { id: "abs-11", title: "Marble B&W", image: abstractMarbleBw, category: "abstract" },
   { id: "abs-12", title: "Wireframe Tech", image: abstractWireframe, category: "abstract" },
   { id: "abs-13", title: "Organic Pattern", image: abstractPattern, category: "abstract", sourcePdf: abstractPatternPdf },
+  { id: "abs-14", title: "Abstract Dots", image: abstractDots, category: "abstract", sourcePdf: abstractDotsPdf },
 
   // Colorful (continued)
   { id: "abs-12", title: "Marble Cyan", image: colorfulMarbleCyan, category: "abstract" },
