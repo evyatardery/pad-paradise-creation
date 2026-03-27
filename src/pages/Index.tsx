@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import ShopSection from "@/components/ShopSection";
 import CustomDesignTool from "@/components/CustomDesignTool";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Footer from "@/components/Footer";
 
 type Section = "hero" | "shop" | "custom";
 
@@ -40,6 +41,7 @@ const Index = () => {
         {section === "custom" && <CustomDesignTool />}
       </div>
 
+      <Footer />
       <WhatsAppButton />
     </div>
   );
