@@ -270,6 +270,7 @@ export const padDesigns: PadDesign[] = [
   { id: "abs-11", title: "Marble B&W", image: abstractMarbleBw, category: "abstract" },
   { id: "abs-12", title: "Wireframe Tech", image: abstractWireframe, category: "abstract" },
   { id: "abs-13", title: "Organic Pattern", image: abstractPattern, category: "abstract", sourcePdf: abstractPatternPdf },
+  { id: "abs-14", title: "Abstract Dots", image: abstractDots, category: "abstract", sourcePdf: abstractDotsPdf },
 
   // Colorful (continued)
   { id: "abs-12", title: "Marble Cyan", image: colorfulMarbleCyan, category: "abstract" },
