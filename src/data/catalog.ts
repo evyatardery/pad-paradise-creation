@@ -186,6 +186,11 @@ export const padDesigns: PadDesign[] = [
 
   // Sport
   { id: "sport-1", title: "Messi Argentina", image: sportMessiArgentina, category: "sport", sourcePdf: sportMessiArgentinaPdf },
+
+  // New batch 5
+  { id: "abs-6", title: "Marble Flow", image: abstractMarbleFlow, category: "abstract", sourcePdf: abstractMarbleFlowPdf },
+  { id: "dark-7", title: "Dark Polygon", image: darkPolygon, category: "dark", sourcePdf: darkPolygonPdf },
+  { id: "col-3", title: "Orchid Bloom", image: colorfulOrchid, category: "colorful", sourcePdf: colorfulOrchidPdf },
 ];
 
 export const sizes = [
