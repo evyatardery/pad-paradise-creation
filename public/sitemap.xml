@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- דף ראשי -->
+  <url>
+    <loc>https://pad-paradise-creation.lovable.app/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- חנות / קטגוריות -->
+  <!-- סייבר וטכנולוגיה -->
+  <url>
+    <loc>https://pad-paradise-creation.lovable.app/?category=cyber</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- מופשט -->
+  <url>
+    <loc>https://pad-paradise-creation.lovable.app/?category=abstract</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- צבעוני -->
+  <url>
+    <loc>https://pad-paradise-creation.lovable.app/?category=colorful</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- כהה ומינימלי -->
+  <url>
+    <loc>https://pad-paradise-creation.lovable.app/?category=dark</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- גיימינג -->
+  <url>
+    <loc>https://pad-paradise-creation.lovable.app/?category=gaming</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- אנימה -->
+  <url>
+    <loc>https://pad-paradise-creation.lovable.app/?category=anime</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- ספורט -->
+  <url>
+    <loc>https://pad-paradise-creation.lovable.app/?category=sport</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- עיצוב מותאם אישית -->
+  <url>
+    <loc>https://pad-paradise-creation.lovable.app/?section=custom</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- תהליך הזמנה -->
+  <url>
+    <loc>https://pad-paradise-creation.lovable.app/checkout</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>
