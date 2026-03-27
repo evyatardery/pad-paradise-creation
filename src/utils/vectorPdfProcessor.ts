@@ -4,10 +4,13 @@
  * Uses pdf-lib to preserve vector quality (no rasterization).
  */
 import { PDFDocument, rgb } from "pdf-lib";
+import padzoneLogoUrl from "@/assets/padzone-logo.png";
 
 const BLEED_MM = 5;
 const MARK_LEN = 8;
 const MARK_OFFSET = 1;
+const LOGO_WIDTH_MM = 25; // Logo width on the pad
+const LOGO_MARGIN_MM = 25; // 2.5cm from bottom-left corner
 
 /** mm to PDF points (1mm = 2.83465pt) */
 const mmToPt = (mm: number) => mm * 2.83465;
@@ -121,6 +124,29 @@ export async function processVectorPdf(options: VectorPrintOptions): Promise<Vec
 
   // Draw vector crop marks
   drawCropMarks(page, trimL, trimT, trimR, trimB);
+
+  // Embed transparent logo PNG at bottom-LEFT of trim box
+  const logoResponse = await fetch(padzoneLogoUrl);
+  if (logoResponse.ok) {
+    const logoBytes = await logoResponse.arrayBuffer();
+    const logoImage = await outputPdf.embedPng(logoBytes);
+
+    const logoWidthPt = mmToPt(LOGO_WIDTH_MM);
+    const logoAspect = logoImage.height / logoImage.width;
+    const logoHeightPt = logoWidthPt * logoAspect;
+    const logoMarginPt = mmToPt(LOGO_MARGIN_MM);
+
+    // Position: bottom-left of trim box, 2.5cm from corner edges
+    const logoX = trimL + logoMarginPt;
+    const logoY = trimB + logoMarginPt;
+
+    page.drawImage(logoImage, {
+      x: logoX,
+      y: logoY,
+      width: logoWidthPt,
+      height: logoHeightPt,
+    });
+  }
 
   // Save without compression
   const outputBytes = await outputPdf.save();
