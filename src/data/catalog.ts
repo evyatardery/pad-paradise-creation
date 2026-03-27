@@ -68,6 +68,14 @@ import animeCosmicGirlPdf from "@/assets/pads/anime-cosmic-girl.pdf?url";
 import sportMessiArgentina from "@/assets/pads/sport-messi-argentina.jpg";
 import sportMessiArgentinaPdf from "@/assets/pads/sport-messi-argentina.pdf?url";
 
+// New batch 5
+import abstractMarbleFlow from "@/assets/pads/abstract-marble-flow.jpg";
+import abstractMarbleFlowPdf from "@/assets/pads/abstract-marble-flow.pdf?url";
+import darkPolygon from "@/assets/pads/dark-polygon.jpg";
+import darkPolygonPdf from "@/assets/pads/dark-polygon.pdf?url";
+import colorfulOrchid from "@/assets/pads/colorful-orchid.jpg";
+import colorfulOrchidPdf from "@/assets/pads/colorful-orchid.pdf?url";
+
 export interface PadDesign {
   id: string;
   title: string;
@@ -178,6 +186,11 @@ export const padDesigns: PadDesign[] = [
 
   // Sport
   { id: "sport-1", title: "Messi Argentina", image: sportMessiArgentina, category: "sport", sourcePdf: sportMessiArgentinaPdf },
+
+  // New batch 5
+  { id: "abs-6", title: "Marble Flow", image: abstractMarbleFlow, category: "abstract", sourcePdf: abstractMarbleFlowPdf },
+  { id: "dark-7", title: "Dark Polygon", image: darkPolygon, category: "dark", sourcePdf: darkPolygonPdf },
+  { id: "col-3", title: "Orchid Bloom", image: colorfulOrchid, category: "colorful", sourcePdf: colorfulOrchidPdf },
 ];
 
 export const sizes = [
