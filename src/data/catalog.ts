@@ -304,6 +304,18 @@ export const padDesigns: PadDesign[] = [
   { id: "sport-4", title: "Messi Dark", image: sportMessi2, category: "sport" },
   { id: "sport-5", title: "Neymar Gold", image: sportNeymar, category: "sport" },
   { id: "sport-6", title: "Kobe Legend", image: sportKobe, category: "sport" },
+  { id: "sport-7", title: "Messi Argentina", image: sportMessiArgentina, category: "sport", sourcePdf: sportMessiArgentinaPdf },
+
+  // New EPS designs
+  { id: "anime-22", title: "Cosmic Girl", image: animeCosmicGirl, category: "anime", sourcePdf: animeCosmicGirlPdf },
+  { id: "col-7", title: "Teal Figure", image: colorfulTealFigure, category: "colorful", sourcePdf: colorfulTealFigurePdf },
+  { id: "abs-15", title: "Halftone Swirl", image: abstractHalftoneSwirl, category: "abstract", sourcePdf: abstractHalftoneSwirlPdf },
+  { id: "abs-16", title: "Halftone Wave", image: abstractHalftoneWave, category: "abstract", sourcePdf: abstractHalftoneWavePdf },
+  { id: "dark-19", title: "Ink Brush", image: darkInkBrush, category: "dark", sourcePdf: darkInkBrushPdf },
+  { id: "game-19", title: "Astro Gamer", image: gameAstroGamer, category: "gaming", sourcePdf: gameAstroGamerPdf },
+  { id: "game-20", title: "PS Neon Icons V2", image: gamePsNeonIcons, category: "gaming", sourcePdf: gamePsNeonIconsPdf },
+  { id: "cyber-9", title: "Neon Lines", image: cyberNeonLines, category: "cyber", sourcePdf: cyberNeonLinesPdf },
+  { id: "game-21", title: "Gamer Text", image: gameGamerText, category: "gaming", sourcePdf: gameGamerTextPdf },
 ];
 
 export const sizes = [
