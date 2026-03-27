@@ -139,6 +139,12 @@ import cyberLightTrails from "@/assets/pads/cyber-light-trails.jpg";
 import cyberLightTrailsPdf from "@/assets/pads/cyber-light-trails.pdf?url";
 import cyberSpeedometer from "@/assets/pads/cyber-speedometer.jpg";
 import cyberSpeedometerPdf from "@/assets/pads/cyber-speedometer.pdf?url";
+import darkHexGold from "@/assets/pads/dark-hex-gold.jpg";
+import darkHexGoldPdf from "@/assets/pads/dark-hex-gold.pdf?url";
+import cyberNeonDoors from "@/assets/pads/cyber-neon-doors.jpg";
+import cyberNeonDoorsPdf from "@/assets/pads/cyber-neon-doors.pdf?url";
+import darkRedFrame from "@/assets/pads/dark-red-frame.jpg";
+import darkRedFramePdf from "@/assets/pads/dark-red-frame.pdf?url";
 
 export interface PadDesign {
   id: string;
