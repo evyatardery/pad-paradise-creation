@@ -122,6 +122,24 @@ import colorfulPixelEye from "@/assets/pads/colorful-pixel-eye.jpg";
 import colorfulPixelEyePdf from "@/assets/pads/colorful-pixel-eye.pdf?url";
 import cyberNeonArrow from "@/assets/pads/cyber-neon-arrow.jpg";
 
+// New batch 3
+import darkHalloween from "@/assets/pads/dark-halloween.jpg";
+import darkHalloweenPdf from "@/assets/pads/dark-halloween.pdf?url";
+import darkHauntedForest from "@/assets/pads/dark-haunted-forest.jpg";
+import darkHauntedForestPdf from "@/assets/pads/dark-haunted-forest.pdf?url";
+import darkMoonlitTree from "@/assets/pads/dark-moonlit-tree.jpg";
+import darkMoonlitTreePdf from "@/assets/pads/dark-moonlit-tree.pdf?url";
+import abstractDarkLiquid from "@/assets/pads/abstract-dark-liquid.jpg";
+import abstractDarkLiquidPdf from "@/assets/pads/abstract-dark-liquid.pdf?url";
+import gameNeonSupercar from "@/assets/pads/game-neon-supercar.jpg";
+import gameNeonSupercarPdf from "@/assets/pads/game-neon-supercar.pdf?url";
+import gameFlameWheel from "@/assets/pads/game-flame-wheel.jpg";
+import gameFlameWheelPdf from "@/assets/pads/game-flame-wheel.pdf?url";
+import cyberLightTrails from "@/assets/pads/cyber-light-trails.jpg";
+import cyberLightTrailsPdf from "@/assets/pads/cyber-light-trails.pdf?url";
+import cyberSpeedometer from "@/assets/pads/cyber-speedometer.jpg";
+import cyberSpeedometerPdf from "@/assets/pads/cyber-speedometer.pdf?url";
+
 export interface PadDesign {
   id: string;
   title: string;
@@ -302,7 +320,7 @@ export const padDesigns: PadDesign[] = [
   { id: "abs-14", title: "Abstract Dots", image: abstractDots, category: "abstract", sourcePdf: abstractDotsPdf },
 
   // Colorful (continued)
-  { id: "abs-12", title: "Marble Cyan", image: colorfulMarbleCyan, category: "abstract" },
+  { id: "col-9", title: "Marble Cyan", image: colorfulMarbleCyan, category: "colorful" },
 
   // Sport
   { id: "sport-1", title: "Ronaldo Fire", image: sportRonaldo1, category: "sport" },
@@ -327,6 +345,16 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-11", title: "Hex Neon Grid", image: cyberHexNeon, category: "cyber", sourcePdf: cyberHexNeonPdf },
   { id: "col-8", title: "Pixel Eye", image: colorfulPixelEye, category: "colorful", sourcePdf: colorfulPixelEyePdf },
   { id: "cyber-12", title: "Neon Arrow", image: cyberNeonArrow, category: "cyber" },
+
+  // New batch 3
+  { id: "dark-20", title: "Halloween Night", image: darkHalloween, category: "dark", sourcePdf: darkHalloweenPdf },
+  { id: "dark-21", title: "Haunted Forest", image: darkHauntedForest, category: "dark", sourcePdf: darkHauntedForestPdf },
+  { id: "dark-22", title: "Moonlit Tree", image: darkMoonlitTree, category: "dark", sourcePdf: darkMoonlitTreePdf },
+  { id: "abs-17", title: "Dark Liquid", image: abstractDarkLiquid, category: "abstract", sourcePdf: abstractDarkLiquidPdf },
+  { id: "game-22", title: "Neon Supercar", image: gameNeonSupercar, category: "gaming", sourcePdf: gameNeonSupercarPdf },
+  { id: "game-23", title: "Flame Wheel", image: gameFlameWheel, category: "gaming", sourcePdf: gameFlameWheelPdf },
+  { id: "cyber-13", title: "Light Trails", image: cyberLightTrails, category: "cyber", sourcePdf: cyberLightTrailsPdf },
+  { id: "cyber-14", title: "Speedometer", image: cyberSpeedometer, category: "cyber", sourcePdf: cyberSpeedometerPdf },
 ];
 
 export const sizes = [
