@@ -114,6 +114,12 @@ import cyberNeonLines from "@/assets/pads/cyber-neon-lines.jpg";
 import cyberNeonLinesPdf from "@/assets/pads/cyber-neon-lines.pdf?url";
 import gameGamerText from "@/assets/pads/game-gamer-text.jpg";
 import gameGamerTextPdf from "@/assets/pads/game-gamer-text.pdf?url";
+import cyberHexRainbow from "@/assets/pads/cyber-hex-rainbow.jpg";
+import cyberHexRainbowPdf from "@/assets/pads/cyber-hex-rainbow.pdf?url";
+import cyberHexNeon from "@/assets/pads/cyber-hex-neon.jpg";
+import cyberHexNeonPdf from "@/assets/pads/cyber-hex-neon.pdf?url";
+import colorfulPixelEye from "@/assets/pads/colorful-pixel-eye.jpg";
+import colorfulPixelEyePdf from "@/assets/pads/colorful-pixel-eye.pdf?url";
 
 export interface PadDesign {
   id: string;
@@ -316,6 +322,9 @@ export const padDesigns: PadDesign[] = [
   { id: "game-20", title: "PS Neon Icons V2", image: gamePsNeonIcons, category: "gaming", sourcePdf: gamePsNeonIconsPdf },
   { id: "cyber-9", title: "Neon Lines", image: cyberNeonLines, category: "cyber", sourcePdf: cyberNeonLinesPdf },
   { id: "game-21", title: "Gamer Text", image: gameGamerText, category: "gaming", sourcePdf: gameGamerTextPdf },
+  { id: "cyber-10", title: "Hex Rainbow", image: cyberHexRainbow, category: "cyber", sourcePdf: cyberHexRainbowPdf },
+  { id: "cyber-11", title: "Hex Neon Grid", image: cyberHexNeon, category: "cyber", sourcePdf: cyberHexNeonPdf },
+  { id: "col-8", title: "Pixel Eye", image: colorfulPixelEye, category: "colorful", sourcePdf: colorfulPixelEyePdf },
 ];
 
 export const sizes = [
