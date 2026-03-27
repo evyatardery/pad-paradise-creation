@@ -120,6 +120,7 @@ import cyberHexNeon from "@/assets/pads/cyber-hex-neon.jpg";
 import cyberHexNeonPdf from "@/assets/pads/cyber-hex-neon.pdf?url";
 import colorfulPixelEye from "@/assets/pads/colorful-pixel-eye.jpg";
 import colorfulPixelEyePdf from "@/assets/pads/colorful-pixel-eye.pdf?url";
+import cyberNeonArrow from "@/assets/pads/cyber-neon-arrow.jpg";
 
 export interface PadDesign {
   id: string;
