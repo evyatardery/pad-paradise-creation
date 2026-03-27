@@ -4,10 +4,13 @@
  * Uses pdf-lib to preserve vector quality (no rasterization).
  */
 import { PDFDocument, rgb } from "pdf-lib";
+import padzoneLogoUrl from "@/assets/padzone-logo.png";
 
 const BLEED_MM = 5;
 const MARK_LEN = 8;
 const MARK_OFFSET = 1;
+const LOGO_WIDTH_MM = 25; // Logo width on the pad
+const LOGO_MARGIN_MM = 25; // 2.5cm from bottom-left corner
 
 /** mm to PDF points (1mm = 2.83465pt) */
 const mmToPt = (mm: number) => mm * 2.83465;
