@@ -35,20 +35,14 @@ const Checkout = () => {
   const [testLoading, setTestLoading] = useState(false);
   const [preflight, setPreflight] = useState<PreflightResult | null>(null);
 
-  // Run preflight quality check — skip for vector PDFs (always perfect quality)
+  // Run preflight quality check — for PDFs, analyze actual content quality
   useEffect(() => {
     if (!designImage) return;
     if (sourcePdf) {
-      // Vector PDF source = perfect quality, no check needed
-      setPreflight({
-        ok: true,
-        imageWidth: 0,
-        imageHeight: 0,
-        requiredWidth: 0,
-        requiredHeight: 0,
-        dpi: 300,
-        warning: undefined,
-      } as PreflightResult);
+      // Smart PDF check: analyze embedded image resolution inside the PDF
+      checkPdfQuality(sourcePdf, size.label)
+        .then(setPreflight)
+        .catch(() => setPreflight(null));
       return;
     }
     preflightCheck(designImage, size.label)
