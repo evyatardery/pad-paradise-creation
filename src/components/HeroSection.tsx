@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import heroBg from "@/assets/hero-bg.jpg";
+import { padDesigns } from "@/data/catalog";
 
 interface HeroSectionProps {
   onNavigate: (section: "shop" | "custom") => void;
