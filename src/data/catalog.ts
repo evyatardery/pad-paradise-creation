@@ -120,6 +120,7 @@ import cyberHexNeon from "@/assets/pads/cyber-hex-neon.jpg";
 import cyberHexNeonPdf from "@/assets/pads/cyber-hex-neon.pdf?url";
 import colorfulPixelEye from "@/assets/pads/colorful-pixel-eye.jpg";
 import colorfulPixelEyePdf from "@/assets/pads/colorful-pixel-eye.pdf?url";
+import cyberNeonArrow from "@/assets/pads/cyber-neon-arrow.jpg";
 
 export interface PadDesign {
   id: string;
@@ -325,6 +326,7 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-10", title: "Hex Rainbow", image: cyberHexRainbow, category: "cyber", sourcePdf: cyberHexRainbowPdf },
   { id: "cyber-11", title: "Hex Neon Grid", image: cyberHexNeon, category: "cyber", sourcePdf: cyberHexNeonPdf },
   { id: "col-8", title: "Pixel Eye", image: colorfulPixelEye, category: "colorful", sourcePdf: colorfulPixelEyePdf },
+  { id: "cyber-12", title: "Neon Arrow", image: cyberNeonArrow, category: "cyber" },
 ];
 
 export const sizes = [
