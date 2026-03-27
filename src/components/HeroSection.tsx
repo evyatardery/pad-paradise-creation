@@ -21,20 +21,20 @@ const HeroSection = ({ onNavigate }: HeroSectionProps) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
         >
-          <h1 className="text-7xl md:text-9xl font-black text-primary neon-text-strong mb-2 tracking-widest">
+          <span className="text-7xl md:text-9xl font-black text-primary neon-text-strong mb-2 tracking-widest block" aria-hidden="true">
             PADZONE
-          </h1>
+          </span>
           <div className="h-1 w-32 mx-auto bg-primary rounded-full mb-6 neon-box" />
         </motion.div>
 
-        <motion.h2
+        <motion.h1
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
           className="text-2xl md:text-3xl text-card-foreground font-bold mb-3"
         >
           משטחי עכבר פרימיום שמשדרגים כל עמדה
-        </motion.h2>
+        </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
