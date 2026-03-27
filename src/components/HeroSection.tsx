@@ -11,7 +11,7 @@ const HeroSection = ({ onNavigate }: HeroSectionProps) => {
     <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
       {/* Full hero background */}
       <div className="absolute inset-0">
-        <img src={heroBg} alt="" className="w-full h-full object-cover" />
+        <img src={heroBg} alt="רקע משטחי עכבר PadZone לגיימרים" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
       </div>
 
@@ -27,14 +27,14 @@ const HeroSection = ({ onNavigate }: HeroSectionProps) => {
           <div className="h-1 w-32 mx-auto bg-primary rounded-full mb-6 neon-box" />
         </motion.div>
 
-        <motion.p
+        <motion.h2
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
           className="text-2xl md:text-3xl text-card-foreground font-bold mb-3"
         >
-          פדים לגיימרים אמיתיים
-        </motion.p>
+          משטחי עכבר פרימיום שמשדרגים כל עמדה
+        </motion.h2>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
