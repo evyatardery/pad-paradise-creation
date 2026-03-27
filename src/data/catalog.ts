@@ -150,7 +150,7 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-3", title: "Hex Rainbow", image: cyberHexRainbow, category: "cyber", sourcePdf: cyberHexRainbowPdf },
   { id: "cyber-4", title: "Hex Neon Grid", image: cyberHexNeon, category: "cyber", sourcePdf: cyberHexNeonPdf },
   { id: "cyber-5", title: "Light Trails", image: cyberLightTrails, category: "cyber", sourcePdf: cyberLightTrailsPdf },
-  { id: "cyber-6", title: "Speedometer", image: cyberSpeedometer, category: "cyber", sourcePdf: cyberSpeedometerPdf },
+  
   { id: "cyber-7", title: "Neon Doors", image: cyberNeonDoors, category: "cyber", sourcePdf: cyberNeonDoorsPdf },
 
   // Abstract
@@ -166,8 +166,6 @@ export const padDesigns: PadDesign[] = [
 
   // Dark
   { id: "dark-1", title: "Ink Brush", image: darkInkBrush, category: "dark", sourcePdf: darkInkBrushPdf },
-  { id: "dark-2", title: "Halloween Night", image: darkHalloween, category: "dark", sourcePdf: darkHalloweenPdf },
-  { id: "dark-3", title: "Haunted Forest", image: darkHauntedForest, category: "dark", sourcePdf: darkHauntedForestPdf },
   { id: "dark-4", title: "Moonlit Tree", image: darkMoonlitTree, category: "dark", sourcePdf: darkMoonlitTreePdf },
   { id: "dark-5", title: "Hex Gold", image: darkHexGold, category: "dark", sourcePdf: darkHexGoldPdf },
   { id: "dark-6", title: "Red Frame", image: darkRedFrame, category: "dark", sourcePdf: darkRedFramePdf },
@@ -188,7 +186,7 @@ export const padDesigns: PadDesign[] = [
   // New batch 5
   { id: "abs-6", title: "Marble Flow", image: abstractMarbleFlow, category: "abstract", sourcePdf: abstractMarbleFlowPdf },
   { id: "dark-7", title: "Dark Polygon", image: darkPolygon, category: "dark", sourcePdf: darkPolygonPdf },
-  { id: "col-3", title: "Orchid Bloom", image: colorfulOrchid, category: "colorful", sourcePdf: colorfulOrchidPdf },
+  
 ];
 
 export const sizes = [
