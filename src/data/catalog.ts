@@ -23,8 +23,7 @@ import cyberHexNeon from "@/assets/pads/cyber-hex-neon.jpg";
 import cyberHexNeonPdf from "@/assets/pads/cyber-hex-neon.pdf?url";
 import cyberLightTrails from "@/assets/pads/cyber-light-trails.jpg";
 import cyberLightTrailsPdf from "@/assets/pads/cyber-light-trails.pdf?url";
-import cyberSpeedometer from "@/assets/pads/cyber-speedometer.jpg";
-import cyberSpeedometerPdf from "@/assets/pads/cyber-speedometer.pdf?url";
+// cyber-speedometer removed — low-resolution raster source
 import cyberNeonDoors from "@/assets/pads/cyber-neon-doors.jpg";
 import cyberNeonDoorsPdf from "@/assets/pads/cyber-neon-doors.pdf?url";
 
@@ -33,14 +32,13 @@ import colorfulTealFigure from "@/assets/pads/colorful-teal-figure.jpg";
 import colorfulTealFigurePdf from "@/assets/pads/colorful-teal-figure.pdf?url";
 import colorfulPixelEye from "@/assets/pads/colorful-pixel-eye.jpg";
 import colorfulPixelEyePdf from "@/assets/pads/colorful-pixel-eye.pdf?url";
+// colorful-orchid removed — low-resolution raster source
 
 // Dark
 import darkInkBrush from "@/assets/pads/dark-ink-brush.jpg";
 import darkInkBrushPdf from "@/assets/pads/dark-ink-brush.pdf?url";
-import darkHalloween from "@/assets/pads/dark-halloween.jpg";
-import darkHalloweenPdf from "@/assets/pads/dark-halloween.pdf?url";
-import darkHauntedForest from "@/assets/pads/dark-haunted-forest.jpg";
-import darkHauntedForestPdf from "@/assets/pads/dark-haunted-forest.pdf?url";
+// dark-halloween removed — low-resolution raster source
+// dark-haunted-forest removed — low-resolution raster source
 import darkMoonlitTree from "@/assets/pads/dark-moonlit-tree.jpg";
 import darkMoonlitTreePdf from "@/assets/pads/dark-moonlit-tree.pdf?url";
 import darkHexGold from "@/assets/pads/dark-hex-gold.jpg";
