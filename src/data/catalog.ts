@@ -114,6 +114,12 @@ import cyberNeonLines from "@/assets/pads/cyber-neon-lines.jpg";
 import cyberNeonLinesPdf from "@/assets/pads/cyber-neon-lines.pdf?url";
 import gameGamerText from "@/assets/pads/game-gamer-text.jpg";
 import gameGamerTextPdf from "@/assets/pads/game-gamer-text.pdf?url";
+import cyberHexRainbow from "@/assets/pads/cyber-hex-rainbow.jpg";
+import cyberHexRainbowPdf from "@/assets/pads/cyber-hex-rainbow.pdf?url";
+import cyberHexNeon from "@/assets/pads/cyber-hex-neon.jpg";
+import cyberHexNeonPdf from "@/assets/pads/cyber-hex-neon.pdf?url";
+import colorfulPixelEye from "@/assets/pads/colorful-pixel-eye.jpg";
+import colorfulPixelEyePdf from "@/assets/pads/colorful-pixel-eye.pdf?url";
 
 export interface PadDesign {
   id: string;
