@@ -21,6 +21,10 @@ type CheckoutForm = z.infer<typeof checkoutSchema>;
 
 const Checkout = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "PADZONE – השלמת הזמנה";
+  }, []);
   const [searchParams] = useSearchParams();
 
   const designId = searchParams.get("design") || "";
