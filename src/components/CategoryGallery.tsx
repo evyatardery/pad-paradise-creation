@@ -46,7 +46,7 @@ const CategoryGallery = ({ categoryId, onBack }: Props) => {
             <div className="aspect-[16/10] overflow-hidden">
               <img
                 src={pad.image}
-                alt={pad.title}
+                alt={`משטח עכבר דגם ${pad.title} – PadZone`}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
             </div>

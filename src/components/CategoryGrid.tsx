@@ -8,8 +8,8 @@ interface Props {
 const CategoryGrid = ({ onSelect }: Props) => {
   return (
     <section className="py-16 px-6">
-      <h2 className="text-4xl font-bold text-primary neon-text text-center mb-2">הקולקציה שלנו</h2>
-      <p className="text-muted-foreground text-center mb-12 text-lg">בחר קטגוריה וגלה עיצובים מטורפים</p>
+      <h2 className="text-4xl font-bold text-primary neon-text text-center mb-2">קולקציית פדים לגיימינג</h2>
+      <p className="text-muted-foreground text-center mb-12 text-lg">עיצובים וקטוריים ייחודיים · איכות הדפסה ללא פשרות</p>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {categories.map((cat, i) => {
           const count = getDesignsByCategory(cat.id).length;
@@ -27,7 +27,7 @@ const CategoryGrid = ({ onSelect }: Props) => {
             >
               <img
                 src={cat.coverImage}
-                alt={cat.title}
+                alt={`קטגוריית משטחי עכבר ${cat.title} – PadZone`}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
