@@ -139,6 +139,12 @@ import cyberLightTrails from "@/assets/pads/cyber-light-trails.jpg";
 import cyberLightTrailsPdf from "@/assets/pads/cyber-light-trails.pdf?url";
 import cyberSpeedometer from "@/assets/pads/cyber-speedometer.jpg";
 import cyberSpeedometerPdf from "@/assets/pads/cyber-speedometer.pdf?url";
+import darkHexGold from "@/assets/pads/dark-hex-gold.jpg";
+import darkHexGoldPdf from "@/assets/pads/dark-hex-gold.pdf?url";
+import cyberNeonDoors from "@/assets/pads/cyber-neon-doors.jpg";
+import cyberNeonDoorsPdf from "@/assets/pads/cyber-neon-doors.pdf?url";
+import darkRedFrame from "@/assets/pads/dark-red-frame.jpg";
+import darkRedFramePdf from "@/assets/pads/dark-red-frame.pdf?url";
 
 export interface PadDesign {
   id: string;
@@ -355,6 +361,11 @@ export const padDesigns: PadDesign[] = [
   { id: "game-23", title: "Flame Wheel", image: gameFlameWheel, category: "gaming", sourcePdf: gameFlameWheelPdf },
   { id: "cyber-13", title: "Light Trails", image: cyberLightTrails, category: "cyber", sourcePdf: cyberLightTrailsPdf },
   { id: "cyber-14", title: "Speedometer", image: cyberSpeedometer, category: "cyber", sourcePdf: cyberSpeedometerPdf },
+
+  // New batch 4
+  { id: "dark-23", title: "Hex Gold", image: darkHexGold, category: "dark", sourcePdf: darkHexGoldPdf },
+  { id: "cyber-15", title: "Neon Doors", image: cyberNeonDoors, category: "cyber", sourcePdf: cyberNeonDoorsPdf },
+  { id: "dark-24", title: "Red Frame", image: darkRedFrame, category: "dark", sourcePdf: darkRedFramePdf },
 ];
 
 export const sizes = [
