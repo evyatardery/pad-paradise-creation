@@ -322,6 +322,9 @@ export const padDesigns: PadDesign[] = [
   { id: "game-20", title: "PS Neon Icons V2", image: gamePsNeonIcons, category: "gaming", sourcePdf: gamePsNeonIconsPdf },
   { id: "cyber-9", title: "Neon Lines", image: cyberNeonLines, category: "cyber", sourcePdf: cyberNeonLinesPdf },
   { id: "game-21", title: "Gamer Text", image: gameGamerText, category: "gaming", sourcePdf: gameGamerTextPdf },
+  { id: "cyber-10", title: "Hex Rainbow", image: cyberHexRainbow, category: "cyber", sourcePdf: cyberHexRainbowPdf },
+  { id: "cyber-11", title: "Hex Neon Grid", image: cyberHexNeon, category: "cyber", sourcePdf: cyberHexNeonPdf },
+  { id: "col-8", title: "Pixel Eye", image: colorfulPixelEye, category: "colorful", sourcePdf: colorfulPixelEyePdf },
 ];
 
 export const sizes = [
