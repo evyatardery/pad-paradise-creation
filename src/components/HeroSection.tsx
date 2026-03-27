@@ -52,15 +52,18 @@ const HeroSection = ({ onNavigate }: HeroSectionProps) => {
         >
           <button
             onClick={() => onNavigate("shop")}
-            className="px-10 py-4 bg-primary text-primary-foreground font-black rounded-xl text-lg hover:scale-105 transition-transform neon-box-strong"
+            className="relative px-10 py-4 bg-primary text-primary-foreground font-black rounded-xl text-lg hover:scale-105 transition-transform neon-box-strong"
           >
-            🕹️ חנות פדים
+            חנות פדים
+            <span className="absolute -top-3 -right-3 bg-accent text-accent-foreground text-xs font-black px-2.5 py-1 rounded-full shadow-lg border-2 border-background animate-pulse">
+              {padDesigns.length}
+            </span>
           </button>
           <button
             onClick={() => onNavigate("custom")}
             className="px-10 py-4 border-2 border-primary text-primary font-black rounded-xl text-lg hover:bg-primary hover:text-primary-foreground transition-all backdrop-blur-sm bg-background/30"
           >
-            ✨ עצב פד אישי
+            עצב פד אישי
           </button>
         </motion.div>
 
@@ -72,11 +75,11 @@ const HeroSection = ({ onNavigate }: HeroSectionProps) => {
           className="flex gap-8 justify-center mt-16 flex-wrap"
         >
           {[
-            { icon: "🔥", text: `${padDesigns.length} עיצובים` },
-            { icon: "💎", text: "איכות פרימיום" },
+            { text: "איכות פרימיום" },
+            { text: "הדפסת סובלימציה" },
           ].map((f, i) => (
             <div key={i} className="flex items-center gap-2 text-card-foreground/80">
-              <span className="text-2xl">{f.icon}</span>
+              <span className="w-2 h-2 rounded-full bg-primary" />
               <span className="font-semibold">{f.text}</span>
             </div>
           ))}
