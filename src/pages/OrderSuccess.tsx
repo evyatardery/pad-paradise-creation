@@ -8,6 +8,10 @@ type Status = "processing" | "success" | "error";
 
 const OrderSuccess = () => {
   const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    document.title = "PADZONE – ההזמנה התקבלה!";
+  }, []);
   const [status, setStatus] = useState<Status>("processing");
   const [orderNumber, setOrderNumber] = useState("");
   const [orderFormBlob, setOrderFormBlob] = useState<Blob | null>(null);
