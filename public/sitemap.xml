@@ -58,6 +58,13 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- אודות -->
+  <url>
+    <loc>https://pad-paradise-creation.lovable.app/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
   <!-- תהליך הזמנה -->
   <url>
     <loc>https://pad-paradise-creation.lovable.app/checkout</loc>
