@@ -71,8 +71,6 @@ import abstractMarbleFlow from "@/assets/pads/abstract-marble-flow.jpg";
 import abstractMarbleFlowPdf from "@/assets/pads/abstract-marble-flow.pdf?url";
 import darkPolygon from "@/assets/pads/dark-polygon.jpg";
 import darkPolygonPdf from "@/assets/pads/dark-polygon.pdf?url";
-import colorfulOrchid from "@/assets/pads/colorful-orchid.jpg";
-import colorfulOrchidPdf from "@/assets/pads/colorful-orchid.pdf?url";
 
 export interface PadDesign {
   id: string;
