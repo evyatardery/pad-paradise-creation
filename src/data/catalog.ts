@@ -345,6 +345,16 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-11", title: "Hex Neon Grid", image: cyberHexNeon, category: "cyber", sourcePdf: cyberHexNeonPdf },
   { id: "col-8", title: "Pixel Eye", image: colorfulPixelEye, category: "colorful", sourcePdf: colorfulPixelEyePdf },
   { id: "cyber-12", title: "Neon Arrow", image: cyberNeonArrow, category: "cyber" },
+
+  // New batch 3
+  { id: "dark-20", title: "Halloween Night", image: darkHalloween, category: "dark", sourcePdf: darkHalloweenPdf },
+  { id: "dark-21", title: "Haunted Forest", image: darkHauntedForest, category: "dark", sourcePdf: darkHauntedForestPdf },
+  { id: "dark-22", title: "Moonlit Tree", image: darkMoonlitTree, category: "dark", sourcePdf: darkMoonlitTreePdf },
+  { id: "abs-17", title: "Dark Liquid", image: abstractDarkLiquid, category: "abstract", sourcePdf: abstractDarkLiquidPdf },
+  { id: "game-22", title: "Neon Supercar", image: gameNeonSupercar, category: "gaming", sourcePdf: gameNeonSupercarPdf },
+  { id: "game-23", title: "Flame Wheel", image: gameFlameWheel, category: "gaming", sourcePdf: gameFlameWheelPdf },
+  { id: "cyber-13", title: "Light Trails", image: cyberLightTrails, category: "cyber", sourcePdf: cyberLightTrailsPdf },
+  { id: "cyber-14", title: "Speedometer", image: cyberSpeedometer, category: "cyber", sourcePdf: cyberSpeedometerPdf },
 ];
 
 export const sizes = [
