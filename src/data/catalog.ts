@@ -122,6 +122,24 @@ import colorfulPixelEye from "@/assets/pads/colorful-pixel-eye.jpg";
 import colorfulPixelEyePdf from "@/assets/pads/colorful-pixel-eye.pdf?url";
 import cyberNeonArrow from "@/assets/pads/cyber-neon-arrow.jpg";
 
+// New batch 3
+import darkHalloween from "@/assets/pads/dark-halloween.jpg";
+import darkHalloweenPdf from "@/assets/pads/dark-halloween.pdf?url";
+import darkHauntedForest from "@/assets/pads/dark-haunted-forest.jpg";
+import darkHauntedForestPdf from "@/assets/pads/dark-haunted-forest.pdf?url";
+import darkMoonlitTree from "@/assets/pads/dark-moonlit-tree.jpg";
+import darkMoonlitTreePdf from "@/assets/pads/dark-moonlit-tree.pdf?url";
+import abstractDarkLiquid from "@/assets/pads/abstract-dark-liquid.jpg";
+import abstractDarkLiquidPdf from "@/assets/pads/abstract-dark-liquid.pdf?url";
+import gameNeonSupercar from "@/assets/pads/game-neon-supercar.jpg";
+import gameNeonSupercarPdf from "@/assets/pads/game-neon-supercar.pdf?url";
+import gameFlameWheel from "@/assets/pads/game-flame-wheel.jpg";
+import gameFlameWheelPdf from "@/assets/pads/game-flame-wheel.pdf?url";
+import cyberLightTrails from "@/assets/pads/cyber-light-trails.jpg";
+import cyberLightTrailsPdf from "@/assets/pads/cyber-light-trails.pdf?url";
+import cyberSpeedometer from "@/assets/pads/cyber-speedometer.jpg";
+import cyberSpeedometerPdf from "@/assets/pads/cyber-speedometer.pdf?url";
+
 export interface PadDesign {
   id: string;
   title: string;
