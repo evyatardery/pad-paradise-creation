@@ -6,6 +6,7 @@ import { sizes } from "@/data/catalog";
 import { z } from "zod";
 import { processOrder } from "@/utils/orderService";
 import { preflightCheck, type PreflightResult } from "@/utils/printFileGenerator";
+import { checkPdfQuality } from "@/utils/pdfQualityChecker";
 import { toast } from "sonner";
 
 const checkoutSchema = z.object({
