@@ -23,8 +23,7 @@ import cyberHexNeon from "@/assets/pads/cyber-hex-neon.jpg";
 import cyberHexNeonPdf from "@/assets/pads/cyber-hex-neon.pdf?url";
 import cyberLightTrails from "@/assets/pads/cyber-light-trails.jpg";
 import cyberLightTrailsPdf from "@/assets/pads/cyber-light-trails.pdf?url";
-import cyberSpeedometer from "@/assets/pads/cyber-speedometer.jpg";
-import cyberSpeedometerPdf from "@/assets/pads/cyber-speedometer.pdf?url";
+// cyber-speedometer removed — low-resolution raster source
 import cyberNeonDoors from "@/assets/pads/cyber-neon-doors.jpg";
 import cyberNeonDoorsPdf from "@/assets/pads/cyber-neon-doors.pdf?url";
 
@@ -33,14 +32,13 @@ import colorfulTealFigure from "@/assets/pads/colorful-teal-figure.jpg";
 import colorfulTealFigurePdf from "@/assets/pads/colorful-teal-figure.pdf?url";
 import colorfulPixelEye from "@/assets/pads/colorful-pixel-eye.jpg";
 import colorfulPixelEyePdf from "@/assets/pads/colorful-pixel-eye.pdf?url";
+// colorful-orchid removed — low-resolution raster source
 
 // Dark
 import darkInkBrush from "@/assets/pads/dark-ink-brush.jpg";
 import darkInkBrushPdf from "@/assets/pads/dark-ink-brush.pdf?url";
-import darkHalloween from "@/assets/pads/dark-halloween.jpg";
-import darkHalloweenPdf from "@/assets/pads/dark-halloween.pdf?url";
-import darkHauntedForest from "@/assets/pads/dark-haunted-forest.jpg";
-import darkHauntedForestPdf from "@/assets/pads/dark-haunted-forest.pdf?url";
+// dark-halloween removed — low-resolution raster source
+// dark-haunted-forest removed — low-resolution raster source
 import darkMoonlitTree from "@/assets/pads/dark-moonlit-tree.jpg";
 import darkMoonlitTreePdf from "@/assets/pads/dark-moonlit-tree.pdf?url";
 import darkHexGold from "@/assets/pads/dark-hex-gold.jpg";
@@ -73,8 +71,6 @@ import abstractMarbleFlow from "@/assets/pads/abstract-marble-flow.jpg";
 import abstractMarbleFlowPdf from "@/assets/pads/abstract-marble-flow.pdf?url";
 import darkPolygon from "@/assets/pads/dark-polygon.jpg";
 import darkPolygonPdf from "@/assets/pads/dark-polygon.pdf?url";
-import colorfulOrchid from "@/assets/pads/colorful-orchid.jpg";
-import colorfulOrchidPdf from "@/assets/pads/colorful-orchid.pdf?url";
 
 export interface PadDesign {
   id: string;
@@ -152,7 +148,7 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-3", title: "Hex Rainbow", image: cyberHexRainbow, category: "cyber", sourcePdf: cyberHexRainbowPdf },
   { id: "cyber-4", title: "Hex Neon Grid", image: cyberHexNeon, category: "cyber", sourcePdf: cyberHexNeonPdf },
   { id: "cyber-5", title: "Light Trails", image: cyberLightTrails, category: "cyber", sourcePdf: cyberLightTrailsPdf },
-  { id: "cyber-6", title: "Speedometer", image: cyberSpeedometer, category: "cyber", sourcePdf: cyberSpeedometerPdf },
+  
   { id: "cyber-7", title: "Neon Doors", image: cyberNeonDoors, category: "cyber", sourcePdf: cyberNeonDoorsPdf },
 
   // Abstract
@@ -168,8 +164,6 @@ export const padDesigns: PadDesign[] = [
 
   // Dark
   { id: "dark-1", title: "Ink Brush", image: darkInkBrush, category: "dark", sourcePdf: darkInkBrushPdf },
-  { id: "dark-2", title: "Halloween Night", image: darkHalloween, category: "dark", sourcePdf: darkHalloweenPdf },
-  { id: "dark-3", title: "Haunted Forest", image: darkHauntedForest, category: "dark", sourcePdf: darkHauntedForestPdf },
   { id: "dark-4", title: "Moonlit Tree", image: darkMoonlitTree, category: "dark", sourcePdf: darkMoonlitTreePdf },
   { id: "dark-5", title: "Hex Gold", image: darkHexGold, category: "dark", sourcePdf: darkHexGoldPdf },
   { id: "dark-6", title: "Red Frame", image: darkRedFrame, category: "dark", sourcePdf: darkRedFramePdf },
@@ -190,7 +184,7 @@ export const padDesigns: PadDesign[] = [
   // New batch 5
   { id: "abs-6", title: "Marble Flow", image: abstractMarbleFlow, category: "abstract", sourcePdf: abstractMarbleFlowPdf },
   { id: "dark-7", title: "Dark Polygon", image: darkPolygon, category: "dark", sourcePdf: darkPolygonPdf },
-  { id: "col-3", title: "Orchid Bloom", image: colorfulOrchid, category: "colorful", sourcePdf: colorfulOrchidPdf },
+  
 ];
 
 export const sizes = [
