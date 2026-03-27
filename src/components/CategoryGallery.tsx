@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { getDesignsByCategory, categories, PadDesign } from "@/data/catalog";
+import { getDesignsByCategory, categories, PadDesign, sizes } from "@/data/catalog";
 import PadModal from "./PadModal";
 
 interface Props {
@@ -52,7 +52,7 @@ const CategoryGallery = ({ categoryId, onBack }: Props) => {
             </div>
             <div className="p-3 text-center border-t border-border">
               <h4 className="text-card-foreground font-bold text-sm">{pad.title}</h4>
-              <p className="text-primary text-xs font-bold mt-1">החל מ-₪69</p>
+              <p className="text-primary text-xs font-bold mt-1">החל מ-₪{sizes[0].price}</p>
             </div>
           </motion.button>
         ))}
