@@ -320,7 +320,7 @@ export const padDesigns: PadDesign[] = [
   { id: "abs-14", title: "Abstract Dots", image: abstractDots, category: "abstract", sourcePdf: abstractDotsPdf },
 
   // Colorful (continued)
-  { id: "abs-12", title: "Marble Cyan", image: colorfulMarbleCyan, category: "abstract" },
+  { id: "col-9", title: "Marble Cyan", image: colorfulMarbleCyan, category: "colorful" },
 
   // Sport
   { id: "sport-1", title: "Ronaldo Fire", image: sportRonaldo1, category: "sport" },
