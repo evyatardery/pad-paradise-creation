@@ -45,6 +45,34 @@ const Checkout = () => {
   const [submitted, setSubmitted] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
 
+  // Promo code state
+  const [promoCode, setPromoCode] = useState("");
+  const [promoApplied, setPromoApplied] = useState<{ discount: number; label: string } | null>(null);
+  const [promoError, setPromoError] = useState("");
+
+  const discountPercent = promoApplied?.discount || 0;
+  const finalPrice = Math.max(0, Math.round(size.price * (1 - discountPercent / 100)));
+
+  const applyPromo = () => {
+    const code = promoCode.trim().toUpperCase();
+    if (!code) return;
+    const found = PROMO_CODES[code];
+    if (found) {
+      setPromoApplied(found);
+      setPromoError("");
+      toast.success(`קופון "${code}" הופעל! ${found.label}`);
+    } else {
+      setPromoApplied(null);
+      setPromoError("קוד קופון לא תקין");
+    }
+  };
+
+  const removePromo = () => {
+    setPromoApplied(null);
+    setPromoCode("");
+    setPromoError("");
+  };
+
   // Run preflight quality check
   useEffect(() => {
     if (!designImage) return;
