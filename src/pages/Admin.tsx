@@ -267,8 +267,7 @@ const Admin = () => {
                           >
                             <MessageCircle className="w-3 h-3" />
                             שלח לינק תשלום
-                          </Button>
-                        )}
+                        </Button>
                         {order.print_file_url && (
                           <Button
                             variant="outline"
