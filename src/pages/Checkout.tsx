@@ -152,12 +152,12 @@ const Checkout = () => {
         }).catch((err) => console.error('Failed to send customer email:', err));
       }
 
-      // Send admin notification
+      // Send admin notification (pending_payment alert)
       supabase.functions.invoke('send-transactional-email', {
         body: {
           templateName: 'admin-order-notification',
           recipientEmail: 'evyatardery@gmail.com',
-          idempotencyKey: `order-admin-${order.id}`,
+          idempotencyKey: `order-pending-admin-${order.id}`,
           templateData: {
             orderNumber: order.order_number,
             designName,
