@@ -9,13 +9,15 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Download, RefreshCw, Lock, Search } from "lucide-react";
+import { Download, RefreshCw, Lock, Search, MessageCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { getPaymentLink } from "@/data/paymentLinks";
 
 const ADMIN_PASSWORD = "padzone2026";
 
 const STATUS_MAP: Record<string, { label: string; color: string }> = {
-  pending: { label: "ממתין לתשלום", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
+  pending_payment: { label: "ממתין לתשלום", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
+  pending: { label: "ממתין", color: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
   paid: { label: "שולם", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
   in_production: { label: "בייצור", color: "bg-purple-500/20 text-purple-400 border-purple-500/30" },
   shipped: { label: "נשלח ללקוח", color: "bg-green-500/20 text-green-400 border-green-500/30" },
@@ -249,7 +251,25 @@ const Admin = () => {
                       </Select>
                     </TableCell>
                     <TableCell>
-                      <div className="flex gap-1">
+                      <div className="flex gap-1 flex-wrap">
+                        {order.status === "pending_payment" && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-7 text-xs gap-1 border-green-500/30 text-green-400 hover:bg-green-500/10"
+                            onClick={() => {
+                              const link = getPaymentLink(order.dimensions);
+                              const msg = encodeURIComponent(
+                                `שלום ${order.customer_name}! 🎮\n\nהזמנתך מ-PadZone (${order.order_number}) מוכנה לתשלום.\n\n🔗 לינק תשלום מאובטח:\n${link}\n\nתודה שבחרת ב-PadZone!`
+                              );
+                              const phone = order.customer_phone.replace(/^0/, "972");
+                              window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
+                            }}
+                          >
+                            <MessageCircle className="w-3 h-3" />
+                            שלח לינק תשלום
+                          </Button>
+                        )}
                         {order.print_file_url && (
                           <Button
                             variant="outline"
