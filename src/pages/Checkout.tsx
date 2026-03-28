@@ -167,13 +167,7 @@ const Checkout = () => {
 
       setOrderNumber(order.order_number);
 
-      if (orderError || !order) {
-        throw new Error(orderError?.message || "Failed to create order");
-      }
-
-      setOrderNumber(order.order_number);
-
-      // Send order confirmation email with payment link (fire & forget)
+      // Send emails (fire & forget)
       if (result.data.email) {
         supabase.functions.invoke('send-transactional-email', {
           body: {
@@ -187,13 +181,13 @@ const Checkout = () => {
               dimensions: size.label,
               quantity: 1,
               totalPrice,
-              paymentLink,
+              paymentLink: isFreeOrder ? '' : paymentLink,
             },
           },
         }).catch((err) => console.error('Failed to send customer email:', err));
       }
 
-      // Send admin notification (pending_payment alert)
+      // Admin notification
       supabase.functions.invoke('send-transactional-email', {
         body: {
           templateName: 'admin-order-notification',
@@ -213,8 +207,15 @@ const Checkout = () => {
         },
       }).catch((err) => console.error('Failed to send admin email:', err));
 
+      // Fire webhook for free (paid) orders
+      if (isFreeOrder) {
+        supabase.functions.invoke('notify-order-webhook', {
+          body: { orderId: order.id },
+        }).catch((err) => console.error('Failed to send webhook:', err));
+      }
+
       setSubmitted(true);
-      toast.success("ההזמנה נוצרה בהצלחה!");
+      toast.success(isFreeOrder ? "ההזמנה הושלמה בהצלחה! 🎉" : "ההזמנה נוצרה בהצלחה!");
     } catch (err: any) {
       toast.error(`שגיאה ביצירת הזמנה: ${err.message}`);
     } finally {
