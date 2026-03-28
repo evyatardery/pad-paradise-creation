@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Package, Shield, AlertTriangle, ShoppingBag } from "lucide-react";
+import { ArrowRight, Package, Shield, AlertTriangle, ShoppingBag, Tag, Check, X } from "lucide-react";
 import { sizes } from "@/data/catalog";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,6 +9,10 @@ import { getPaymentLink } from "@/data/paymentLinks";
 import { preflightCheck, type PreflightResult } from "@/utils/printFileGenerator";
 import { checkPdfQuality } from "@/utils/pdfQualityChecker";
 import { toast } from "sonner";
+
+const PROMO_CODES: Record<string, { discount: number; label: string }> = {
+  TEST100: { discount: 100, label: "100% הנחה" },
+};
 
 const checkoutSchema = z.object({
   name: z.string().trim().min(2, "שם חייב להכיל לפחות 2 תווים").max(100),
