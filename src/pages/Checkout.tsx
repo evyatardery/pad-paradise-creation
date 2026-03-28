@@ -133,10 +133,12 @@ const Checkout = () => {
 
     setSubmitting(true);
     try {
-      const totalPrice = size.price;
+      const totalPrice = finalPrice;
+      const isFreeOrder = totalPrice === 0;
+      const orderStatus = isFreeOrder ? "paid" : "pending_payment";
       const paymentLink = getPaymentLink(size.label);
 
-      // Create order with pending_payment status
+      // Create order
       const { data: order, error: orderError } = await supabase
         .from("orders")
         .insert({
@@ -153,10 +155,17 @@ const Checkout = () => {
           is_custom_design: isCustom,
           unit_price: size.price,
           total_price: totalPrice,
-          status: "pending_payment",
+          status: orderStatus,
+          ...(isFreeOrder ? { paid_at: new Date().toISOString() } : {}),
         })
         .select()
         .single();
+
+      if (orderError || !order) {
+        throw new Error(orderError?.message || "Failed to create order");
+      }
+
+      setOrderNumber(order.order_number);
 
       if (orderError || !order) {
         throw new Error(orderError?.message || "Failed to create order");
