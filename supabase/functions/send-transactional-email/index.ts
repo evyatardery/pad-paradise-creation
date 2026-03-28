@@ -13,7 +13,7 @@ const SENDER_DOMAIN = "notify.padzone.co.il"
 // FROM_DOMAIN is the domain shown in the From: header (e.g., "example.com").
 // When display_from_root is enabled, this can be the root domain for cleaner branding,
 // even though actual sending uses the subdomain above.
-const FROM_DOMAIN = "notify.padzone.co.il"
+const FROM_DOMAIN = "padzone.co.il"
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
