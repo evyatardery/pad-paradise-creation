@@ -417,11 +417,11 @@ const Checkout = () => {
                 className="w-full bg-primary text-primary-foreground font-black py-4 rounded-xl text-lg neon-box-strong flex items-center justify-center gap-3 disabled:opacity-50"
               >
                 <ShoppingBag size={22} />
-                <span>{submitting ? "שולח הזמנה..." : `הזמן עכשיו - ₪${size.price}`}</span>
+                <span>{submitting ? "שולח הזמנה..." : finalPrice === 0 ? "השלם הזמנה - חינם! 🎉" : `הזמן עכשיו - ₪${finalPrice}`}</span>
               </motion.button>
 
               <p className="text-center text-muted-foreground text-xs">
-                לינק לתשלום מאובטח יישלח אליך לווטסאפ ולמייל
+                {finalPrice === 0 ? "ההזמנה תושלם אוטומטית ללא תשלום" : "לינק לתשלום מאובטח יישלח אליך לווטסאפ ולמייל"}
               </p>
             </form>
           </motion.div>
