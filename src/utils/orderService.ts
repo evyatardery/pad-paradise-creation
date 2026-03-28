@@ -208,6 +208,11 @@ export async function processOrder(input: CreateOrderInput): Promise<OrderResult
     },
   }).catch((err) => console.error('Failed to send admin email:', err));
 
+  // 7. Fire webhook notification (fire & forget)
+  supabase.functions.invoke('notify-order-webhook', {
+    body: { orderId: order.id },
+  }).catch((err) => console.error('Failed to send webhook:', err));
+
   return {
     orderId: order.id,
     orderNumber: order.order_number,
