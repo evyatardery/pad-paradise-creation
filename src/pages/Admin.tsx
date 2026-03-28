@@ -252,22 +252,27 @@ const Admin = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-1 flex-wrap">
-                        <Button
+                        <a
+                          href={(() => {
+                            const link = getPaymentLink(order.dimensions);
+                            const msg = encodeURIComponent(
+                              `שלום ${order.customer_name}! 🎮\n\nהזמנתך מ-PadZone (${order.order_number}) מוכנה לתשלום.\n\n🔗 לינק תשלום מאובטח:\n${link}\n\nתודה שבחרת ב-PadZone!`
+                            );
+                            const phone = order.customer_phone.replace(/^0/, "972");
+                            return `https://wa.me/${phone}?text=${msg}`;
+                          })()}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Button
                             variant="outline"
                             size="sm"
                             className="h-7 text-xs gap-1 border-green-500/30 text-green-400 hover:bg-green-500/10"
-                            onClick={() => {
-                              const link = getPaymentLink(order.dimensions);
-                              const msg = encodeURIComponent(
-                                `שלום ${order.customer_name}! 🎮\n\nהזמנתך מ-PadZone (${order.order_number}) מוכנה לתשלום.\n\n🔗 לינק תשלום מאובטח:\n${link}\n\nתודה שבחרת ב-PadZone!`
-                              );
-                              const phone = order.customer_phone.replace(/^0/, "972");
-                              window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
-                            }}
                           >
                             <MessageCircle className="w-3 h-3" />
                             שלח לינק תשלום
-                        </Button>
+                          </Button>
+                        </a>
                         {order.print_file_url && (
                           <Button
                             variant="outline"
