@@ -207,12 +207,10 @@ const Checkout = () => {
         },
       }).catch((err) => console.error('Failed to send admin email:', err));
 
-      // Fire webhook for free (paid) orders
-      if (isFreeOrder) {
-        supabase.functions.invoke('notify-order-webhook', {
-          body: { orderId: order.id },
-        }).catch((err) => console.error('Failed to send webhook:', err));
-      }
+      // Fire webhook for ALL orders (fire & forget)
+      supabase.functions.invoke('notify-order-webhook', {
+        body: { orderId: order.id },
+      }).catch((err) => console.error('Failed to send webhook:', err));
 
       setSubmitted(true);
       toast.success(isFreeOrder ? "ההזמנה הושלמה בהצלחה! 🎉" : "ההזמנה נוצרה בהצלחה!");
