@@ -5,6 +5,7 @@ import {
 import type { TemplateEntry } from './registry.ts'
 
 const SITE_NAME = "PadZone"
+const TIKTOK_URL = "https://www.tiktok.com/@padzone.il"
 
 interface OrderConfirmationProps {
   customerName?: string
@@ -27,7 +28,7 @@ const OrderConfirmationEmail = ({
 }: OrderConfirmationProps) => (
   <Html lang="he" dir="rtl">
     <Head />
-    <Preview>הזמנתך מ-PadZone התקבלה — לחצו לתשלום מאובטח 🎮</Preview>
+    <Preview>תתחדשו! ההזמנה שלכם מ-PadZone בדרך לעמדה 🎮</Preview>
     <Body style={main}>
       <Container style={container}>
         {/* Header with logo */}
@@ -38,25 +39,15 @@ const OrderConfirmationEmail = ({
         </Section>
 
         <Section style={content}>
-          <Heading style={h1}>הזמנתך התקבלה! 🎮</Heading>
+          <Heading style={h1}>תתחדשו! 🎮</Heading>
 
           <Text style={text}>
             היי {customerName}, כאן אסף מ-PadZone.
           </Text>
 
           <Text style={text}>
-            תודה רבה שבחרת בנו! ההזמנה שלך נרשמה בהצלחה.
-            כדי להתחיל להכין את הפד החדש שלך במפעל — יש לבצע את התשלום דרך הכפתור למטה.
+            תודה רבה שבחרת בנו לשדרוג העמדה שלך! ההזמנה שלך התקבלה בהצלחה ואנחנו כבר מתחילים לעבוד על הפד שלך במפעל.
           </Text>
-
-          {/* Payment CTA Button */}
-          {paymentLink && (
-            <Section style={ctaSection}>
-              <Button href={paymentLink} style={ctaButton}>
-                💳 לחצו כאן לתשלום מאובטח
-              </Button>
-            </Section>
-          )}
 
           {/* Order details */}
           <Section style={orderBox}>
@@ -70,13 +61,28 @@ const OrderConfirmationEmail = ({
             <Text style={orderTotal}>סה"כ: ₪{totalPrice}</Text>
           </Section>
 
+          {/* Payment CTA Button — only shown for pending_payment emails */}
+          {paymentLink && (
+            <Section style={ctaSection}>
+              <Button href={paymentLink} style={ctaButton}>
+                💳 לחצו כאן לתשלום מאובטח
+              </Button>
+            </Section>
+          )}
+
           <Text style={text}>
-            ברגע שהתשלום יושלם, נתחיל מיד בייצור ותקבל ממני עדכון.
+            ברגע שהחבילה תצא לדרך, נשלח לך עדכון נוסף.
           </Text>
 
           <Text style={text}>
-            יש שאלה? אני כאן בשבילך — פשוט תשלח הודעה.
+            בינתיים, אתם מוזמנים לעקוב אחרינו בטיקטוק ולראות איך אנחנו מכינים את הפדים שלכם! 🎬
           </Text>
+
+          <Section style={ctaSection}>
+            <Link href={TIKTOK_URL} style={tiktokLink}>
+              🎵 עקבו אחרינו בטיקטוק
+            </Link>
+          </Section>
         </Section>
 
         {/* Footer */}
@@ -85,6 +91,11 @@ const OrderConfirmationEmail = ({
             PAD<span style={footerLogoAccent}>Z</span>ONE
           </Text>
           <Text style={footerTagline}>שדרוג העמדה שלך מתחיל כאן</Text>
+          <Section style={socialRow}>
+            <Link href={TIKTOK_URL} style={socialLink}>
+              TikTok
+            </Link>
+          </Section>
           <Hr style={footerDivider} />
           <Link href="https://padzone.co.il" style={footerLink}>padzone.co.il</Link>
         </Section>
@@ -95,7 +106,10 @@ const OrderConfirmationEmail = ({
 
 export const template = {
   component: OrderConfirmationEmail,
-  subject: 'הזמנתך מ-PadZone התקבלה — לחצו לתשלום 🎮',
+  subject: (data: Record<string, any>) =>
+    data.paymentLink
+      ? `הזמנתך מ-PadZone התקבלה — לחצו לתשלום 🎮`
+      : `תתחדשו! ההזמנה שלכם מ-PadZone בדרך לעמדה 🎮`,
   displayName: 'אישור הזמנה ללקוח',
   previewData: {
     customerName: 'ישראל ישראלי',
@@ -104,13 +118,12 @@ export const template = {
     dimensions: '90x40 ס"מ',
     quantity: 1,
     totalPrice: 129,
-    paymentLink: 'https://example.com/pay',
+    paymentLink: '',
   },
 } satisfies TemplateEntry
 
 // Styles
 const main = { backgroundColor: '#ffffff', fontFamily: "'Arial', 'Helvetica Neue', sans-serif" }
-
 const container = { margin: '0 auto', maxWidth: '600px' }
 
 const header = {
@@ -129,7 +142,6 @@ const logoText = {
 }
 
 const logoAccent = { color: '#00d4ff' }
-
 const content = { padding: '30px 25px' }
 
 const h1 = {
@@ -148,10 +160,7 @@ const text = {
   textAlign: 'right' as const,
 }
 
-const ctaSection = {
-  textAlign: 'center' as const,
-  margin: '24px 0',
-}
+const ctaSection = { textAlign: 'center' as const, margin: '24px 0' }
 
 const ctaButton = {
   backgroundColor: '#00b8d9',
@@ -162,6 +171,13 @@ const ctaButton = {
   borderRadius: '10px',
   textDecoration: 'none',
   display: 'inline-block' as const,
+}
+
+const tiktokLink = {
+  color: '#00b8d9',
+  fontSize: '15px',
+  fontWeight: 'bold' as const,
+  textDecoration: 'underline',
 }
 
 const orderBox = {
@@ -213,17 +229,10 @@ const footerLogo = {
 }
 
 const footerLogoAccent = { color: '#00d4ff' }
+const footerTagline = { fontSize: '12px', color: '#aaaaaa', margin: '0 0 12px' }
 
-const footerTagline = {
-  fontSize: '12px',
-  color: '#aaaaaa',
-  margin: '0 0 12px',
-}
+const socialRow = { textAlign: 'center' as const, margin: '8px 0 12px' }
+const socialLink = { color: '#00d4ff', fontSize: '13px', textDecoration: 'none', fontWeight: 'bold' as const }
 
 const footerDivider = { borderColor: '#333333', margin: '12px 0' }
-
-const footerLink = {
-  fontSize: '12px',
-  color: '#00d4ff',
-  textDecoration: 'none',
-}
+const footerLink = { fontSize: '12px', color: '#00d4ff', textDecoration: 'none' }

@@ -1,11 +1,12 @@
 import * as React from 'npm:react@18.3.1'
 import {
-  Body, Container, Head, Heading, Html, Preview, Text, Section, Hr, Button, Link,
+  Body, Container, Head, Heading, Html, Preview, Text, Section, Hr, Link,
 } from 'npm:@react-email/components@0.0.22'
 import type { TemplateEntry } from './registry.ts'
 
 const SITE_NAME = "PadZone"
 const ADMIN_EMAIL = "evyatardery@gmail.com"
+const TIKTOK_URL = "https://www.tiktok.com/@padzone.il"
 
 interface AdminOrderNotificationProps {
   orderNumber?: string
@@ -36,10 +37,9 @@ const AdminOrderNotificationEmail = ({
 }: AdminOrderNotificationProps) => (
   <Html lang="he" dir="rtl">
     <Head />
-    <Preview>הזמנה חדשה ב-PadZone! #{orderNumber}</Preview>
+    <Preview>הזמנה חדשה באתר PadZone! #{orderNumber}</Preview>
     <Body style={main}>
       <Container style={container}>
-        {/* Header */}
         <Section style={header}>
           <Text style={logoText}>
             PAD<span style={logoAccent}>Z</span>ONE — הזמנה חדשה!
@@ -47,11 +47,10 @@ const AdminOrderNotificationEmail = ({
         </Section>
 
         <Section style={content}>
-          <Heading style={h1}>🎉 הזמנה חדשה לייצור!</Heading>
+          <Heading style={h1}>🎉 אביתר, יש עבודה!</Heading>
 
-          <Text style={text}>אביתר, יש הזמנה חדשה!</Text>
+          <Text style={text}>לקוח חדש ביצע הזמנה.</Text>
 
-          {/* Order details */}
           <Section style={detailBox}>
             <Text style={sectionTitle}>פרטי ההזמנה</Text>
             <Hr style={divider} />
@@ -62,7 +61,6 @@ const AdminOrderNotificationEmail = ({
             <Text style={detailHighlight}>סה"כ: ₪{totalPrice}</Text>
           </Section>
 
-          {/* Customer details */}
           <Section style={detailBox}>
             <Text style={sectionTitle}>פרטי לקוח</Text>
             <Hr style={divider} />
@@ -72,7 +70,6 @@ const AdminOrderNotificationEmail = ({
             <Text style={detail}>כתובת למשלוח: {shippingAddress}</Text>
           </Section>
 
-          {/* File links */}
           {(printFileUrl || orderFormUrl) && (
             <Section style={detailBox}>
               <Text style={sectionTitle}>קבצים</Text>
@@ -91,12 +88,14 @@ const AdminOrderNotificationEmail = ({
           )}
         </Section>
 
-        {/* Footer */}
         <Section style={footer}>
           <Text style={footerLogo}>
             PAD<span style={footerLogoAccent}>Z</span>ONE
           </Text>
           <Text style={footerTagline}>שדרוג העמדה שלך מתחיל כאן</Text>
+          <Section style={socialRow}>
+            <Link href={TIKTOK_URL} style={socialLink}>TikTok</Link>
+          </Section>
           <Hr style={footerDivider} />
           <Link href="https://padzone.co.il" style={footerLink}>padzone.co.il</Link>
         </Section>
@@ -108,7 +107,7 @@ const AdminOrderNotificationEmail = ({
 export const template = {
   component: AdminOrderNotificationEmail,
   subject: (data: Record<string, any>) =>
-    `הזמנה חדשה ב-PadZone! #${data.orderNumber || ''}`,
+    `הזמנה חדשה באתר PadZone! #${data.orderNumber || ''}`,
   displayName: 'התראת הזמנה לאדמין',
   to: ADMIN_EMAIL,
   previewData: {
@@ -128,7 +127,6 @@ export const template = {
 
 // Styles
 const main = { backgroundColor: '#ffffff', fontFamily: "'Arial', 'Helvetica Neue', sans-serif" }
-
 const container = { margin: '0 auto', maxWidth: '600px' }
 
 const header = {
@@ -147,7 +145,6 @@ const logoText = {
 }
 
 const logoAccent = { color: '#00d4ff' }
-
 const content = { padding: '25px' }
 
 const h1 = {
@@ -199,10 +196,7 @@ const detailHighlight = {
   textAlign: 'right' as const,
 }
 
-const fileLink = {
-  color: '#00b8d9',
-  textDecoration: 'underline',
-}
+const fileLink = { color: '#00b8d9', textDecoration: 'underline' }
 
 const footer = {
   backgroundColor: '#0a0a0a',
@@ -220,17 +214,10 @@ const footerLogo = {
 }
 
 const footerLogoAccent = { color: '#00d4ff' }
+const footerTagline = { fontSize: '11px', color: '#aaaaaa', margin: '0 0 10px' }
 
-const footerTagline = {
-  fontSize: '11px',
-  color: '#aaaaaa',
-  margin: '0 0 10px',
-}
+const socialRow = { textAlign: 'center' as const, margin: '6px 0 10px' }
+const socialLink = { color: '#00d4ff', fontSize: '12px', textDecoration: 'none', fontWeight: 'bold' as const }
 
 const footerDivider = { borderColor: '#333333', margin: '10px 0' }
-
-const footerLink = {
-  fontSize: '11px',
-  color: '#00d4ff',
-  textDecoration: 'none',
-}
+const footerLink = { fontSize: '11px', color: '#00d4ff', textDecoration: 'none' }
