@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Package, Shield, CreditCard, MessageCircle, FlaskConical, AlertTriangle } from "lucide-react";
+import { ArrowRight, Package, Shield, AlertTriangle, ShoppingBag } from "lucide-react";
 import { sizes } from "@/data/catalog";
 import { z } from "zod";
-import { processOrder } from "@/utils/orderService";
+import { supabase } from "@/integrations/supabase/client";
+import { getPaymentLink } from "@/data/paymentLinks";
 import { preflightCheck, type PreflightResult } from "@/utils/printFileGenerator";
 import { checkPdfQuality } from "@/utils/pdfQualityChecker";
 import { toast } from "sonner";
@@ -31,19 +32,19 @@ const Checkout = () => {
   const designName = searchParams.get("name") || "פד מותאם אישית";
   const sizeIdx = Number(searchParams.get("size") || "1");
   const isCustom = searchParams.get("custom") === "1";
-  const isTestMode = searchParams.get("test") === "1";
   const designImage = searchParams.get("image") || "";
   const sourcePdf = searchParams.get("sourcePdf") || "";
 
   const size = sizes[sizeIdx] || sizes[1];
-  const [testLoading, setTestLoading] = useState(false);
   const [preflight, setPreflight] = useState<PreflightResult | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [orderNumber, setOrderNumber] = useState("");
 
-  // Run preflight quality check — for PDFs, analyze actual content quality
+  // Run preflight quality check
   useEffect(() => {
     if (!designImage) return;
     if (sourcePdf) {
-      // Smart PDF check: analyze embedded image resolution inside the PDF
       checkPdfQuality(sourcePdf, size.label)
         .then(setPreflight)
         .catch(() => setPreflight(null));
@@ -84,7 +85,7 @@ const Checkout = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = checkoutSchema.safeParse(form);
     if (!result.success) {
@@ -98,73 +99,85 @@ const Checkout = () => {
       return;
     }
 
-    // Save to sessionStorage for post-payment processing
-    sessionStorage.setItem(
-      "checkout_data",
-      JSON.stringify({
-        ...result.data,
-        designId,
-        designName,
-        sizeIdx,
-        sizeLabel: size.label,
-        price: size.price,
-        isCustom,
-      })
-    );
-
-    // TODO: Redirect to GROW payment page
-    // For now, navigate to success page for testing
-    navigate("/order-success");
-  };
-
-  const handleTestOrder = async () => {
-    const result = checkoutSchema.safeParse(form);
-    if (!result.success) {
-      const fieldErrors: Partial<Record<keyof CheckoutForm, string>> = {};
-      result.error.issues.forEach((err) => {
-        const field = err.path[0] as keyof CheckoutForm;
-        if (!fieldErrors[field]) fieldErrors[field] = err.message;
-      });
-      setErrors(fieldErrors);
-      setTouched({ name: true, phone: true, email: true, address: true, city: true });
-      return;
-    }
-
-    setTestLoading(true);
+    setSubmitting(true);
     try {
-      const orderResult = await processOrder({
-        customerName: result.data.name,
-        customerEmail: result.data.email || undefined,
-        customerPhone: result.data.phone,
-        shippingAddress: `${result.data.address}, ${result.data.city}`,
-        designId: designId || undefined,
-        designName,
-        designImageSrc: designImage || "/placeholder.svg",
-        dimensionLabel: size.label,
-        quantity: 1,
-        unitPrice: size.price,
-        isCustomDesign: isCustom,
-        sourcePdfUrl: sourcePdf || undefined,
-        paymentTransactionId: `TEST-${Date.now()}`,
-      });
+      const totalPrice = size.price;
+      const paymentLink = getPaymentLink(size.label);
 
-      toast.success(`הזמנת בדיקה נוצרה! ${orderResult.orderNumber}`);
-      sessionStorage.setItem("checkout_data", JSON.stringify({
-        ...result.data,
-        designId,
-        designName,
-        sizeIdx,
-        sizeLabel: size.label,
-        price: size.price,
-        isCustom,
-      }));
-      sessionStorage.setItem("last_order_id", orderResult.orderId);
-      sessionStorage.setItem("last_order_number", orderResult.orderNumber);
-      navigate("/order-success");
+      // Create order with pending_payment status
+      const { data: order, error: orderError } = await supabase
+        .from("orders")
+        .insert({
+          order_number: "", // trigger will generate
+          customer_name: result.data.name,
+          customer_email: result.data.email || null,
+          customer_phone: result.data.phone,
+          shipping_address: `${result.data.address}, ${result.data.city}`,
+          design_id: designId || null,
+          design_name: designName,
+          design_image_url: designImage.startsWith("data:") ? null : designImage || null,
+          dimensions: size.label,
+          quantity: 1,
+          is_custom_design: isCustom,
+          unit_price: size.price,
+          total_price: totalPrice,
+          status: "pending_payment",
+        })
+        .select()
+        .single();
+
+      if (orderError || !order) {
+        throw new Error(orderError?.message || "Failed to create order");
+      }
+
+      setOrderNumber(order.order_number);
+
+      // Send order confirmation email with payment link (fire & forget)
+      if (result.data.email) {
+        supabase.functions.invoke('send-transactional-email', {
+          body: {
+            templateName: 'order-confirmation',
+            recipientEmail: result.data.email,
+            idempotencyKey: `order-confirm-${order.id}`,
+            templateData: {
+              customerName: result.data.name,
+              orderNumber: order.order_number,
+              designName,
+              dimensions: size.label,
+              quantity: 1,
+              totalPrice,
+              paymentLink,
+            },
+          },
+        }).catch((err) => console.error('Failed to send customer email:', err));
+      }
+
+      // Send admin notification
+      supabase.functions.invoke('send-transactional-email', {
+        body: {
+          templateName: 'admin-order-notification',
+          recipientEmail: 'evyatardery@gmail.com',
+          idempotencyKey: `order-admin-${order.id}`,
+          templateData: {
+            orderNumber: order.order_number,
+            designName,
+            dimensions: size.label,
+            quantity: 1,
+            totalPrice,
+            customerName: result.data.name,
+            customerPhone: result.data.phone,
+            customerEmail: result.data.email || '',
+            shippingAddress: `${result.data.address}, ${result.data.city}`,
+          },
+        },
+      }).catch((err) => console.error('Failed to send admin email:', err));
+
+      setSubmitted(true);
+      toast.success("ההזמנה נוצרה בהצלחה!");
     } catch (err: any) {
       toast.error(`שגיאה ביצירת הזמנה: ${err.message}`);
     } finally {
-      setTestLoading(false);
+      setSubmitting(false);
     }
   };
 
@@ -175,6 +188,51 @@ const Checkout = () => {
         : "border-transparent focus:border-primary"
     } focus:ring-2 focus:ring-primary/20`;
 
+  // Success state — show confirmation message
+  if (submitted) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center px-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="max-w-lg w-full bg-card rounded-2xl p-8 border border-border shadow-xl text-center"
+          dir="rtl"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", delay: 0.2 }}
+          >
+            <ShoppingBag className="mx-auto text-primary" size={64} />
+          </motion.div>
+
+          <h1 className="text-3xl font-bold text-card-foreground mt-6">
+            הזמנתך התקבלה! 🎉
+          </h1>
+
+          {orderNumber && (
+            <p className="text-primary font-mono text-lg mt-2">{orderNumber}</p>
+          )}
+
+          <p className="text-muted-foreground text-lg leading-relaxed mt-4">
+            לינק לתשלום מאובטח נשלח אליך ברגע זה לווטסאפ ולמייל.
+            <br />
+            <strong className="text-card-foreground">ההזמנה תצא לייצור מיד עם השלמת התשלום.</strong>
+          </p>
+
+          <div className="mt-8 space-y-3">
+            <button
+              onClick={() => navigate("/")}
+              className="w-full bg-primary text-primary-foreground font-bold py-3 px-8 rounded-xl hover:bg-primary/90 transition-colors neon-box"
+            >
+              חזרה לחנות ←
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
       {/* Nav */}
@@ -183,7 +241,7 @@ const Checkout = () => {
           <button onClick={() => navigate("/")} className="text-primary font-black text-2xl neon-text">
             PADZONE
           </button>
-          <span className="text-muted-foreground font-semibold text-sm">🔒 תשלום מאובטח</span>
+          <span className="text-muted-foreground font-semibold text-sm">🛒 השלמת הזמנה</span>
         </div>
       </nav>
 
@@ -205,7 +263,7 @@ const Checkout = () => {
             className="md:col-span-3"
           >
             <h1 className="text-3xl font-black text-primary neon-text mb-2">השלמת הזמנה</h1>
-            <p className="text-muted-foreground mb-8">מלא את הפרטים שלך ונשלח לך את הפד עד הבית 🚀</p>
+            <p className="text-muted-foreground mb-8">מלא את הפרטים שלך ונשלח לך לינק תשלום מאובטח 🔒</p>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Name */}
@@ -311,49 +369,18 @@ const Checkout = () => {
               {/* Submit */}
               <motion.button
                 type="submit"
+                disabled={submitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-primary text-primary-foreground font-black py-4 rounded-xl text-lg neon-box-strong flex items-center justify-center gap-3"
+                className="w-full bg-primary text-primary-foreground font-black py-4 rounded-xl text-lg neon-box-strong flex items-center justify-center gap-3 disabled:opacity-50"
               >
-                <CreditCard size={22} />
-                <span>לתשלום באשראי - ₪{size.price}</span>
+                <ShoppingBag size={22} />
+                <span>{submitting ? "שולח הזמנה..." : `הזמן עכשיו - ₪${size.price}`}</span>
               </motion.button>
 
-              <div className="relative flex items-center justify-center">
-                <div className="border-t border-border w-full" />
-                <span className="absolute bg-background px-3 text-muted-foreground text-xs">או</span>
-              </div>
-
-              <a
-                href={`https://wa.me/972552589255?text=${encodeURIComponent(`שלום, אני רוצה לשלם ב-Bit/PayBox עבור: ${designName} - ${size.label}`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full border-2 border-[hsl(142_70%_49%)] text-[hsl(142_70%_49%)] font-bold py-3.5 rounded-xl text-base hover:bg-[hsl(142_70%_49%)]/10 transition-all flex items-center justify-center gap-3"
-              >
-                <MessageCircle size={20} />
-                <span>תשלום ב-Bit / PayBox דרך וואטסאפ</span>
-              </a>
-
-              {(
-                <>
-                  <div className="relative flex items-center justify-center">
-                    <div className="border-t border-destructive/30 w-full" />
-                    <span className="absolute bg-background px-3 text-destructive text-xs font-bold">🧪 מצב בדיקה</span>
-                  </div>
-
-                  <motion.button
-                    type="button"
-                    onClick={handleTestOrder}
-                    disabled={testLoading}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full border-2 border-destructive text-destructive font-bold py-3.5 rounded-xl text-base hover:bg-destructive/10 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
-                  >
-                    <FlaskConical size={20} />
-                    <span>{testLoading ? "יוצר הזמנה..." : "🧪 הזמנת בדיקה (ללא תשלום)"}</span>
-                  </motion.button>
-                </>
-              )}
+              <p className="text-center text-muted-foreground text-xs">
+                לינק לתשלום מאובטח יישלח אליך לווטסאפ ולמייל
+              </p>
             </form>
           </motion.div>
 

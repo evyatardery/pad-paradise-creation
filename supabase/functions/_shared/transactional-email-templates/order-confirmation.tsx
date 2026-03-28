@@ -1,6 +1,6 @@
 import * as React from 'npm:react@18.3.1'
 import {
-  Body, Container, Head, Heading, Html, Preview, Text, Section, Hr, Img, Link,
+  Body, Container, Head, Heading, Html, Preview, Text, Section, Hr, Button, Link,
 } from 'npm:@react-email/components@0.0.22'
 import type { TemplateEntry } from './registry.ts'
 
@@ -13,6 +13,7 @@ interface OrderConfirmationProps {
   dimensions?: string
   quantity?: number
   totalPrice?: number
+  paymentLink?: string
 }
 
 const OrderConfirmationEmail = ({
@@ -22,10 +23,11 @@ const OrderConfirmationEmail = ({
   dimensions = '',
   quantity = 1,
   totalPrice = 0,
+  paymentLink = '',
 }: OrderConfirmationProps) => (
   <Html lang="he" dir="rtl">
     <Head />
-    <Preview>תתחדשו! ההזמנה שלכם מ-PadZone בדרך לעמדה 🎮</Preview>
+    <Preview>הזמנתך מ-PadZone התקבלה — לחצו לתשלום מאובטח 🎮</Preview>
     <Body style={main}>
       <Container style={container}>
         {/* Header with logo */}
@@ -36,15 +38,25 @@ const OrderConfirmationEmail = ({
         </Section>
 
         <Section style={content}>
-          <Heading style={h1}>תתחדשו! 🎮</Heading>
+          <Heading style={h1}>הזמנתך התקבלה! 🎮</Heading>
 
           <Text style={text}>
             היי {customerName}, כאן אסף מ-PadZone.
           </Text>
 
           <Text style={text}>
-            תודה רבה שבחרת בנו! אני כבר מתחיל להכין את הפד החדש שלך במפעל שלנו.
+            תודה רבה שבחרת בנו! ההזמנה שלך נרשמה בהצלחה.
+            כדי להתחיל להכין את הפד החדש שלך במפעל — יש לבצע את התשלום דרך הכפתור למטה.
           </Text>
+
+          {/* Payment CTA Button */}
+          {paymentLink && (
+            <Section style={ctaSection}>
+              <Button href={paymentLink} style={ctaButton}>
+                💳 לחצו כאן לתשלום מאובטח
+              </Button>
+            </Section>
+          )}
 
           {/* Order details */}
           <Section style={orderBox}>
@@ -59,7 +71,7 @@ const OrderConfirmationEmail = ({
           </Section>
 
           <Text style={text}>
-            ברגע שהחבילה תצא לדרך, תקבל ממני מייל נוסף עם פרטי המעקב.
+            ברגע שהתשלום יושלם, נתחיל מיד בייצור ותקבל ממני עדכון.
           </Text>
 
           <Text style={text}>
@@ -83,7 +95,7 @@ const OrderConfirmationEmail = ({
 
 export const template = {
   component: OrderConfirmationEmail,
-  subject: 'תתחדשו! ההזמנה שלכם מ-PadZone בדרך לעמדה 🎮',
+  subject: 'הזמנתך מ-PadZone התקבלה — לחצו לתשלום 🎮',
   displayName: 'אישור הזמנה ללקוח',
   previewData: {
     customerName: 'ישראל ישראלי',
@@ -92,6 +104,7 @@ export const template = {
     dimensions: '90x40 ס"מ',
     quantity: 1,
     totalPrice: 129,
+    paymentLink: 'https://example.com/pay',
   },
 } satisfies TemplateEntry
 
@@ -133,6 +146,22 @@ const text = {
   lineHeight: '1.7',
   margin: '0 0 16px',
   textAlign: 'right' as const,
+}
+
+const ctaSection = {
+  textAlign: 'center' as const,
+  margin: '24px 0',
+}
+
+const ctaButton = {
+  backgroundColor: '#00b8d9',
+  color: '#ffffff',
+  fontSize: '18px',
+  fontWeight: 'bold' as const,
+  padding: '16px 40px',
+  borderRadius: '10px',
+  textDecoration: 'none',
+  display: 'inline-block' as const,
 }
 
 const orderBox = {
