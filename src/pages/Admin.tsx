@@ -252,8 +252,7 @@ const Admin = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-1 flex-wrap">
-                        {order.status === "pending_payment" && (
-                          <Button
+                        <Button
                             variant="outline"
                             size="sm"
                             className="h-7 text-xs gap-1 border-green-500/30 text-green-400 hover:bg-green-500/10"
@@ -268,8 +267,7 @@ const Admin = () => {
                           >
                             <MessageCircle className="w-3 h-3" />
                             שלח לינק תשלום
-                          </Button>
-                        )}
+                        </Button>
                         {order.print_file_url && (
                           <Button
                             variant="outline"
