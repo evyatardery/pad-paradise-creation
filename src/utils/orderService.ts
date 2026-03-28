@@ -153,6 +153,61 @@ export async function processOrder(input: CreateOrderInput): Promise<OrderResult
     })
     .eq("id", order.id);
 
+  // 6. Send email notifications (fire & forget — don't block order completion)
+  const emailData = {
+    orderNumber: order.order_number,
+    designName: input.designName,
+    dimensions: input.dimensionLabel,
+    quantity: input.quantity,
+    totalPrice,
+    customerName: input.customerName,
+    customerPhone: input.customerPhone,
+    customerEmail: input.customerEmail || '',
+    shippingAddress: input.shippingAddress,
+  };
+
+  // Build signed URLs for admin file links
+  let printSignedUrl = '';
+  let formSignedUrl = '';
+  if (printFileUrl) {
+    const { data: pUrl } = await supabase.storage
+      .from("order-files")
+      .createSignedUrl(printFileUrl, 60 * 60 * 24 * 7); // 7 days
+    printSignedUrl = pUrl?.signedUrl || '';
+  }
+  if (orderFormUrl) {
+    const { data: fUrl } = await supabase.storage
+      .from("order-files")
+      .createSignedUrl(orderFormUrl, 60 * 60 * 24 * 7);
+    formSignedUrl = fUrl?.signedUrl || '';
+  }
+
+  // Customer confirmation email
+  if (input.customerEmail) {
+    supabase.functions.invoke('send-transactional-email', {
+      body: {
+        templateName: 'order-confirmation',
+        recipientEmail: input.customerEmail,
+        idempotencyKey: `order-confirm-${order.id}`,
+        templateData: emailData,
+      },
+    }).catch((err) => console.error('Failed to send customer email:', err));
+  }
+
+  // Admin notification email
+  supabase.functions.invoke('send-transactional-email', {
+    body: {
+      templateName: 'admin-order-notification',
+      recipientEmail: 'evyatardery@gmail.com',
+      idempotencyKey: `order-admin-${order.id}`,
+      templateData: {
+        ...emailData,
+        printFileUrl: printSignedUrl,
+        orderFormUrl: formSignedUrl,
+      },
+    },
+  }).catch((err) => console.error('Failed to send admin email:', err));
+
   return {
     orderId: order.id,
     orderNumber: order.order_number,
