@@ -446,13 +446,56 @@ const Checkout = () => {
               <div className="space-y-2 mb-4 pb-4 border-b border-border">
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">מחיר פד</span>
-                  <span className="text-card-foreground">₪{size.price}</span>
+                  <span className={`text-card-foreground ${promoApplied ? "line-through opacity-50" : ""}`}>₪{size.price}</span>
                 </div>
+                {promoApplied && (
+                  <div className="flex justify-between text-sm">
+                    <span className="text-green-400">הנחת קופון ({promoApplied.label})</span>
+                    <span className="text-green-400">-₪{size.price - finalPrice}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Promo code field */}
+              <div className="mb-4 pb-4 border-b border-border">
+                <label className="block text-muted-foreground text-xs mb-2 font-semibold">קוד קופון</label>
+                {promoApplied ? (
+                  <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/30 rounded-xl px-4 py-2.5">
+                    <Check size={16} className="text-green-400" />
+                    <span className="text-green-400 text-sm font-bold flex-1">{promoCode.toUpperCase()} — {promoApplied.label}</span>
+                    <button onClick={removePromo} className="text-muted-foreground hover:text-destructive transition-colors">
+                      <X size={16} />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={promoCode}
+                      onChange={(e) => { setPromoCode(e.target.value); setPromoError(""); }}
+                      onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), applyPromo())}
+                      placeholder="הזן קוד קופון"
+                      className="flex-1 bg-input text-card-foreground rounded-xl px-3 py-2.5 outline-none border-2 border-transparent focus:border-primary text-sm"
+                      dir="ltr"
+                    />
+                    <button
+                      type="button"
+                      onClick={applyPromo}
+                      className="bg-primary/20 text-primary px-4 py-2.5 rounded-xl text-sm font-bold hover:bg-primary/30 transition-colors flex items-center gap-1"
+                    >
+                      <Tag size={14} />
+                      הפעל
+                    </button>
+                  </div>
+                )}
+                {promoError && <p className="text-destructive text-xs mt-1.5">{promoError}</p>}
               </div>
 
               <div className="flex justify-between items-center mb-6">
                 <span className="text-card-foreground font-bold">סה״כ לתשלום</span>
-                <span className="text-primary font-black text-2xl neon-text">₪{size.price}</span>
+                <span className="text-primary font-black text-2xl neon-text">
+                  {finalPrice === 0 ? "חינם! 🎉" : `₪${finalPrice}`}
+                </span>
               </div>
 
               {/* Trust badges */}
