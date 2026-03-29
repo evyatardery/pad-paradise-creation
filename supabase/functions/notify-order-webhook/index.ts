@@ -45,27 +45,28 @@ Deno.serve(async (req) => {
       throw new Error(`Failed to fetch order: ${fetchError?.message}`);
     }
 
-    // Send webhook with order payload
+    // Send webhook with clean flat payload (camelCase keys for Make compatibility)
     const payload = {
       event: "order.created",
       timestamp: new Date().toISOString(),
-      order: {
-        id: order.id,
-        order_number: order.order_number,
-        status: order.status,
-        customer_name: order.customer_name,
-        customer_phone: order.customer_phone,
-        customer_email: order.customer_email,
-        shipping_address: order.shipping_address,
-        design_name: order.design_name,
-        dimensions: order.dimensions,
-        quantity: order.quantity,
-        unit_price: order.unit_price,
-        total_price: order.total_price,
-        is_custom_design: order.is_custom_design,
-        custom_text: order.custom_text,
-        created_at: order.created_at,
-      },
+      customerName: order.customer_name,
+      customerPhone: order.customer_phone,
+      customerEmail: order.customer_email || "",
+      shippingAddress: order.shipping_address,
+      orderNumber: order.order_number,
+      status: order.status,
+      orderItems: [
+        {
+          designName: order.design_name,
+          dimensions: order.dimensions,
+          quantity: order.quantity,
+          unitPrice: order.unit_price,
+          isCustomDesign: order.is_custom_design,
+          customText: order.custom_text || "",
+        },
+      ],
+      totalPrice: order.total_price,
+      createdAt: order.created_at,
     };
 
     const webhookResponse = await fetch(webhookUrl, {
