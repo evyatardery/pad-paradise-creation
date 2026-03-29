@@ -45,6 +45,24 @@ Deno.serve(async (req) => {
       throw new Error(`Failed to fetch order: ${fetchError?.message}`);
     }
 
+    // Build signed URLs for file access
+    let printFileSignedUrl = "";
+    let orderFormSignedUrl = "";
+
+    if (order.print_file_url) {
+      const { data: pUrl } = await supabase.storage
+        .from("order-files")
+        .createSignedUrl(order.print_file_url, 60 * 60 * 24 * 7);
+      printFileSignedUrl = pUrl?.signedUrl || "";
+    }
+
+    if (order.order_form_url) {
+      const { data: fUrl } = await supabase.storage
+        .from("order-files")
+        .createSignedUrl(order.order_form_url, 60 * 60 * 24 * 7);
+      orderFormSignedUrl = fUrl?.signedUrl || "";
+    }
+
     // Send webhook with clean flat payload (camelCase keys for Make compatibility)
     const payload = {
       event: "order.created",
@@ -55,17 +73,16 @@ Deno.serve(async (req) => {
       shippingAddress: order.shipping_address,
       orderNumber: order.order_number,
       status: order.status,
-      orderItems: [
-        {
-          designName: order.design_name,
-          dimensions: order.dimensions,
-          quantity: order.quantity,
-          unitPrice: order.unit_price,
-          isCustomDesign: order.is_custom_design,
-          customText: order.custom_text || "",
-        },
-      ],
+      designName: order.design_name,
+      dimensions: order.dimensions,
+      quantity: order.quantity,
+      unitPrice: order.unit_price,
+      isCustomDesign: order.is_custom_design,
+      customText: order.custom_text || "",
       totalPrice: order.total_price,
+      printFileUrl: printFileSignedUrl,
+      orderFormUrl: orderFormSignedUrl,
+      designImageUrl: order.design_image_url || "",
       createdAt: order.created_at,
     };
 
