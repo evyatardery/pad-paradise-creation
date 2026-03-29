@@ -6,8 +6,6 @@ import { sizes } from "@/data/catalog";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { getPaymentLink } from "@/data/paymentLinks";
-import { preflightCheck, type PreflightResult } from "@/utils/printFileGenerator";
-import { checkPdfQuality } from "@/utils/pdfQualityChecker";
 import { toast } from "sonner";
 
 const PROMO_CODES: Record<string, { discount: number; label: string }> = {
@@ -40,7 +38,7 @@ const Checkout = () => {
   const sourcePdf = searchParams.get("sourcePdf") || "";
 
   const size = sizes[sizeIdx] || sizes[1];
-  const [preflight, setPreflight] = useState<PreflightResult | null>(null);
+  
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
@@ -73,19 +71,6 @@ const Checkout = () => {
     setPromoError("");
   };
 
-  // Run preflight quality check
-  useEffect(() => {
-    if (!designImage) return;
-    if (sourcePdf) {
-      checkPdfQuality(sourcePdf, size.label)
-        .then(setPreflight)
-        .catch(() => setPreflight(null));
-      return;
-    }
-    preflightCheck(designImage, size.label)
-      .then(setPreflight)
-      .catch(() => setPreflight(null));
-  }, [designImage, size.label, sourcePdf]);
 
   const [form, setForm] = useState<CheckoutForm>({
     name: "",
@@ -388,23 +373,6 @@ const Checkout = () => {
                 )}
               </div>
 
-              {/* Preflight quality warning */}
-              {preflight && !preflight.ok && (
-                <div className="flex items-start gap-3 p-4 rounded-xl bg-destructive/10 border border-destructive/30">
-                  <AlertTriangle className="text-destructive shrink-0 mt-0.5" size={20} />
-                  <div className="text-sm">
-                    <p className="font-bold text-destructive mb-1">⚠️ איכות תמונה נמוכה</p>
-                    <p className="text-destructive/80">{preflight.warning}</p>
-                  </div>
-                </div>
-              )}
-
-              {preflight && preflight.ok && (
-                <div className="flex items-center gap-2 p-3 rounded-xl bg-primary/10 border border-primary/30 text-sm text-primary">
-                  <Shield size={16} />
-                  <span>✅ איכות תמונה מעולה ({preflight.dpi} DPI)</span>
-                </div>
-              )}
 
               {/* Submit */}
               <motion.button
