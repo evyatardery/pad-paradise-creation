@@ -124,7 +124,7 @@ const Checkout = () => {
       const orderStatus = isFreeOrder ? "paid" : "pending_payment";
 
       const paymentLinks: Record<string, string> = {
-        bit: "https://www.bitpay.co.il/app/pay?phone=0524796790",
+        bit: "https://app.onelink.me/lmJd/bit?phone=0524796790",
         paybox: "https://links.payboxapp.com/BWlK8Aqyc2b",
       };
       const paymentLink = isFreeOrder ? "" : (paymentLinks[paymentMethod] || "");
@@ -261,7 +261,7 @@ const Checkout = () => {
           {finalPrice > 0 && (
             <div className="mt-6">
               <a
-                href={paymentMethod === "bit" ? "https://www.bitpay.co.il/app/pay?phone=0524796790" : "https://links.payboxapp.com/BWlK8Aqyc2b"}
+                href={paymentMethod === "bit" ? "https://app.onelink.me/lmJd/bit?phone=0524796790" : "https://links.payboxapp.com/BWlK8Aqyc2b"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-3 bg-primary text-primary-foreground font-black py-4 rounded-xl text-lg neon-box-strong hover:bg-primary/90 transition-colors"
