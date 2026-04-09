@@ -119,6 +119,7 @@ export type Database = {
           order_form_url: string | null
           order_number: string
           paid_at: string | null
+          payment_method: string | null
           payment_provider: string | null
           payment_transaction_id: string | null
           print_file_url: string | null
@@ -146,6 +147,7 @@ export type Database = {
           order_form_url?: string | null
           order_number: string
           paid_at?: string | null
+          payment_method?: string | null
           payment_provider?: string | null
           payment_transaction_id?: string | null
           print_file_url?: string | null
@@ -173,6 +175,7 @@ export type Database = {
           order_form_url?: string | null
           order_number?: string
           paid_at?: string | null
+          payment_method?: string | null
           payment_provider?: string | null
           payment_transaction_id?: string | null
           print_file_url?: string | null
