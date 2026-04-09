@@ -5,7 +5,7 @@ import { ArrowRight, Package, Shield, ShoppingBag, Tag, Check, X } from "lucide-
 import { sizes } from "@/data/catalog";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
-import { getPaymentLink } from "@/data/paymentLinks";
+
 import { toast } from "sonner";
 
 const PROMO_CODES: Record<string, { discount: number; label: string }> = {
@@ -15,7 +15,7 @@ const PROMO_CODES: Record<string, { discount: number; label: string }> = {
 const checkoutSchema = z.object({
   name: z.string().trim().min(2, "שם חייב להכיל לפחות 2 תווים").max(100),
   phone: z.string().trim().regex(/^0\d{8,9}$/, "מספר טלפון לא תקין (לדוגמה: 0551234567)"),
-  email: z.string().trim().email("כתובת אימייל לא תקינה").max(255).or(z.literal("")),
+  email: z.string().trim().email("כתובת אימייל לא תקינה").max(255),
   address: z.string().trim().min(5, "כתובת חייבת להכיל לפחות 5 תווים").max(300),
   city: z.string().trim().min(2, "עיר חייבת להכיל לפחות 2 תווים").max(100),
 });
@@ -42,6 +42,7 @@ const Checkout = () => {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<"bit" | "paybox" | "credit">("bit");
 
   // Promo code state
   const [promoCode, setPromoCode] = useState("");
@@ -121,7 +122,12 @@ const Checkout = () => {
       const totalPrice = finalPrice;
       const isFreeOrder = totalPrice === 0;
       const orderStatus = isFreeOrder ? "paid" : "pending_payment";
-      const paymentLink = getPaymentLink(size.label);
+
+      const paymentLinks: Record<string, string> = {
+        bit: "https://www.bitpay.co.il/app/pay?phone=0524796790",
+        paybox: "https://links.payboxapp.com/BWlK8Aqyc2b",
+      };
+      const paymentLink = isFreeOrder ? "" : (paymentLinks[paymentMethod] || "");
 
       // Create order
       const { data: order, error: orderError } = await supabase
@@ -141,6 +147,7 @@ const Checkout = () => {
           unit_price: size.price,
           total_price: totalPrice,
           status: orderStatus,
+          payment_method: paymentMethod,
           ...(isFreeOrder ? { paid_at: new Date().toISOString() } : {}),
         })
         .select()
@@ -240,15 +247,34 @@ const Checkout = () => {
           )}
 
           <p className="text-muted-foreground text-lg leading-relaxed mt-4">
-            לינק לתשלום מאובטח נשלח אליך ברגע זה לווטסאפ ולמייל.
-            <br />
-            <strong className="text-card-foreground">ההזמנה תצא לייצור מיד עם השלמת התשלום.</strong>
+            {finalPrice === 0 ? (
+              <>ההזמנה שלך הושלמה בהצלחה! אנחנו מתחילים לעבוד עליה.</>
+            ) : (
+              <>
+                לחץ על הכפתור למטה כדי לעבור לתשלום.
+                <br />
+                <strong className="text-card-foreground">ההזמנה תצא לייצור מיד עם השלמת התשלום.</strong>
+              </>
+            )}
           </p>
 
-          <div className="mt-8 space-y-3">
+          {finalPrice > 0 && (
+            <div className="mt-6">
+              <a
+                href={paymentMethod === "bit" ? "https://www.bitpay.co.il/app/pay?phone=0524796790" : "https://links.payboxapp.com/BWlK8Aqyc2b"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-3 bg-primary text-primary-foreground font-black py-4 rounded-xl text-lg neon-box-strong hover:bg-primary/90 transition-colors"
+              >
+                {paymentMethod === "bit" ? "💙 עבור לתשלום בביט" : "🟢 עבור לתשלום בפייבוקס"}
+              </a>
+            </div>
+          )}
+
+          <div className="mt-6 space-y-3">
             <button
               onClick={() => navigate("/")}
-              className="w-full bg-primary text-primary-foreground font-bold py-3 px-8 rounded-xl hover:bg-primary/90 transition-colors neon-box"
+              className="w-full bg-secondary text-secondary-foreground font-bold py-3 px-8 rounded-xl hover:bg-secondary/80 transition-colors"
             >
               חזרה לחנות ←
             </button>
@@ -326,7 +352,7 @@ const Checkout = () => {
 
               {/* Email */}
               <div>
-                <label className="block text-card-foreground mb-1.5 font-semibold text-sm">אימייל (אופציונלי)</label>
+                <label className="block text-card-foreground mb-1.5 font-semibold text-sm">אימייל *</label>
                 <input
                   type="email"
                   value={form.email}
@@ -374,6 +400,44 @@ const Checkout = () => {
               </div>
 
 
+              {/* Payment method selection */}
+              {finalPrice > 0 && (
+                <div>
+                  <label className="block text-card-foreground mb-3 font-semibold text-sm">אמצעי תשלום *</label>
+                  <div className="space-y-2">
+                    {[
+                      { value: "bit" as const, label: "💙 ביט", disabled: false },
+                      { value: "paybox" as const, label: "🟢 פייבוקס", disabled: false },
+                      { value: "credit" as const, label: "💳 אשראי - בקרוב", disabled: true },
+                    ].map((option) => (
+                      <label
+                        key={option.value}
+                        className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                          option.disabled
+                            ? "border-border opacity-50 cursor-not-allowed"
+                            : paymentMethod === option.value
+                            ? "border-primary bg-primary/10"
+                            : "border-border hover:border-primary/50"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="paymentMethod"
+                          value={option.value}
+                          checked={paymentMethod === option.value}
+                          onChange={() => setPaymentMethod(option.value)}
+                          disabled={option.disabled}
+                          className="accent-primary w-4 h-4"
+                        />
+                        <span className={`font-semibold text-sm ${option.disabled ? "text-muted-foreground" : "text-card-foreground"}`}>
+                          {option.label}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Submit */}
               <motion.button
                 type="submit"
@@ -387,7 +451,7 @@ const Checkout = () => {
               </motion.button>
 
               <p className="text-center text-muted-foreground text-xs">
-                {finalPrice === 0 ? "ההזמנה תושלם אוטומטית ללא תשלום" : "לינק לתשלום מאובטח יישלח אליך לווטסאפ ולמייל"}
+                {finalPrice === 0 ? "ההזמנה תושלם אוטומטית ללא תשלום" : "לאחר ההזמנה תועבר ישירות לעמוד התשלום"}
               </p>
             </form>
           </motion.div>
