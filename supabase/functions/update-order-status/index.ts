@@ -6,6 +6,8 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+const FACTORY_EMAIL = Deno.env.get("FACTORY_EMAIL") || "";
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -28,7 +30,7 @@ Deno.serve(async (req) => {
 
     // Build update payload
     const updatePayload: Record<string, any> = { status };
-    if (status === "paid") {
+    if (status === "paid" || status === "in_production") {
       updatePayload.paid_at = new Date().toISOString();
     }
 
@@ -43,10 +45,55 @@ Deno.serve(async (req) => {
       throw new Error(`Update failed: ${updateError.message}`);
     }
 
-    // When status changes to "paid", send confirmation emails
+    // When status changes to "in_production" (admin approved payment)
+    if (status === "in_production" && order) {
+      try {
+        // Send payment confirmed email to customer
+        if (order.customer_email) {
+          await supabase.functions.invoke("send-transactional-email", {
+            body: {
+              templateName: "payment-confirmed",
+              recipientEmail: order.customer_email,
+              idempotencyKey: `payment-confirmed-${order.id}`,
+              templateData: {
+                customerName: order.customer_name,
+                orderNumber: order.order_number,
+                designName: order.design_name,
+                dimensions: order.dimensions,
+                quantity: order.quantity,
+                totalPrice: order.total_price,
+                shippingAddress: order.shipping_address,
+              },
+            },
+          });
+        }
+
+        // Send factory order email
+        if (FACTORY_EMAIL) {
+          await supabase.functions.invoke("send-transactional-email", {
+            body: {
+              templateName: "factory-order",
+              recipientEmail: FACTORY_EMAIL,
+              idempotencyKey: `factory-order-${order.id}`,
+              templateData: {
+                orderNumber: order.order_number,
+                designId: order.design_id || "",
+                designName: order.design_name,
+                dimensions: order.dimensions,
+                quantity: order.quantity,
+                customerName: order.customer_name,
+              },
+            },
+          });
+        }
+      } catch (emailErr) {
+        console.error("Email notification failed:", emailErr);
+      }
+    }
+
+    // When status changes to "paid", send confirmation emails (legacy flow)
     if (status === "paid" && order) {
       try {
-        // Build signed URLs for admin file links
         let printSignedUrl = "";
         let formSignedUrl = "";
 
@@ -76,7 +123,6 @@ Deno.serve(async (req) => {
           shippingAddress: order.shipping_address,
         };
 
-        // Customer confirmation email (no paymentLink = paid confirmation)
         if (order.customer_email) {
           await supabase.functions.invoke("send-transactional-email", {
             body: {
@@ -88,7 +134,6 @@ Deno.serve(async (req) => {
           });
         }
 
-        // Admin notification email
         await supabase.functions.invoke("send-transactional-email", {
           body: {
             templateName: "admin-order-notification",
