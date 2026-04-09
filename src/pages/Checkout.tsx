@@ -188,6 +188,7 @@ const Checkout = () => {
           templateData: {
             orderNumber: order.order_number,
             designName,
+            designId: designId || '',
             dimensions: size.label,
             quantity: 1,
             totalPrice,
@@ -195,6 +196,8 @@ const Checkout = () => {
             customerPhone: result.data.phone,
             customerEmail: result.data.email || '',
             shippingAddress: `${result.data.address}, ${result.data.city}`,
+            paymentMethod: isFreeOrder ? 'free' : paymentMethod,
+            paymentLink,
           },
         },
       }).catch((err) => console.error('Failed to send admin email:', err));

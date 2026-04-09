@@ -9,9 +9,8 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Download, RefreshCw, Lock, Search, MessageCircle } from "lucide-react";
+import { Download, RefreshCw, Lock, Search, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { getPaymentLink } from "@/data/paymentLinks";
 
 const ADMIN_PASSWORD = "padzone2026";
 
@@ -31,12 +30,15 @@ interface Order {
   customer_email: string | null;
   shipping_address: string;
   design_name: string;
+  design_id: string | null;
   dimensions: string;
   quantity: number;
   total_price: number;
+  unit_price: number;
   status: string;
   is_custom_design: boolean;
   custom_text: string | null;
+  payment_method: string | null;
   print_file_url: string | null;
   order_form_url: string | null;
   created_at: string;
@@ -50,6 +52,7 @@ const Admin = () => {
   const [loading, setLoading] = useState(false);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
+  const [approvingId, setApprovingId] = useState<string | null>(null);
   const { toast } = useToast();
 
   const login = () => {
@@ -86,7 +89,6 @@ const Admin = () => {
   }, [authenticated]);
 
   const updateStatus = async (orderId: string, newStatus: string) => {
-    // Status updates require service_role - use edge function
     const { error } = await supabase.functions.invoke("update-order-status", {
       body: { orderId, status: newStatus },
     });
@@ -97,6 +99,28 @@ const Admin = () => {
       setOrders((prev) =>
         prev.map((o) => (o.id === orderId ? { ...o, status: newStatus } : o))
       );
+    }
+  };
+
+  const approvePayment = async (order: Order) => {
+    setApprovingId(order.id);
+    try {
+      // 1. Update status to in_production via edge function
+      const { error } = await supabase.functions.invoke("update-order-status", {
+        body: { orderId: order.id, status: "in_production" },
+      });
+      if (error) throw error;
+
+      // Update local state
+      setOrders((prev) =>
+        prev.map((o) => (o.id === order.id ? { ...o, status: "in_production", paid_at: new Date().toISOString() } : o))
+      );
+
+      toast({ title: "✅ התשלום אושר וההזמנה יצאה לייצור" });
+    } catch (err: any) {
+      toast({ title: "שגיאה באישור תשלום", description: err.message, variant: "destructive" });
+    } finally {
+      setApprovingId(null);
     }
   };
 
@@ -162,7 +186,7 @@ const Admin = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {Object.entries(STATUS_MAP).map(([key, { label, color }]) => {
             const count = orders.filter((o) => o.status === key).length;
             return (
@@ -209,16 +233,15 @@ const Admin = () => {
                 <TableHead className="text-right">טלפון</TableHead>
                 <TableHead className="text-right">עיצוב</TableHead>
                 <TableHead className="text-right">מידה</TableHead>
-                <TableHead className="text-right">כמות</TableHead>
                 <TableHead className="text-right">סה״כ</TableHead>
                 <TableHead className="text-right">סטטוס</TableHead>
-                <TableHead className="text-right">קבצים</TableHead>
+                <TableHead className="text-right">פעולות</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={10} className="text-center text-muted-foreground py-8">
+                  <TableCell colSpan={9} className="text-center text-muted-foreground py-8">
                     {loading ? "טוען..." : "אין הזמנות"}
                   </TableCell>
                 </TableRow>
@@ -233,7 +256,6 @@ const Admin = () => {
                     <TableCell className="text-sm font-mono">{order.customer_phone}</TableCell>
                     <TableCell className="text-sm max-w-[120px] truncate">{order.design_name}</TableCell>
                     <TableCell className="text-sm">{order.dimensions}</TableCell>
-                    <TableCell className="text-sm text-center">{order.quantity}</TableCell>
                     <TableCell className="text-sm font-semibold">₪{order.total_price}</TableCell>
                     <TableCell>
                       <Select
@@ -252,27 +274,18 @@ const Admin = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-1 flex-wrap">
-                        <a
-                          href={(() => {
-                            const link = getPaymentLink(order.dimensions);
-                            const msg = encodeURIComponent(
-                              `שלום ${order.customer_name}! 🎮\n\nהזמנתך מ-PadZone (${order.order_number}) מוכנה לתשלום.\n\n🔗 לינק תשלום מאובטח:\n${link}\n\nתודה שבחרת ב-PadZone!`
-                            );
-                            const phone = order.customer_phone.replace(/^0/, "972");
-                            return `https://wa.me/${phone}?text=${msg}`;
-                          })()}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                        {order.status === "pending_payment" && (
                           <Button
                             variant="outline"
                             size="sm"
                             className="h-7 text-xs gap-1 border-green-500/30 text-green-400 hover:bg-green-500/10"
+                            onClick={() => approvePayment(order)}
+                            disabled={approvingId === order.id}
                           >
-                            <MessageCircle className="w-3 h-3" />
-                            שלח לינק תשלום
+                            <CheckCircle className="w-3 h-3" />
+                            {approvingId === order.id ? "מאשר..." : "✅ אשר תשלום ושלח לייצור"}
                           </Button>
-                        </a>
+                        )}
                         {order.print_file_url && (
                           <Button
                             variant="outline"
