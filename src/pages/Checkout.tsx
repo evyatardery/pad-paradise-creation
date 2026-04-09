@@ -5,7 +5,7 @@ import { ArrowRight, Package, Shield, ShoppingBag, Tag, Check, X } from "lucide-
 import { sizes } from "@/data/catalog";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
-import { getPaymentLink } from "@/data/paymentLinks";
+
 import { toast } from "sonner";
 
 const PROMO_CODES: Record<string, { discount: number; label: string }> = {
