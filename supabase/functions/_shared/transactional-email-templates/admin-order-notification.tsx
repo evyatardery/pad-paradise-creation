@@ -8,9 +8,16 @@ const SITE_NAME = "PadZone"
 const ADMIN_EMAIL = "evyatardery@gmail.com"
 const TIKTOK_URL = "https://www.tiktok.com/@padzone.il"
 
+const PAYMENT_METHOD_LABELS: Record<string, string> = {
+  bit: '💙 ביט',
+  paybox: '🟢 פייבוקס',
+  credit: '💳 אשראי',
+}
+
 interface AdminOrderNotificationProps {
   orderNumber?: string
   designName?: string
+  designId?: string
   dimensions?: string
   quantity?: number
   totalPrice?: number
@@ -18,6 +25,8 @@ interface AdminOrderNotificationProps {
   customerPhone?: string
   customerEmail?: string
   shippingAddress?: string
+  paymentMethod?: string
+  paymentLink?: string
   printFileUrl?: string
   orderFormUrl?: string
 }
@@ -25,6 +34,7 @@ interface AdminOrderNotificationProps {
 const AdminOrderNotificationEmail = ({
   orderNumber = '',
   designName = '',
+  designId = '',
   dimensions = '',
   quantity = 1,
   totalPrice = 0,
@@ -32,6 +42,8 @@ const AdminOrderNotificationEmail = ({
   customerPhone = '',
   customerEmail = '',
   shippingAddress = '',
+  paymentMethod = '',
+  paymentLink = '',
   printFileUrl = '',
   orderFormUrl = '',
 }: AdminOrderNotificationProps) => (
@@ -56,6 +68,7 @@ const AdminOrderNotificationEmail = ({
             <Hr style={divider} />
             <Text style={detail}>מספר הזמנה: <strong>{orderNumber}</strong></Text>
             <Text style={detail}>דגם: <strong>{designName}</strong></Text>
+            {designId ? <Text style={detail}>מספר קטלוגי: {designId}</Text> : null}
             <Text style={detail}>גודל: {dimensions}</Text>
             <Text style={detail}>כמות: {quantity}</Text>
             <Text style={detailHighlight}>סה"כ: ₪{totalPrice}</Text>
@@ -68,6 +81,17 @@ const AdminOrderNotificationEmail = ({
             <Text style={detail}>טלפון: {customerPhone}</Text>
             {customerEmail ? <Text style={detail}>מייל: {customerEmail}</Text> : null}
             <Text style={detail}>כתובת למשלוח: {shippingAddress}</Text>
+          </Section>
+
+          <Section style={detailBox}>
+            <Text style={sectionTitle}>תשלום</Text>
+            <Hr style={divider} />
+            <Text style={detail}>אמצעי תשלום: {PAYMENT_METHOD_LABELS[paymentMethod] || paymentMethod || 'לא נבחר'}</Text>
+            {paymentLink ? (
+              <Text style={detail}>
+                לינק תשלום: <Link href={paymentLink} style={fileLink}>{paymentLink}</Link>
+              </Text>
+            ) : null}
           </Section>
 
           {(printFileUrl || orderFormUrl) && (
@@ -113,6 +137,7 @@ export const template = {
   previewData: {
     orderNumber: 'PZ-00042',
     designName: 'Cyber Red Blaze',
+    designId: 'cyber-red-blaze',
     dimensions: '90x40 ס"מ',
     quantity: 1,
     totalPrice: 129,
@@ -120,6 +145,8 @@ export const template = {
     customerPhone: '050-1234567',
     customerEmail: 'test@example.com',
     shippingAddress: 'רחוב הרצל 1, תל אביב',
+    paymentMethod: 'bit',
+    paymentLink: 'https://app.onelink.me/lmJd/bit?phone=0524796790',
     printFileUrl: 'https://example.com/print.pdf',
     orderFormUrl: 'https://example.com/order-form.pdf',
   },
