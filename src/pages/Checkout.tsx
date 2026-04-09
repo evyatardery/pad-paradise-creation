@@ -247,15 +247,34 @@ const Checkout = () => {
           )}
 
           <p className="text-muted-foreground text-lg leading-relaxed mt-4">
-            לינק לתשלום מאובטח נשלח אליך ברגע זה לווטסאפ ולמייל.
-            <br />
-            <strong className="text-card-foreground">ההזמנה תצא לייצור מיד עם השלמת התשלום.</strong>
+            {finalPrice === 0 ? (
+              <>ההזמנה שלך הושלמה בהצלחה! אנחנו מתחילים לעבוד עליה.</>
+            ) : (
+              <>
+                לחץ על הכפתור למטה כדי לעבור לתשלום.
+                <br />
+                <strong className="text-card-foreground">ההזמנה תצא לייצור מיד עם השלמת התשלום.</strong>
+              </>
+            )}
           </p>
 
-          <div className="mt-8 space-y-3">
+          {finalPrice > 0 && (
+            <div className="mt-6">
+              <a
+                href={paymentMethod === "bit" ? "https://www.bitpay.co.il/app/pay?phone=0524796790" : "https://links.payboxapp.com/BWlK8Aqyc2b"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-3 bg-primary text-primary-foreground font-black py-4 rounded-xl text-lg neon-box-strong hover:bg-primary/90 transition-colors"
+              >
+                {paymentMethod === "bit" ? "💙 עבור לתשלום בביט" : "🟢 עבור לתשלום בפייבוקס"}
+              </a>
+            </div>
+          )}
+
+          <div className="mt-6 space-y-3">
             <button
               onClick={() => navigate("/")}
-              className="w-full bg-primary text-primary-foreground font-bold py-3 px-8 rounded-xl hover:bg-primary/90 transition-colors neon-box"
+              className="w-full bg-secondary text-secondary-foreground font-bold py-3 px-8 rounded-xl hover:bg-secondary/80 transition-colors"
             >
               חזרה לחנות ←
             </button>
