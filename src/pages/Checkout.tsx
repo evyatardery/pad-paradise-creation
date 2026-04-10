@@ -268,6 +268,11 @@ const Checkout = () => {
               {paymentMethod === "bit" ? (
                 <>
                   <Dialog>
+                    <DialogTrigger asChild>
+                      <button className="w-full flex items-center justify-center gap-3 bg-primary text-primary-foreground font-black py-4 rounded-xl text-lg neon-box-strong hover:bg-primary/90 transition-colors cursor-pointer">
+                        💙 עבור לתשלום בביט
+                      </button>
+                    </DialogTrigger>
                     <DialogContent className="text-center" dir="rtl">
                       <DialogHeader>
                         <DialogTitle className="text-2xl">תשלום בביט 💙</DialogTitle>
@@ -283,15 +288,6 @@ const Checkout = () => {
                         <Button variant="secondary" className="mt-4 w-full">סגור</Button>
                       </DialogClose>
                     </DialogContent>
-                    <Button
-                      asChild
-                      className="w-full py-4 text-lg font-black neon-box-strong"
-                    >
-                      <label className="cursor-pointer flex items-center justify-center gap-3">
-                        💙 עבור לתשלום בביט
-                        {/* DialogTrigger is the parent Dialog's trigger */}
-                      </label>
-                    </Button>
                   </Dialog>
                 </>
               ) : (
