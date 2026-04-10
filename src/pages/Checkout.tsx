@@ -265,14 +265,45 @@ const Checkout = () => {
 
           {finalPrice > 0 && (
             <div className="mt-6">
-              <a
-                href={paymentMethod === "bit" ? "https://app.onelink.me/lmJd/bit?phone=0524796790" : "https://links.payboxapp.com/BWlK8Aqyc2b"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-3 bg-primary text-primary-foreground font-black py-4 rounded-xl text-lg neon-box-strong hover:bg-primary/90 transition-colors"
-              >
-                {paymentMethod === "bit" ? "💙 עבור לתשלום בביט" : "🟢 עבור לתשלום בפייבוקס"}
-              </a>
+              {paymentMethod === "bit" ? (
+                <>
+                  <Dialog>
+                    <DialogContent className="text-center" dir="rtl">
+                      <DialogHeader>
+                        <DialogTitle className="text-2xl">תשלום בביט 💙</DialogTitle>
+                        <DialogDescription className="text-base leading-relaxed mt-4">
+                          העבר את הסכום המדויק של ההזמנה שלך לביט:
+                          <br />
+                          <strong className="text-card-foreground text-lg">052-4796790</strong>
+                          <br />
+                          לאחר ההעברה נשלח לך אישור ונתחיל בייצור 🎮
+                        </DialogDescription>
+                      </DialogHeader>
+                      <DialogClose asChild>
+                        <Button variant="secondary" className="mt-4 w-full">סגור</Button>
+                      </DialogClose>
+                    </DialogContent>
+                    <Button
+                      asChild
+                      className="w-full py-4 text-lg font-black neon-box-strong"
+                    >
+                      <label className="cursor-pointer flex items-center justify-center gap-3">
+                        💙 עבור לתשלום בביט
+                        {/* DialogTrigger is the parent Dialog's trigger */}
+                      </label>
+                    </Button>
+                  </Dialog>
+                </>
+              ) : (
+                <a
+                  href="https://links.payboxapp.com/BWlK8Aqyc2b"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-3 bg-primary text-primary-foreground font-black py-4 rounded-xl text-lg neon-box-strong hover:bg-primary/90 transition-colors"
+                >
+                  🟢 עבור לתשלום בפייבוקס
+                </a>
+              )}
             </div>
           )}
 
