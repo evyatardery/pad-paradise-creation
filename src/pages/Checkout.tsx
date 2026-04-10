@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Package, Shield, ShoppingBag, Tag, Check, X } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { sizes } from "@/data/catalog";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -263,14 +265,41 @@ const Checkout = () => {
 
           {finalPrice > 0 && (
             <div className="mt-6">
-              <a
-                href={paymentMethod === "bit" ? "https://app.onelink.me/lmJd/bit?phone=0524796790" : "https://links.payboxapp.com/BWlK8Aqyc2b"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-3 bg-primary text-primary-foreground font-black py-4 rounded-xl text-lg neon-box-strong hover:bg-primary/90 transition-colors"
-              >
-                {paymentMethod === "bit" ? "💙 עבור לתשלום בביט" : "🟢 עבור לתשלום בפייבוקס"}
-              </a>
+              {paymentMethod === "bit" ? (
+                <>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button className="w-full flex items-center justify-center gap-3 bg-primary text-primary-foreground font-black py-4 rounded-xl text-lg neon-box-strong hover:bg-primary/90 transition-colors cursor-pointer">
+                        💙 עבור לתשלום בביט
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent className="text-center" dir="rtl">
+                      <DialogHeader>
+                        <DialogTitle className="text-2xl">תשלום בביט 💙</DialogTitle>
+                        <DialogDescription className="text-base leading-relaxed mt-4">
+                          העבר את הסכום המדויק של ההזמנה שלך לביט:
+                          <br />
+                          <strong className="text-card-foreground text-lg">052-4796790</strong>
+                          <br />
+                          לאחר ההעברה נשלח לך אישור ונתחיל בייצור 🎮
+                        </DialogDescription>
+                      </DialogHeader>
+                      <DialogClose asChild>
+                        <Button variant="secondary" className="mt-4 w-full">סגור</Button>
+                      </DialogClose>
+                    </DialogContent>
+                  </Dialog>
+                </>
+              ) : (
+                <a
+                  href="https://links.payboxapp.com/BWlK8Aqyc2b"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-3 bg-primary text-primary-foreground font-black py-4 rounded-xl text-lg neon-box-strong hover:bg-primary/90 transition-colors"
+                >
+                  🟢 עבור לתשלום בפייבוקס
+                </a>
+              )}
             </div>
           )}
 
