@@ -92,6 +92,14 @@ import gameNeonTirePdf from "@/assets/pads/game-neon-tire.pdf?url";
 import darkRedSmoke from "@/assets/pads/dark-red-smoke.jpg";
 import darkRedSmokePdf from "@/assets/pads/dark-red-smoke.pdf?url";
 
+// New batch 7
+import darkMagentaSmoke from "@/assets/pads/dark-magenta-smoke.jpg";
+import darkMagentaSmokePdf from "@/assets/pads/dark-magenta-smoke.pdf?url";
+import cyberSpeedometer from "@/assets/pads/cyber-speedometer.jpg";
+import cyberSpeedometerPdf from "@/assets/pads/cyber-speedometer.pdf?url";
+import darkHauntedForest from "@/assets/pads/dark-haunted-forest.jpg";
+import darkHauntedForestPdf from "@/assets/pads/dark-haunted-forest.pdf?url";
+
 export interface PadDesign {
   id: string;
   title: string;
