@@ -72,6 +72,26 @@ import abstractMarbleFlowPdf from "@/assets/pads/abstract-marble-flow.pdf?url";
 import darkPolygon from "@/assets/pads/dark-polygon.jpg";
 import darkPolygonPdf from "@/assets/pads/dark-polygon.pdf?url";
 
+// New batch 6
+import cyberGoldTunnel from "@/assets/pads/cyber-gold-tunnel.jpg";
+import cyberGoldTunnelPdf from "@/assets/pads/cyber-gold-tunnel.pdf?url";
+import cyberHexMulti from "@/assets/pads/cyber-hex-multi.jpg";
+import cyberHexMultiPdf from "@/assets/pads/cyber-hex-multi.pdf?url";
+import cyberHexPurple from "@/assets/pads/cyber-hex-purple.jpg";
+import cyberHexPurplePdf from "@/assets/pads/cyber-hex-purple.pdf?url";
+import darkGreenAbstract from "@/assets/pads/dark-green-abstract.jpg";
+import darkGreenAbstractPdf from "@/assets/pads/dark-green-abstract.pdf?url";
+import gameNeonRacer from "@/assets/pads/game-neon-racer.jpg";
+import gameNeonRacerPdf from "@/assets/pads/game-neon-racer.pdf?url";
+import cyberNeonEdge from "@/assets/pads/cyber-neon-edge.jpg";
+import cyberNeonEdgePdf from "@/assets/pads/cyber-neon-edge.pdf?url";
+import cyberLightHorizon from "@/assets/pads/cyber-light-horizon.jpg";
+import cyberLightHorizonPdf from "@/assets/pads/cyber-light-horizon.pdf?url";
+import gameNeonTire from "@/assets/pads/game-neon-tire.jpg";
+import gameNeonTirePdf from "@/assets/pads/game-neon-tire.pdf?url";
+import darkRedSmoke from "@/assets/pads/dark-red-smoke.jpg";
+import darkRedSmokePdf from "@/assets/pads/dark-red-smoke.pdf?url";
+
 export interface PadDesign {
   id: string;
   title: string;
@@ -184,9 +204,18 @@ export const padDesigns: PadDesign[] = [
   // New batch 5
   { id: "abs-6", title: "Marble Flow", image: abstractMarbleFlow, category: "abstract", sourcePdf: abstractMarbleFlowPdf },
   { id: "dark-7", title: "Dark Polygon", image: darkPolygon, category: "dark", sourcePdf: darkPolygonPdf },
-  
-];
 
+  // New batch 6
+  { id: "cyber-8", title: "Gold Tunnel", image: cyberGoldTunnel, category: "cyber", sourcePdf: cyberGoldTunnelPdf },
+  { id: "cyber-9", title: "Hex Multi Glow", image: cyberHexMulti, category: "cyber", sourcePdf: cyberHexMultiPdf },
+  { id: "cyber-10", title: "Hex Purple", image: cyberHexPurple, category: "cyber", sourcePdf: cyberHexPurplePdf },
+  { id: "dark-8", title: "Green Abstract", image: darkGreenAbstract, category: "dark", sourcePdf: darkGreenAbstractPdf },
+  { id: "game-6", title: "Neon Racer", image: gameNeonRacer, category: "gaming", sourcePdf: gameNeonRacerPdf },
+  { id: "cyber-11", title: "Neon Edge", image: cyberNeonEdge, category: "cyber", sourcePdf: cyberNeonEdgePdf },
+  { id: "cyber-12", title: "Light Horizon", image: cyberLightHorizon, category: "cyber", sourcePdf: cyberLightHorizonPdf },
+  { id: "game-7", title: "Neon Tire", image: gameNeonTire, category: "gaming", sourcePdf: gameNeonTirePdf },
+  { id: "dark-9", title: "Red Smoke", image: darkRedSmoke, category: "dark", sourcePdf: darkRedSmokePdf },
+];
 export const sizes = [
   { label: "M 22.5x18.5", price: 59 },
   { label: "L 60x30", price: 89 },
