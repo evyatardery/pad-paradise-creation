@@ -92,6 +92,14 @@ import gameNeonTirePdf from "@/assets/pads/game-neon-tire.pdf?url";
 import darkRedSmoke from "@/assets/pads/dark-red-smoke.jpg";
 import darkRedSmokePdf from "@/assets/pads/dark-red-smoke.pdf?url";
 
+// New batch 7
+import darkMagentaSmoke from "@/assets/pads/dark-magenta-smoke.jpg";
+import darkMagentaSmokePdf from "@/assets/pads/dark-magenta-smoke.pdf?url";
+import cyberSpeedometer from "@/assets/pads/cyber-speedometer.jpg";
+import cyberSpeedometerPdf from "@/assets/pads/cyber-speedometer.pdf?url";
+import darkHauntedForest from "@/assets/pads/dark-haunted-forest.jpg";
+import darkHauntedForestPdf from "@/assets/pads/dark-haunted-forest.pdf?url";
+
 export interface PadDesign {
   id: string;
   title: string;
@@ -215,6 +223,11 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-12", title: "Light Horizon", image: cyberLightHorizon, category: "cyber", sourcePdf: cyberLightHorizonPdf },
   { id: "game-7", title: "Neon Tire", image: gameNeonTire, category: "gaming", sourcePdf: gameNeonTirePdf },
   { id: "dark-9", title: "Red Smoke", image: darkRedSmoke, category: "dark", sourcePdf: darkRedSmokePdf },
+
+  // New batch 7
+  { id: "dark-10", title: "Magenta Smoke", image: darkMagentaSmoke, category: "dark", sourcePdf: darkMagentaSmokePdf },
+  { id: "cyber-13", title: "Speedometer", image: cyberSpeedometer, category: "cyber", sourcePdf: cyberSpeedometerPdf },
+  { id: "dark-11", title: "Haunted Forest", image: darkHauntedForest, category: "dark", sourcePdf: darkHauntedForestPdf },
 ];
 export const sizes = [
   { label: "M 22.5x18.5", price: 59 },
