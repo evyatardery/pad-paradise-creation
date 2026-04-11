@@ -223,6 +223,11 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-12", title: "Light Horizon", image: cyberLightHorizon, category: "cyber", sourcePdf: cyberLightHorizonPdf },
   { id: "game-7", title: "Neon Tire", image: gameNeonTire, category: "gaming", sourcePdf: gameNeonTirePdf },
   { id: "dark-9", title: "Red Smoke", image: darkRedSmoke, category: "dark", sourcePdf: darkRedSmokePdf },
+
+  // New batch 7
+  { id: "dark-10", title: "Magenta Smoke", image: darkMagentaSmoke, category: "dark", sourcePdf: darkMagentaSmokePdf },
+  { id: "cyber-13", title: "Speedometer", image: cyberSpeedometer, category: "cyber", sourcePdf: cyberSpeedometerPdf },
+  { id: "dark-11", title: "Haunted Forest", image: darkHauntedForest, category: "dark", sourcePdf: darkHauntedForestPdf },
 ];
 export const sizes = [
   { label: "M 22.5x18.5", price: 59 },
