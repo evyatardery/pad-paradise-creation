@@ -204,9 +204,18 @@ export const padDesigns: PadDesign[] = [
   // New batch 5
   { id: "abs-6", title: "Marble Flow", image: abstractMarbleFlow, category: "abstract", sourcePdf: abstractMarbleFlowPdf },
   { id: "dark-7", title: "Dark Polygon", image: darkPolygon, category: "dark", sourcePdf: darkPolygonPdf },
-  
-];
 
+  // New batch 6
+  { id: "cyber-8", title: "Gold Tunnel", image: cyberGoldTunnel, category: "cyber", sourcePdf: cyberGoldTunnelPdf },
+  { id: "cyber-9", title: "Hex Multi Glow", image: cyberHexMulti, category: "cyber", sourcePdf: cyberHexMultiPdf },
+  { id: "cyber-10", title: "Hex Purple", image: cyberHexPurple, category: "cyber", sourcePdf: cyberHexPurplePdf },
+  { id: "dark-8", title: "Green Abstract", image: darkGreenAbstract, category: "dark", sourcePdf: darkGreenAbstractPdf },
+  { id: "game-6", title: "Neon Racer", image: gameNeonRacer, category: "gaming", sourcePdf: gameNeonRacerPdf },
+  { id: "cyber-11", title: "Neon Edge", image: cyberNeonEdge, category: "cyber", sourcePdf: cyberNeonEdgePdf },
+  { id: "cyber-12", title: "Light Horizon", image: cyberLightHorizon, category: "cyber", sourcePdf: cyberLightHorizonPdf },
+  { id: "game-7", title: "Neon Tire", image: gameNeonTire, category: "gaming", sourcePdf: gameNeonTirePdf },
+  { id: "dark-9", title: "Red Smoke", image: darkRedSmoke, category: "dark", sourcePdf: darkRedSmokePdf },
+];
 export const sizes = [
   { label: "M 22.5x18.5", price: 59 },
   { label: "L 60x30", price: 89 },
