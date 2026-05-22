@@ -23,7 +23,7 @@ const FactoryOrderEmail = ({
 }: FactoryOrderProps) => (
   <Html lang="he" dir="rtl">
     <Head />
-    <Preview>הזמנת ייצור חדשה #{orderNumber}</Preview>
+    <Preview>הזמנת ייצור חדשה | PadZone #{orderNumber}</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={header}>
