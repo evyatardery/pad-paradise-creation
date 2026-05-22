@@ -204,6 +204,24 @@ const Checkout = () => {
         },
       }).catch((err) => console.error('Failed to send admin email:', err));
 
+      // Factory notification - sent for every new order
+      supabase.functions.invoke('send-transactional-email', {
+        body: {
+          templateName: 'factory-order',
+          recipientEmail: 'orders@padzone.co.il',
+          idempotencyKey: `factory-order-${order.id}`,
+          templateData: {
+            orderNumber: order.order_number,
+            designName,
+            designId: designId || '',
+            dimensions: size.label,
+            quantity: 1,
+            isCustomDesign: isCustom,
+            designImageUrl: designImage.startsWith("data:") ? '' : designImage || '',
+          },
+        },
+      }).catch((err) => console.error('Failed to send factory email:', err));
+
       // Fire webhook for ALL orders (fire & forget)
       supabase.functions.invoke('notify-order-webhook', {
         body: { orderId: order.id },
