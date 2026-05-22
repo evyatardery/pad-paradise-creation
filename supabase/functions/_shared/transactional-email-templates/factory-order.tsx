@@ -52,7 +52,7 @@ const FactoryOrderEmail = ({
 export const template = {
   component: FactoryOrderEmail,
   subject: (data: Record<string, any>) =>
-    `הזמנת ייצור חדשה #${data.orderNumber || ''}`,
+    `הזמנת ייצור חדשה | PadZone #${data.orderNumber || ''}`,
   displayName: 'הזמנת ייצור למפעל',
   previewData: {
     orderNumber: 'PZ-00042',
