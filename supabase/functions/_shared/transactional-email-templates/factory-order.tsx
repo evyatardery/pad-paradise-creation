@@ -23,7 +23,7 @@ const FactoryOrderEmail = ({
 }: FactoryOrderProps) => (
   <Html lang="he" dir="rtl">
     <Head />
-    <Preview>הזמנת ייצור חדשה #{orderNumber}</Preview>
+    <Preview>הזמנת ייצור חדשה | PadZone #{orderNumber}</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={header}>
@@ -52,7 +52,7 @@ const FactoryOrderEmail = ({
 export const template = {
   component: FactoryOrderEmail,
   subject: (data: Record<string, any>) =>
-    `הזמנת ייצור חדשה #${data.orderNumber || ''}`,
+    `הזמנת ייצור חדשה | PadZone #${data.orderNumber || ''}`,
   displayName: 'הזמנת ייצור למפעל',
   previewData: {
     orderNumber: 'PZ-00042',
