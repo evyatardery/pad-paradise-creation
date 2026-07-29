@@ -92,6 +92,18 @@ import sportKobeSplash from "@/assets/pads/sport-kobe-splash.jpg";
 import sportRealMadrid from "@/assets/pads/sport-real-madrid.jpg";
 import gameSpidermanLogo from "@/assets/pads/game-spiderman-logo.jpg";
 
+// New batch 9
+import sportMessiPop from "@/assets/pads/sport-messi-pop.jpg";
+import sportRealMadridFire from "@/assets/pads/sport-real-madrid-fire.jpg";
+import sportBarcelonaNeon from "@/assets/pads/sport-barcelona-neon.jpg";
+import sportRonaldoGold from "@/assets/pads/sport-ronaldo-gold.jpg";
+import sportRonaldoFire from "@/assets/pads/sport-ronaldo-fire.jpg";
+import darkFordLogo from "@/assets/pads/dark-ford-logo.jpg";
+import darkBlueWolf from "@/assets/pads/dark-blue-wolf.jpg";
+import animeTokyoGhoul from "@/assets/pads/anime-tokyo-ghoul.jpg";
+import animeSkyVoid from "@/assets/pads/anime-sky-void.jpg";
+
+
 
 
 export interface PadDesign {
