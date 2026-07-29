@@ -11,8 +11,11 @@ import { join, extname, basename } from "node:path";
 
 const PADS_DIR = "src/assets/pads";
 
-// Minimum resolution required for the catalog grid / mockup preview
-const DISPLAY_MIN = { w: 1920, h: 1080 };
+// Catalog display thresholds, measured on the long / short side so portrait
+// sources are judged fairly. Below HARD_MIN the image is unusable in the grid.
+const HARD_MIN = { long: 1200, short: 600 };
+// Below RECOMMENDED it still renders, but looks soft on large screens.
+const RECOMMENDED = { long: 1920, short: 1000 };
 // Print minimums at 300 DPI + 5mm bleed (M 22.5x18.5, L 60x30, XL 80x30)
 const PRINT_MIN = {
   M: { w: 2775, h: 2303 },
@@ -73,6 +76,7 @@ const files = args.length
       .sort();
 
 const tooSmall = [];
+const soft = [];
 const notPrintReady = [];
 const unreadable = [];
 
@@ -80,9 +84,12 @@ for (const file of files) {
   if (!statSync(file).isFile()) continue;
   const size = imageSize(file);
   if (!size) { unreadable.push(file); continue; }
-  if (size.w < DISPLAY_MIN.w || size.h < DISPLAY_MIN.h) {
+  const long = Math.max(size.w, size.h);
+  const short = Math.min(size.w, size.h);
+  if (long < HARD_MIN.long || short < HARD_MIN.short) {
     tooSmall.push({ file, size });
   } else {
+    if (long < RECOMMENDED.long || short < RECOMMENDED.short) soft.push({ file, size });
     const fits = Object.entries(PRINT_MIN)
       .filter(([, m]) => size.w >= m.w && size.h >= m.h)
       .map(([k]) => k);
@@ -92,12 +99,16 @@ for (const file of files) {
 
 const label = (f) => basename(f);
 
-console.log(`Checked ${files.length} catalog asset(s) against display minimum ${DISPLAY_MIN.w}x${DISPLAY_MIN.h}\n`);
+console.log(
+  `Checked ${files.length} catalog asset(s)\n` +
+    `  hard minimum: ${HARD_MIN.long}x${HARD_MIN.short} (long x short side)\n` +
+    `  recommended:  ${RECOMMENDED.long}x${RECOMMENDED.short}\n`
+);
 
 if (tooSmall.length) {
   console.log("❌ Too small for catalog display — do not add:");
   for (const { file, size } of tooSmall) {
-    console.log(`   ${label(file)} — ${size.w}x${size.h} (needs at least ${DISPLAY_MIN.w}x${DISPLAY_MIN.h})`);
+    console.log(`   ${label(file)} — ${size.w}x${size.h} (needs at least ${HARD_MIN.long}x${HARD_MIN.short})`);
   }
   console.log("");
 }
@@ -106,6 +117,14 @@ if (notPrintReady.length) {
   console.log("⚠️  Display-OK but below print minimums (300 DPI + 5mm bleed):");
   for (const { file, size, fits } of notPrintReady) {
     console.log(`   ${label(file)} — ${size.w}x${size.h} — print-ready for: ${fits.length ? fits.join(", ") : "none"}`);
+  }
+  console.log("");
+}
+
+if (soft.length) {
+  console.log("🟡 Usable but below the recommended catalog resolution:");
+  for (const { file, size } of soft) {
+    console.log(`   ${label(file)} — ${size.w}x${size.h}`);
   }
   console.log("");
 }
