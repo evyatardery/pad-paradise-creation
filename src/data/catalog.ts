@@ -138,133 +138,116 @@ export interface Category {
 
 export const categories: Category[] = [
   {
-    id: "cyber",
-    title: "סייבר וטכנולוגיה",
-    icon: "🔮",
+    id: "red",
+    title: "אדום וכתום",
+    icon: "🔥",
     coverImage: cyberRedBlaze,
-    description: "מנהרות דיגיטליות וגרידים עתידניים"
+    description: "גוונים חמים, אש ולהבות"
   },
   {
-    id: "abstract",
-    title: "מופשט",
-    icon: "🌀",
-    coverImage: abstractPattern,
-    description: "צורות אורגניות ודפוסים ייחודיים"
+    id: "blue",
+    title: "כחול",
+    icon: "🌊",
+    coverImage: animeSkyVoid,
+    description: "כחול עמוק וניאון קר"
   },
   {
-    id: "colorful",
-    title: "צבעוני",
-    icon: "🎨",
+    id: "teal",
+    title: "טורקיז וירוק",
+    icon: "💚",
     coverImage: colorfulTealFigure,
-    description: "עיצובים צבעוניים ומלאי חיים"
+    description: "טורקיז, מנטה וירוק זוהר"
   },
   {
-    id: "dark",
-    title: "כהה ומינימלי",
+    id: "purple",
+    title: "סגול וורוד",
+    icon: "💜",
+    coverImage: cyberHexPurple,
+    description: "סגול, מג'נטה וורוד ניאון"
+  },
+  {
+    id: "mono",
+    title: "שחור לבן",
     icon: "🖤",
-    coverImage: darkHexGold,
-    description: "עיצובים כהים ואלגנטיים"
+    coverImage: darkGreatWave,
+    description: "מונוכרום, מינימלי ונקי"
   },
   {
-    id: "anime",
-    title: "אנימה",
-    icon: "⚔️",
-    coverImage: animeCosmicGirl,
-    description: "עיצובים בסגנון אנימה ומנגה"
-  },
-  {
-    id: "sport",
-    title: "ספורט",
-    icon: "⚽",
-    coverImage: sportMessiArgentina,
-    description: "עיצובי ספורט וכדורגל"
+    id: "multi",
+    title: "צבעוני",
+    icon: "🌈",
+    coverImage: cyberHexRainbow,
+    description: "מולטי-קולור ורינבו"
   },
 ];
 
 export const padDesigns: PadDesign[] = [
-  // Cyber
-  { id: "cyber-1", title: "Red Blaze", image: cyberRedBlaze, category: "cyber", sourcePdf: cyberRedBlazePdf },
-  { id: "cyber-2", title: "Neon Lines", image: cyberNeonLines, category: "cyber", sourcePdf: cyberNeonLinesPdf },
-  { id: "cyber-3", title: "Hex Rainbow", image: cyberHexRainbow, category: "cyber", sourcePdf: cyberHexRainbowPdf },
-  { id: "cyber-4", title: "Hex Neon Grid", image: cyberHexNeon, category: "cyber", sourcePdf: cyberHexNeonPdf },
-  { id: "cyber-5", title: "Light Trails", image: cyberLightTrails, category: "cyber", sourcePdf: cyberLightTrailsPdf },
-  
-  { id: "cyber-7", title: "Neon Doors", image: cyberNeonDoors, category: "cyber", sourcePdf: cyberNeonDoorsPdf },
+  // Red / warm
+  { id: "cyber-1", title: "Red Blaze", image: cyberRedBlaze, category: "red", sourcePdf: cyberRedBlazePdf },
+  { id: "col-2", title: "Pixel Eye", image: colorfulPixelEye, category: "red", sourcePdf: colorfulPixelEyePdf },
+  { id: "dark-6", title: "Red Frame", image: darkRedFrame, category: "red", sourcePdf: darkRedFramePdf },
+  { id: "cyber-8", title: "Gold Tunnel", image: cyberGoldTunnel, category: "red", sourcePdf: cyberGoldTunnelPdf },
+  { id: "dark-9", title: "Red Smoke", image: darkRedSmoke, category: "red", sourcePdf: darkRedSmokePdf },
+  { id: "cyber-13", title: "Speedometer", image: cyberSpeedometer, category: "red", sourcePdf: cyberSpeedometerPdf },
+  { id: "sport-2", title: "Messi Yellow", image: sportMessiYellow, category: "red" },
+  { id: "sport-3", title: "Kobe Splash", image: sportKobeSplash, category: "red" },
+  { id: "sport-8", title: "Ronaldo Gold", image: sportRonaldoGold, category: "red" },
+  { id: "sport-9", title: "Ronaldo Fire", image: sportRonaldoFire, category: "red" },
+  { id: "anime-1", title: "Cosmic Girl", image: animeCosmicGirl, category: "red", sourcePdf: animeCosmicGirlPdf },
+  { id: "anime-2", title: "Tokyo Ghoul", image: animeTokyoGhoul, category: "red" },
+  { id: "anime-4", title: "Madara Uchiha", image: animeMadara, category: "red" },
+  { id: "anime-5", title: "Zenitsu", image: animeZenitsu, category: "red" },
 
-  // Abstract
-  { id: "abs-1", title: "Organic Pattern", image: abstractPattern, category: "abstract", sourcePdf: abstractPatternPdf },
-  { id: "abs-2", title: "Abstract Dots", image: abstractDots, category: "abstract", sourcePdf: abstractDotsPdf },
-  { id: "abs-3", title: "Halftone Swirl", image: abstractHalftoneSwirl, category: "abstract", sourcePdf: abstractHalftoneSwirlPdf },
-  { id: "abs-4", title: "Halftone Wave", image: abstractHalftoneWave, category: "abstract", sourcePdf: abstractHalftoneWavePdf },
-  { id: "abs-5", title: "Dark Liquid", image: abstractDarkLiquid, category: "abstract", sourcePdf: abstractDarkLiquidPdf },
+  // Blue
+  { id: "cyber-2", title: "Neon Lines", image: cyberNeonLines, category: "blue", sourcePdf: cyberNeonLinesPdf },
+  { id: "cyber-7", title: "Neon Doors", image: cyberNeonDoors, category: "blue", sourcePdf: cyberNeonDoorsPdf },
+  { id: "abs-5", title: "Dark Liquid", image: abstractDarkLiquid, category: "blue", sourcePdf: abstractDarkLiquidPdf },
+  { id: "dark-5", title: "Hex Gold", image: darkHexGold, category: "blue", sourcePdf: darkHexGoldPdf },
+  { id: "abs-6", title: "Marble Flow", image: abstractMarbleFlow, category: "blue", sourcePdf: abstractMarbleFlowPdf },
+  { id: "dark-7", title: "Dark Polygon", image: darkPolygon, category: "blue", sourcePdf: darkPolygonPdf },
+  { id: "dark-11", title: "Haunted Forest", image: darkHauntedForest, category: "blue", sourcePdf: darkHauntedForestPdf },
+  { id: "sport-4", title: "Real Madrid Crest", image: sportRealMadrid, category: "blue" },
+  { id: "sport-7", title: "Barcelona Neon", image: sportBarcelonaNeon, category: "blue" },
+  { id: "dark-14", title: "Blue Wolf", image: darkBlueWolf, category: "blue" },
+  { id: "anime-3", title: "Sky Void", image: animeSkyVoid, category: "blue" },
+  { id: "anime-6", title: "Kakashi Hatake", image: animeKakashi, category: "blue" },
 
-  // Colorful
-  { id: "col-1", title: "Teal Figure", image: colorfulTealFigure, category: "colorful", sourcePdf: colorfulTealFigurePdf },
-  { id: "col-2", title: "Pixel Eye", image: colorfulPixelEye, category: "colorful", sourcePdf: colorfulPixelEyePdf },
+  // Teal / green
+  { id: "col-1", title: "Teal Figure", image: colorfulTealFigure, category: "teal", sourcePdf: colorfulTealFigurePdf },
+  { id: "dark-4", title: "Moonlit Tree", image: darkMoonlitTree, category: "teal", sourcePdf: darkMoonlitTreePdf },
+  { id: "dark-8", title: "Green Abstract", image: darkGreenAbstract, category: "teal", sourcePdf: darkGreenAbstractPdf },
+  { id: "sport-1", title: "Messi Argentina", image: sportMessiArgentina, category: "teal", sourcePdf: sportMessiArgentinaPdf },
+  { id: "anime-7", title: "Tokito Muichiro", image: animeTokito, category: "teal" },
 
-  // Dark
-  { id: "dark-1", title: "Ink Brush", image: darkInkBrush, category: "dark", sourcePdf: darkInkBrushPdf },
-  { id: "dark-4", title: "Moonlit Tree", image: darkMoonlitTree, category: "dark", sourcePdf: darkMoonlitTreePdf },
-  { id: "dark-5", title: "Hex Gold", image: darkHexGold, category: "dark", sourcePdf: darkHexGoldPdf },
-  { id: "dark-6", title: "Red Frame", image: darkRedFrame, category: "dark", sourcePdf: darkRedFramePdf },
+  // Purple / pink
+  { id: "cyber-10", title: "Hex Purple", image: cyberHexPurple, category: "purple", sourcePdf: cyberHexPurplePdf },
+  { id: "cyber-11", title: "Neon Edge", image: cyberNeonEdge, category: "purple", sourcePdf: cyberNeonEdgePdf },
+  { id: "cyber-12", title: "Light Horizon", image: cyberLightHorizon, category: "purple", sourcePdf: cyberLightHorizonPdf },
+  { id: "dark-10", title: "Magenta Smoke", image: darkMagentaSmoke, category: "purple", sourcePdf: darkMagentaSmokePdf },
+  { id: "sport-5", title: "Messi Pop Art", image: sportMessiPop, category: "purple" },
 
+  // Monochrome
+  { id: "abs-1", title: "Organic Pattern", image: abstractPattern, category: "mono", sourcePdf: abstractPatternPdf },
+  { id: "abs-2", title: "Abstract Dots", image: abstractDots, category: "mono", sourcePdf: abstractDotsPdf },
+  { id: "abs-3", title: "Halftone Swirl", image: abstractHalftoneSwirl, category: "mono", sourcePdf: abstractHalftoneSwirlPdf },
+  { id: "abs-4", title: "Halftone Wave", image: abstractHalftoneWave, category: "mono", sourcePdf: abstractHalftoneWavePdf },
+  { id: "dark-1", title: "Ink Brush", image: darkInkBrush, category: "mono", sourcePdf: darkInkBrushPdf },
+  { id: "dark-12", title: "Spiderman Logo", image: gameSpidermanLogo, category: "mono" },
+  { id: "dark-13", title: "Ford Logo", image: darkFordLogo, category: "mono" },
+  { id: "anime-8", title: "JJK Manga", image: animeJjkManga, category: "mono" },
+  { id: "dark-15", title: "White Skull", image: darkWhiteSkull, category: "mono" },
+  { id: "dark-16", title: "Great Wave", image: darkGreatWave, category: "mono" },
+  { id: "dark-17", title: "Chrome Figure", image: darkChromeFigure, category: "mono" },
+  { id: "abstract-6", title: "Grey Circles", image: abstractGreyCircles, category: "mono" },
 
-  // Anime
-  { id: "anime-1", title: "Cosmic Girl", image: animeCosmicGirl, category: "anime", sourcePdf: animeCosmicGirlPdf },
-
-  // Sport
-  { id: "sport-1", title: "Messi Argentina", image: sportMessiArgentina, category: "sport", sourcePdf: sportMessiArgentinaPdf },
-
-  // New batch 5
-  { id: "abs-6", title: "Marble Flow", image: abstractMarbleFlow, category: "abstract", sourcePdf: abstractMarbleFlowPdf },
-  { id: "dark-7", title: "Dark Polygon", image: darkPolygon, category: "dark", sourcePdf: darkPolygonPdf },
-
-  // New batch 6
-  { id: "cyber-8", title: "Gold Tunnel", image: cyberGoldTunnel, category: "cyber", sourcePdf: cyberGoldTunnelPdf },
-  { id: "cyber-9", title: "Hex Multi Glow", image: cyberHexMulti, category: "cyber", sourcePdf: cyberHexMultiPdf },
-  { id: "cyber-10", title: "Hex Purple", image: cyberHexPurple, category: "cyber", sourcePdf: cyberHexPurplePdf },
-  { id: "dark-8", title: "Green Abstract", image: darkGreenAbstract, category: "dark", sourcePdf: darkGreenAbstractPdf },
-  { id: "cyber-11", title: "Neon Edge", image: cyberNeonEdge, category: "cyber", sourcePdf: cyberNeonEdgePdf },
-  { id: "cyber-12", title: "Light Horizon", image: cyberLightHorizon, category: "cyber", sourcePdf: cyberLightHorizonPdf },
-  { id: "dark-9", title: "Red Smoke", image: darkRedSmoke, category: "dark", sourcePdf: darkRedSmokePdf },
-
-  // New batch 7
-  { id: "dark-10", title: "Magenta Smoke", image: darkMagentaSmoke, category: "dark", sourcePdf: darkMagentaSmokePdf },
-  { id: "cyber-13", title: "Speedometer", image: cyberSpeedometer, category: "cyber", sourcePdf: cyberSpeedometerPdf },
-  { id: "dark-11", title: "Haunted Forest", image: darkHauntedForest, category: "dark", sourcePdf: darkHauntedForestPdf },
-
-  // New batch 8
-  { id: "sport-2", title: "Messi Yellow", image: sportMessiYellow, category: "sport" },
-  { id: "sport-3", title: "Kobe Splash", image: sportKobeSplash, category: "sport" },
-  { id: "sport-4", title: "Real Madrid Crest", image: sportRealMadrid, category: "sport" },
-  { id: "dark-12", title: "Spiderman Logo", image: gameSpidermanLogo, category: "dark" },
-
-  // New batch 9
-  { id: "sport-5", title: "Messi Pop Art", image: sportMessiPop, category: "sport" },
-  { id: "sport-6", title: "Real Madrid Fire", image: sportRealMadridFire, category: "sport" },
-  { id: "sport-7", title: "Barcelona Neon", image: sportBarcelonaNeon, category: "sport" },
-  { id: "sport-8", title: "Ronaldo Gold", image: sportRonaldoGold, category: "sport" },
-  { id: "sport-9", title: "Ronaldo Fire", image: sportRonaldoFire, category: "sport" },
-  { id: "dark-13", title: "Ford Logo", image: darkFordLogo, category: "dark" },
-  { id: "dark-14", title: "Blue Wolf", image: darkBlueWolf, category: "dark" },
-  { id: "anime-2", title: "Tokyo Ghoul", image: animeTokyoGhoul, category: "anime" },
-  { id: "anime-3", title: "Sky Void", image: animeSkyVoid, category: "anime" },
-
-  // New batch 10
-  { id: "anime-4", title: "Madara Uchiha", image: animeMadara, category: "anime" },
-  { id: "anime-5", title: "Zenitsu", image: animeZenitsu, category: "anime" },
-  { id: "anime-6", title: "Kakashi Hatake", image: animeKakashi, category: "anime" },
-  { id: "anime-7", title: "Tokito Muichiro", image: animeTokito, category: "anime" },
-
-  // New batch 11
-  { id: "anime-8", title: "JJK Manga", image: animeJjkManga, category: "anime" },
-  { id: "dark-15", title: "White Skull", image: darkWhiteSkull, category: "dark" },
-  { id: "dark-16", title: "Great Wave", image: darkGreatWave, category: "dark" },
-  { id: "dark-17", title: "Chrome Figure", image: darkChromeFigure, category: "dark" },
-  { id: "abstract-6", title: "Grey Circles", image: abstractGreyCircles, category: "abstract" },
-
-
+  // Multicolor
+  { id: "cyber-3", title: "Hex Rainbow", image: cyberHexRainbow, category: "multi", sourcePdf: cyberHexRainbowPdf },
+  { id: "cyber-4", title: "Hex Neon Grid", image: cyberHexNeon, category: "multi", sourcePdf: cyberHexNeonPdf },
+  { id: "cyber-5", title: "Light Trails", image: cyberLightTrails, category: "multi", sourcePdf: cyberLightTrailsPdf },
+  { id: "cyber-9", title: "Hex Multi Glow", image: cyberHexMulti, category: "multi", sourcePdf: cyberHexMultiPdf },
+  { id: "sport-6", title: "Real Madrid Fire", image: sportRealMadridFire, category: "multi" },
 ];
+
 
 export const sizes = [
   { label: "M 22.5x18.5", price: 59 },
