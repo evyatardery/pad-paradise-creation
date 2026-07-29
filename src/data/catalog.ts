@@ -47,16 +47,6 @@ import darkRedFrame from "@/assets/pads/dark-red-frame.jpg";
 import darkRedFramePdf from "@/assets/pads/dark-red-frame.pdf?url";
 
 // Gaming
-import gameAstroGamer from "@/assets/pads/game-astro-gamer.jpg";
-import gameAstroGamerPdf from "@/assets/pads/game-astro-gamer.pdf?url";
-import gamePsNeonIcons from "@/assets/pads/game-ps-neon-icons.jpg";
-import gamePsNeonIconsPdf from "@/assets/pads/game-ps-neon-icons.pdf?url";
-import gameGamerText from "@/assets/pads/game-gamer-text.jpg";
-import gameGamerTextPdf from "@/assets/pads/game-gamer-text.pdf?url";
-import gameNeonSupercar from "@/assets/pads/game-neon-supercar.jpg";
-import gameNeonSupercarPdf from "@/assets/pads/game-neon-supercar.pdf?url";
-import gameFlameWheel from "@/assets/pads/game-flame-wheel.jpg";
-import gameFlameWheelPdf from "@/assets/pads/game-flame-wheel.pdf?url";
 
 // Anime
 import animeCosmicGirl from "@/assets/pads/anime-cosmic-girl.jpg";
@@ -81,14 +71,10 @@ import cyberHexPurple from "@/assets/pads/cyber-hex-purple.jpg";
 import cyberHexPurplePdf from "@/assets/pads/cyber-hex-purple.pdf?url";
 import darkGreenAbstract from "@/assets/pads/dark-green-abstract.jpg";
 import darkGreenAbstractPdf from "@/assets/pads/dark-green-abstract.pdf?url";
-import gameNeonRacer from "@/assets/pads/game-neon-racer.jpg";
-import gameNeonRacerPdf from "@/assets/pads/game-neon-racer.pdf?url";
 import cyberNeonEdge from "@/assets/pads/cyber-neon-edge.jpg";
 import cyberNeonEdgePdf from "@/assets/pads/cyber-neon-edge.pdf?url";
 import cyberLightHorizon from "@/assets/pads/cyber-light-horizon.jpg";
 import cyberLightHorizonPdf from "@/assets/pads/cyber-light-horizon.pdf?url";
-import gameNeonTire from "@/assets/pads/game-neon-tire.jpg";
-import gameNeonTirePdf from "@/assets/pads/game-neon-tire.pdf?url";
 import darkRedSmoke from "@/assets/pads/dark-red-smoke.jpg";
 import darkRedSmokePdf from "@/assets/pads/dark-red-smoke.pdf?url";
 
@@ -155,13 +141,6 @@ export const categories: Category[] = [
     description: "עיצובים כהים ואלגנטיים"
   },
   {
-    id: "gaming",
-    title: "גיימינג",
-    icon: "🎮",
-    coverImage: gameAstroGamer,
-    description: "פדים בסגנון גיימינג קלאסי"
-  },
-  {
     id: "anime",
     title: "אנימה",
     icon: "⚔️",
@@ -204,12 +183,6 @@ export const padDesigns: PadDesign[] = [
   { id: "dark-5", title: "Hex Gold", image: darkHexGold, category: "dark", sourcePdf: darkHexGoldPdf },
   { id: "dark-6", title: "Red Frame", image: darkRedFrame, category: "dark", sourcePdf: darkRedFramePdf },
 
-  // Gaming
-  { id: "game-1", title: "Astro Gamer", image: gameAstroGamer, category: "gaming", sourcePdf: gameAstroGamerPdf },
-  { id: "game-2", title: "PS Neon Icons", image: gamePsNeonIcons, category: "gaming", sourcePdf: gamePsNeonIconsPdf },
-  { id: "game-3", title: "Gamer Text", image: gameGamerText, category: "gaming", sourcePdf: gameGamerTextPdf },
-  { id: "game-4", title: "Neon Supercar", image: gameNeonSupercar, category: "gaming", sourcePdf: gameNeonSupercarPdf },
-  { id: "game-5", title: "Flame Wheel", image: gameFlameWheel, category: "gaming", sourcePdf: gameFlameWheelPdf },
 
   // Anime
   { id: "anime-1", title: "Cosmic Girl", image: animeCosmicGirl, category: "anime", sourcePdf: animeCosmicGirlPdf },
@@ -226,10 +199,8 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-9", title: "Hex Multi Glow", image: cyberHexMulti, category: "cyber", sourcePdf: cyberHexMultiPdf },
   { id: "cyber-10", title: "Hex Purple", image: cyberHexPurple, category: "cyber", sourcePdf: cyberHexPurplePdf },
   { id: "dark-8", title: "Green Abstract", image: darkGreenAbstract, category: "dark", sourcePdf: darkGreenAbstractPdf },
-  { id: "game-6", title: "Neon Racer", image: gameNeonRacer, category: "gaming", sourcePdf: gameNeonRacerPdf },
   { id: "cyber-11", title: "Neon Edge", image: cyberNeonEdge, category: "cyber", sourcePdf: cyberNeonEdgePdf },
   { id: "cyber-12", title: "Light Horizon", image: cyberLightHorizon, category: "cyber", sourcePdf: cyberLightHorizonPdf },
-  { id: "game-7", title: "Neon Tire", image: gameNeonTire, category: "gaming", sourcePdf: gameNeonTirePdf },
   { id: "dark-9", title: "Red Smoke", image: darkRedSmoke, category: "dark", sourcePdf: darkRedSmokePdf },
 
   // New batch 7
@@ -241,7 +212,7 @@ export const padDesigns: PadDesign[] = [
   { id: "sport-2", title: "Messi Yellow", image: sportMessiYellow, category: "sport" },
   { id: "sport-3", title: "Kobe Splash", image: sportKobeSplash, category: "sport" },
   { id: "sport-4", title: "Real Madrid Crest", image: sportRealMadrid, category: "sport" },
-  { id: "game-8", title: "Spiderman Logo", image: gameSpidermanLogo, category: "gaming" },
+  { id: "dark-12", title: "Spiderman Logo", image: gameSpidermanLogo, category: "dark" },
 ];
 
 export const sizes = [
