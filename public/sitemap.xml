@@ -10,43 +10,42 @@
   <!-- חנות / קטגוריות -->
   <!-- סייבר וטכנולוגיה -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/?category=cyber</loc>
+    <loc>https://pad-paradise-creation.lovable.app/?category=red</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- מופשט -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/?category=abstract</loc>
+    <loc>https://pad-paradise-creation.lovable.app/?category=blue</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- צבעוני -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/?category=colorful</loc>
+    <loc>https://pad-paradise-creation.lovable.app/?category=teal</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- כהה ומינימלי -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/?category=dark</loc>
+    <loc>https://pad-paradise-creation.lovable.app/?category=purple</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- גיימינג -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/?category=gaming</loc>
+    <loc>https://pad-paradise-creation.lovable.app/?category=mono</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- אנימה -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/?category=anime</loc>
+    <loc>https://pad-paradise-creation.lovable.app/?category=multi</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- ספורט -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/?category=sport</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
