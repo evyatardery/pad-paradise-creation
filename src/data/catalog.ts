@@ -173,6 +173,13 @@ export const categories: Category[] = [
     description: "מונוכרום, מינימלי ונקי"
   },
   {
+    id: "sport",
+    title: "ספורט",
+    icon: "⚽",
+    coverImage: sportMessiArgentina,
+    description: "כדורגל, כדורסל וכוכבי ספורט"
+  },
+  {
     id: "multi",
     title: "צבעוני",
     icon: "🌈",
@@ -189,10 +196,6 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-8", title: "Gold Tunnel", image: cyberGoldTunnel, category: "red", sourcePdf: cyberGoldTunnelPdf },
   { id: "dark-9", title: "Red Smoke", image: darkRedSmoke, category: "red", sourcePdf: darkRedSmokePdf },
   { id: "cyber-13", title: "Speedometer", image: cyberSpeedometer, category: "red", sourcePdf: cyberSpeedometerPdf },
-  { id: "sport-2", title: "Messi Yellow", image: sportMessiYellow, category: "red" },
-  { id: "sport-3", title: "Kobe Splash", image: sportKobeSplash, category: "red" },
-  { id: "sport-8", title: "Ronaldo Gold", image: sportRonaldoGold, category: "red" },
-  { id: "sport-9", title: "Ronaldo Fire", image: sportRonaldoFire, category: "red" },
   { id: "anime-1", title: "Cosmic Girl", image: animeCosmicGirl, category: "red", sourcePdf: animeCosmicGirlPdf },
   { id: "anime-2", title: "Tokyo Ghoul", image: animeTokyoGhoul, category: "red" },
   { id: "anime-4", title: "Madara Uchiha", image: animeMadara, category: "red" },
@@ -206,8 +209,6 @@ export const padDesigns: PadDesign[] = [
   { id: "abs-6", title: "Marble Flow", image: abstractMarbleFlow, category: "blue", sourcePdf: abstractMarbleFlowPdf },
   { id: "dark-7", title: "Dark Polygon", image: darkPolygon, category: "blue", sourcePdf: darkPolygonPdf },
   { id: "dark-11", title: "Haunted Forest", image: darkHauntedForest, category: "blue", sourcePdf: darkHauntedForestPdf },
-  { id: "sport-4", title: "Real Madrid Crest", image: sportRealMadrid, category: "blue" },
-  { id: "sport-7", title: "Barcelona Neon", image: sportBarcelonaNeon, category: "blue" },
   { id: "dark-14", title: "Blue Wolf", image: darkBlueWolf, category: "blue" },
   { id: "anime-3", title: "Sky Void", image: animeSkyVoid, category: "blue" },
   { id: "anime-6", title: "Kakashi Hatake", image: animeKakashi, category: "blue" },
@@ -216,7 +217,6 @@ export const padDesigns: PadDesign[] = [
   { id: "col-1", title: "Teal Figure", image: colorfulTealFigure, category: "teal", sourcePdf: colorfulTealFigurePdf },
   { id: "dark-4", title: "Moonlit Tree", image: darkMoonlitTree, category: "teal", sourcePdf: darkMoonlitTreePdf },
   { id: "dark-8", title: "Green Abstract", image: darkGreenAbstract, category: "teal", sourcePdf: darkGreenAbstractPdf },
-  { id: "sport-1", title: "Messi Argentina", image: sportMessiArgentina, category: "teal", sourcePdf: sportMessiArgentinaPdf },
   { id: "anime-7", title: "Tokito Muichiro", image: animeTokito, category: "teal" },
 
   // Purple / pink
@@ -224,7 +224,6 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-11", title: "Neon Edge", image: cyberNeonEdge, category: "purple", sourcePdf: cyberNeonEdgePdf },
   { id: "cyber-12", title: "Light Horizon", image: cyberLightHorizon, category: "purple", sourcePdf: cyberLightHorizonPdf },
   { id: "dark-10", title: "Magenta Smoke", image: darkMagentaSmoke, category: "purple", sourcePdf: darkMagentaSmokePdf },
-  { id: "sport-5", title: "Messi Pop Art", image: sportMessiPop, category: "purple" },
 
   // Monochrome
   { id: "abs-1", title: "Organic Pattern", image: abstractPattern, category: "mono", sourcePdf: abstractPatternPdf },
@@ -245,7 +244,17 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-4", title: "Hex Neon Grid", image: cyberHexNeon, category: "multi", sourcePdf: cyberHexNeonPdf },
   { id: "cyber-5", title: "Light Trails", image: cyberLightTrails, category: "multi", sourcePdf: cyberLightTrailsPdf },
   { id: "cyber-9", title: "Hex Multi Glow", image: cyberHexMulti, category: "multi", sourcePdf: cyberHexMultiPdf },
-  { id: "sport-6", title: "Real Madrid Fire", image: sportRealMadridFire, category: "multi" },
+
+  // Sport
+  { id: "sport-2", title: "Messi Yellow", image: sportMessiYellow, category: "sport" },
+  { id: "sport-3", title: "Kobe Splash", image: sportKobeSplash, category: "sport" },
+  { id: "sport-8", title: "Ronaldo Gold", image: sportRonaldoGold, category: "sport" },
+  { id: "sport-9", title: "Ronaldo Fire", image: sportRonaldoFire, category: "sport" },
+  { id: "sport-4", title: "Real Madrid Crest", image: sportRealMadrid, category: "sport" },
+  { id: "sport-7", title: "Barcelona Neon", image: sportBarcelonaNeon, category: "sport" },
+  { id: "sport-1", title: "Messi Argentina", image: sportMessiArgentina, category: "sport", sourcePdf: sportMessiArgentinaPdf },
+  { id: "sport-5", title: "Messi Pop Art", image: sportMessiPop, category: "sport" },
+  { id: "sport-6", title: "Real Madrid Fire", image: sportRealMadridFire, category: "sport" },
 ];
 
 
