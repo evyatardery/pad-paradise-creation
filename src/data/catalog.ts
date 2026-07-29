@@ -256,6 +256,13 @@ export const padDesigns: PadDesign[] = [
   { id: "anime-6", title: "Kakashi Hatake", image: animeKakashi, category: "anime" },
   { id: "anime-7", title: "Tokito Muichiro", image: animeTokito, category: "anime" },
 
+  // New batch 11
+  { id: "anime-8", title: "JJK Manga", image: animeJjkManga, category: "anime" },
+  { id: "dark-15", title: "White Skull", image: darkWhiteSkull, category: "dark" },
+  { id: "dark-16", title: "Great Wave", image: darkGreatWave, category: "dark" },
+  { id: "dark-17", title: "Chrome Figure", image: darkChromeFigure, category: "dark" },
+  { id: "abstract-6", title: "Grey Circles", image: abstractGreyCircles, category: "abstract" },
+
 
 ];
 
