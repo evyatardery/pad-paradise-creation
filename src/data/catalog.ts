@@ -109,6 +109,13 @@ import animeZenitsu from "@/assets/pads/anime-zenitsu.jpg";
 import animeKakashi from "@/assets/pads/anime-kakashi.jpg";
 import animeTokito from "@/assets/pads/anime-tokito.jpg";
 
+// New batch 11
+import animeJjkManga from "@/assets/pads/anime-jjk-manga.jpg";
+import darkWhiteSkull from "@/assets/pads/dark-white-skull.jpg";
+import darkGreatWave from "@/assets/pads/dark-great-wave.jpg";
+import abstractGreyCircles from "@/assets/pads/abstract-grey-circles.jpg";
+import darkChromeFigure from "@/assets/pads/dark-chrome-figure.jpg";
+
 
 
 
