@@ -100,6 +100,14 @@ import cyberSpeedometerPdf from "@/assets/pads/cyber-speedometer.pdf?url";
 import darkHauntedForest from "@/assets/pads/dark-haunted-forest.jpg";
 import darkHauntedForestPdf from "@/assets/pads/dark-haunted-forest.pdf?url";
 
+// New batch 8 (raster only, no vector source)
+import sportMessiYellow from "@/assets/pads/sport-messi-yellow.jpg";
+import sportKobeSplash from "@/assets/pads/sport-kobe-splash.jpg";
+import sportRealMadrid from "@/assets/pads/sport-real-madrid.jpg";
+import gameSpidermanLogo from "@/assets/pads/game-spiderman-logo.jpg";
+
+
+
 export interface PadDesign {
   id: string;
   title: string;
@@ -228,7 +236,14 @@ export const padDesigns: PadDesign[] = [
   { id: "dark-10", title: "Magenta Smoke", image: darkMagentaSmoke, category: "dark", sourcePdf: darkMagentaSmokePdf },
   { id: "cyber-13", title: "Speedometer", image: cyberSpeedometer, category: "cyber", sourcePdf: cyberSpeedometerPdf },
   { id: "dark-11", title: "Haunted Forest", image: darkHauntedForest, category: "dark", sourcePdf: darkHauntedForestPdf },
+
+  // New batch 8
+  { id: "sport-2", title: "Messi Yellow", image: sportMessiYellow, category: "sport" },
+  { id: "sport-3", title: "Kobe Splash", image: sportKobeSplash, category: "sport" },
+  { id: "sport-4", title: "Real Madrid Crest", image: sportRealMadrid, category: "sport" },
+  { id: "game-8", title: "Spiderman Logo", image: gameSpidermanLogo, category: "gaming" },
 ];
+
 export const sizes = [
   { label: "M 22.5x18.5", price: 59 },
   { label: "L 60x30", price: 89 },
