@@ -92,6 +92,18 @@ import sportKobeSplash from "@/assets/pads/sport-kobe-splash.jpg";
 import sportRealMadrid from "@/assets/pads/sport-real-madrid.jpg";
 import gameSpidermanLogo from "@/assets/pads/game-spiderman-logo.jpg";
 
+// New batch 9
+import sportMessiPop from "@/assets/pads/sport-messi-pop.jpg";
+import sportRealMadridFire from "@/assets/pads/sport-real-madrid-fire.jpg";
+import sportBarcelonaNeon from "@/assets/pads/sport-barcelona-neon.jpg";
+import sportRonaldoGold from "@/assets/pads/sport-ronaldo-gold.jpg";
+import sportRonaldoFire from "@/assets/pads/sport-ronaldo-fire.jpg";
+import darkFordLogo from "@/assets/pads/dark-ford-logo.jpg";
+import darkBlueWolf from "@/assets/pads/dark-blue-wolf.jpg";
+import animeTokyoGhoul from "@/assets/pads/anime-tokyo-ghoul.jpg";
+import animeSkyVoid from "@/assets/pads/anime-sky-void.jpg";
+
+
 
 
 export interface PadDesign {
@@ -213,6 +225,18 @@ export const padDesigns: PadDesign[] = [
   { id: "sport-3", title: "Kobe Splash", image: sportKobeSplash, category: "sport" },
   { id: "sport-4", title: "Real Madrid Crest", image: sportRealMadrid, category: "sport" },
   { id: "dark-12", title: "Spiderman Logo", image: gameSpidermanLogo, category: "dark" },
+
+  // New batch 9
+  { id: "sport-5", title: "Messi Pop Art", image: sportMessiPop, category: "sport" },
+  { id: "sport-6", title: "Real Madrid Fire", image: sportRealMadridFire, category: "sport" },
+  { id: "sport-7", title: "Barcelona Neon", image: sportBarcelonaNeon, category: "sport" },
+  { id: "sport-8", title: "Ronaldo Gold", image: sportRonaldoGold, category: "sport" },
+  { id: "sport-9", title: "Ronaldo Fire", image: sportRonaldoFire, category: "sport" },
+  { id: "dark-13", title: "Ford Logo", image: darkFordLogo, category: "dark" },
+  { id: "dark-14", title: "Blue Wolf", image: darkBlueWolf, category: "dark" },
+  { id: "anime-2", title: "Tokyo Ghoul", image: animeTokyoGhoul, category: "anime" },
+  { id: "anime-3", title: "Sky Void", image: animeSkyVoid, category: "anime" },
+
 ];
 
 export const sizes = [
