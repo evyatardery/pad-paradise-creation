@@ -236,7 +236,14 @@ export const padDesigns: PadDesign[] = [
   { id: "dark-10", title: "Magenta Smoke", image: darkMagentaSmoke, category: "dark", sourcePdf: darkMagentaSmokePdf },
   { id: "cyber-13", title: "Speedometer", image: cyberSpeedometer, category: "cyber", sourcePdf: cyberSpeedometerPdf },
   { id: "dark-11", title: "Haunted Forest", image: darkHauntedForest, category: "dark", sourcePdf: darkHauntedForestPdf },
+
+  // New batch 8
+  { id: "sport-2", title: "Messi Yellow", image: sportMessiYellow, category: "sport" },
+  { id: "sport-3", title: "Kobe Splash", image: sportKobeSplash, category: "sport" },
+  { id: "sport-4", title: "Real Madrid Crest", image: sportRealMadrid, category: "sport" },
+  { id: "game-8", title: "Spiderman Logo", image: gameSpidermanLogo, category: "gaming" },
 ];
+
 export const sizes = [
   { label: "M 22.5x18.5", price: 59 },
   { label: "L 60x30", price: 89 },
