@@ -100,6 +100,14 @@ import cyberSpeedometerPdf from "@/assets/pads/cyber-speedometer.pdf?url";
 import darkHauntedForest from "@/assets/pads/dark-haunted-forest.jpg";
 import darkHauntedForestPdf from "@/assets/pads/dark-haunted-forest.pdf?url";
 
+// New batch 8 (raster only, no vector source)
+import sportMessiYellow from "@/assets/pads/sport-messi-yellow.jpg";
+import sportKobeSplash from "@/assets/pads/sport-kobe-splash.jpg";
+import sportRealMadrid from "@/assets/pads/sport-real-madrid.jpg";
+import gameSpidermanLogo from "@/assets/pads/game-spiderman-logo.jpg";
+
+
+
 export interface PadDesign {
   id: string;
   title: string;
