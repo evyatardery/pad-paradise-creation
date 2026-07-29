@@ -103,6 +103,12 @@ import darkBlueWolf from "@/assets/pads/dark-blue-wolf.jpg";
 import animeTokyoGhoul from "@/assets/pads/anime-tokyo-ghoul.jpg";
 import animeSkyVoid from "@/assets/pads/anime-sky-void.jpg";
 
+// New batch 10 (frames extracted from uploaded videos)
+import animeMadara from "@/assets/pads/anime-madara.jpg";
+import animeZenitsu from "@/assets/pads/anime-zenitsu.jpg";
+import animeKakashi from "@/assets/pads/anime-kakashi.jpg";
+import animeTokito from "@/assets/pads/anime-tokito.jpg";
+
 
 
 
@@ -236,6 +242,13 @@ export const padDesigns: PadDesign[] = [
   { id: "dark-14", title: "Blue Wolf", image: darkBlueWolf, category: "dark" },
   { id: "anime-2", title: "Tokyo Ghoul", image: animeTokyoGhoul, category: "anime" },
   { id: "anime-3", title: "Sky Void", image: animeSkyVoid, category: "anime" },
+
+  // New batch 10
+  { id: "anime-4", title: "Madara Uchiha", image: animeMadara, category: "anime" },
+  { id: "anime-5", title: "Zenitsu", image: animeZenitsu, category: "anime" },
+  { id: "anime-6", title: "Kakashi Hatake", image: animeKakashi, category: "anime" },
+  { id: "anime-7", title: "Tokito Muichiro", image: animeTokito, category: "anime" },
+
 
 ];
 
