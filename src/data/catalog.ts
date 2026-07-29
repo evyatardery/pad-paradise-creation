@@ -63,8 +63,6 @@ import darkPolygon from "@/assets/pads/dark-polygon.jpg";
 import darkPolygonPdf from "@/assets/pads/dark-polygon.pdf?url";
 
 // New batch 6
-import cyberGoldTunnel from "@/assets/pads/cyber-gold-tunnel.jpg";
-import cyberGoldTunnelPdf from "@/assets/pads/cyber-gold-tunnel.pdf?url";
 import cyberHexMulti from "@/assets/pads/cyber-hex-multi.jpg";
 import cyberHexMultiPdf from "@/assets/pads/cyber-hex-multi.pdf?url";
 import cyberHexPurple from "@/assets/pads/cyber-hex-purple.jpg";
@@ -193,11 +191,10 @@ export const padDesigns: PadDesign[] = [
   { id: "cyber-1", title: "Red Blaze", image: cyberRedBlaze, category: "red", sourcePdf: cyberRedBlazePdf },
   { id: "col-2", title: "Pixel Eye", image: colorfulPixelEye, category: "red", sourcePdf: colorfulPixelEyePdf },
   { id: "dark-6", title: "Red Frame", image: darkRedFrame, category: "red", sourcePdf: darkRedFramePdf },
-  { id: "cyber-8", title: "Gold Tunnel", image: cyberGoldTunnel, category: "red", sourcePdf: cyberGoldTunnelPdf },
   { id: "dark-9", title: "Red Smoke", image: darkRedSmoke, category: "red", sourcePdf: darkRedSmokePdf },
   { id: "cyber-13", title: "Speedometer", image: cyberSpeedometer, category: "red", sourcePdf: cyberSpeedometerPdf },
   { id: "anime-1", title: "Cosmic Girl", image: animeCosmicGirl, category: "red", sourcePdf: animeCosmicGirlPdf },
-  { id: "anime-2", title: "Tokyo Ghoul", image: animeTokyoGhoul, category: "red" },
+  { id: "anime-2", title: "Tokyo Ghoul", image: animeTokyoGhoul, category: "mono" },
   { id: "anime-4", title: "Madara Uchiha", image: animeMadara, category: "red" },
   { id: "anime-5", title: "Zenitsu", image: animeZenitsu, category: "red" },
 
