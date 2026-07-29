@@ -103,6 +103,12 @@ import darkBlueWolf from "@/assets/pads/dark-blue-wolf.jpg";
 import animeTokyoGhoul from "@/assets/pads/anime-tokyo-ghoul.jpg";
 import animeSkyVoid from "@/assets/pads/anime-sky-void.jpg";
 
+// New batch 10 (frames extracted from uploaded videos)
+import animeMadara from "@/assets/pads/anime-madara.jpg";
+import animeZenitsu from "@/assets/pads/anime-zenitsu.jpg";
+import animeKakashi from "@/assets/pads/anime-kakashi.jpg";
+import animeTokito from "@/assets/pads/anime-tokito.jpg";
+
 
 
 
