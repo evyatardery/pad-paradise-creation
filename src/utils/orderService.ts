@@ -78,10 +78,8 @@ export async function processOrder(input: CreateOrderInput): Promise<OrderResult
     ? Math.max(0, Math.round(basePrice * (1 - input.discountPercent / 100)))
     : basePrice;
 
-  const { data: order, error: orderError } = await supabase
-    .from("orders")
-    .insert({
-      order_number: "", // trigger will generate
+  const { data: orderRows, error: orderError } = await supabase.rpc("create_order", {
+    payload: {
       customer_name: input.customerName,
       customer_email: input.customerEmail || null,
       customer_phone: input.customerPhone,
@@ -101,14 +99,15 @@ export async function processOrder(input: CreateOrderInput): Promise<OrderResult
       status: "paid",
       payment_provider: "grow",
       payment_transaction_id: input.paymentTransactionId || null,
-      paid_at: new Date().toISOString(),
-    })
-    .select()
-    .single();
+    },
+  });
+
+  const order = Array.isArray(orderRows) ? orderRows[0] : orderRows;
 
   if (orderError || !order) {
     throw new Error(`Failed to create order: ${orderError?.message}`);
   }
+
 
   // 3. Generate order form PDF
   const orderFormData: OrderFormData = {
