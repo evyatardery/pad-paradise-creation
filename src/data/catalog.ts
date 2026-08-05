@@ -113,6 +113,8 @@ import darkWhiteSkull from "@/assets/pads/dark-white-skull.jpg";
 import darkGreatWave from "@/assets/pads/dark-great-wave.jpg";
 import abstractGreyCircles from "@/assets/pads/abstract-grey-circles.jpg";
 import darkChromeFigure from "@/assets/pads/dark-chrome-figure.jpg";
+import monoTopoDark from "@/assets/pads/mono-topo-dark.jpg";
+import monoTopoLight from "@/assets/pads/mono-topo-light.jpg";
 
 
 
@@ -234,6 +236,8 @@ export const padDesigns: PadDesign[] = [
   { id: "dark-15", title: "White Skull", image: darkWhiteSkull, category: "mono" },
   { id: "dark-16", title: "Great Wave", image: darkGreatWave, category: "mono" },
   { id: "dark-17", title: "Chrome Figure", image: darkChromeFigure, category: "mono" },
+  { id: "mono-1", title: "Topography Dark", image: monoTopoDark, category: "mono" },
+  { id: "mono-2", title: "Topography Light", image: monoTopoLight, category: "mono" },
   { id: "abstract-6", title: "Grey Circles", image: abstractGreyCircles, category: "mono" },
 
   // Multicolor
