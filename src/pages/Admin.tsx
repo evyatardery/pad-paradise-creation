@@ -235,6 +235,7 @@ const Admin = () => {
                 <TableHead className="text-right">עיצוב</TableHead>
                 <TableHead className="text-right">מידה</TableHead>
                 <TableHead className="text-right">סה״כ</TableHead>
+                <TableHead className="text-right">קופון</TableHead>
                 <TableHead className="text-right">סטטוס</TableHead>
                 <TableHead className="text-right">פעולות</TableHead>
               </TableRow>
@@ -242,7 +243,7 @@ const Admin = () => {
             <TableBody>
               {filtered.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={9} className="text-center text-muted-foreground py-8">
+                  <TableCell colSpan={10} className="text-center text-muted-foreground py-8">
                     {loading ? "טוען..." : "אין הזמנות"}
                   </TableCell>
                 </TableRow>
@@ -258,6 +259,13 @@ const Admin = () => {
                     <TableCell className="text-sm max-w-[120px] truncate">{order.design_name}</TableCell>
                     <TableCell className="text-sm">{order.dimensions}</TableCell>
                     <TableCell className="text-sm font-semibold">₪{order.total_price}</TableCell>
+                    <TableCell className="text-sm">
+                      {order.coupon_code ? (
+                        <Badge className="bg-green-500/20 text-green-400 border-green-500/30">{order.coupon_code}</Badge>
+                      ) : (
+                        <span className="text-muted-foreground">—</span>
+                      )}
+                    </TableCell>
                     <TableCell>
                       <Select
                         value={order.status}
