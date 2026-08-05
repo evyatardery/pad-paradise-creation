@@ -241,10 +241,14 @@ const Admin = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-primary">ניהול הזמנות — PADZONE</h1>
-          <Button variant="outline" size="sm" onClick={fetchOrders} disabled={loading}>
-            <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
-            רענן
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={fetchOrders} disabled={loading}>
+              <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
+              רענן
+            </Button>
+            <Button variant="ghost" size="sm" onClick={logout}>יציאה</Button>
+          </div>
+
         </div>
 
         {/* Stats */}
