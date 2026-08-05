@@ -35,6 +35,7 @@ interface Order {
   quantity: number;
   total_price: number;
   unit_price: number;
+  coupon_code: string | null;
   status: string;
   is_custom_design: boolean;
   custom_text: string | null;

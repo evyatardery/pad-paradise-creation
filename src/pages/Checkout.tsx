@@ -148,6 +148,7 @@ const Checkout = () => {
           is_custom_design: isCustom,
           unit_price: size.price,
           total_price: totalPrice,
+          coupon_code: promoApplied ? promoCode.toUpperCase() : null,
           status: orderStatus,
           payment_method: paymentMethod,
           ...(isFreeOrder ? { paid_at: new Date().toISOString() } : {}),
