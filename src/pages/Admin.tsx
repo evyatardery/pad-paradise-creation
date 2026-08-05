@@ -161,18 +161,35 @@ const Admin = () => {
             <h1 className="text-xl font-bold">כניסת אדמין — PADZONE</h1>
           </div>
           <Input
+            type="email"
+            placeholder="אימייל"
+            autoComplete="username"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && login()}
+            className="text-center"
+          />
+          <Input
             type="password"
             placeholder="סיסמה"
+            autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && login()}
             className="text-center"
           />
-          <Button onClick={login} className="w-full">כניסה</Button>
+          <Button onClick={login} className="w-full" disabled={authLoading}>כניסה</Button>
+          <Button onClick={signUp} variant="outline" className="w-full" disabled={authLoading}>
+            יצירת חשבון אדמין
+          </Button>
+          <p className="text-xs text-muted-foreground text-center">
+            הגישה מוגבלת לחשבון האדמין בלבד.
+          </p>
         </div>
       </div>
     );
   }
+
 
   return (
     <div className="min-h-screen bg-background p-6" dir="rtl">
