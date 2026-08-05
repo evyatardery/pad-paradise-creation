@@ -48,7 +48,9 @@ interface Order {
 
 const Admin = () => {
   const [authenticated, setAuthenticated] = useState(false);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [authLoading, setAuthLoading] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(false);
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -56,20 +58,61 @@ const Admin = () => {
   const [approvingId, setApprovingId] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const login = () => {
-    if (password === ADMIN_PASSWORD) {
-      setAuthenticated(true);
-      sessionStorage.setItem("admin_auth", "true");
-    } else {
-      toast({ title: "סיסמה שגויה", variant: "destructive" });
+  const checkAdmin = async () => {
+    const { data, error } = await supabase.rpc("is_admin");
+    if (error || !data) {
+      setAuthenticated(false);
+      if (!error) {
+        toast({ title: "אין לך הרשאות אדמין", variant: "destructive" });
+        await supabase.auth.signOut();
+      }
+      return false;
     }
+    setAuthenticated(true);
+    return true;
+  };
+
+  const login = async () => {
+    setAuthLoading(true);
+    const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
+    if (error) {
+      toast({ title: "התחברות נכשלה", description: error.message, variant: "destructive" });
+    } else {
+      await checkAdmin();
+    }
+    setAuthLoading(false);
+  };
+
+  const signUp = async () => {
+    setAuthLoading(true);
+    const { error } = await supabase.auth.signUp({
+      email: email.trim(),
+      password,
+      options: { emailRedirectTo: `${window.location.origin}/admin` },
+    });
+    if (error) {
+      toast({ title: "יצירת חשבון נכשלה", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "נשלח אליך מייל לאישור החשבון" });
+    }
+    setAuthLoading(false);
+  };
+
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setAuthenticated(false);
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem("admin_auth") === "true") {
-      setAuthenticated(true);
-    }
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) setAuthenticated(false);
+    });
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) checkAdmin();
+    });
+    return () => sub.subscription.unsubscribe();
   }, []);
+
 
   const fetchOrders = async () => {
     setLoading(true);
