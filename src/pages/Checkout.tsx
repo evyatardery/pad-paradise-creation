@@ -131,11 +131,9 @@ const Checkout = () => {
       };
       const paymentLink = isFreeOrder ? "" : (paymentLinks[paymentMethod] || "");
 
-      // Create order
-      const { data: order, error: orderError } = await supabase
-        .from("orders")
-        .insert({
-          order_number: "", // trigger will generate
+      // Create order via secure server-side function
+      const { data: orderRows, error: orderError } = await supabase.rpc("create_order", {
+        payload: {
           customer_name: result.data.name,
           customer_email: result.data.email || null,
           customer_phone: result.data.phone,
@@ -151,14 +149,15 @@ const Checkout = () => {
           coupon_code: promoApplied ? promoCode.toUpperCase() : null,
           status: orderStatus,
           payment_method: paymentMethod,
-          ...(isFreeOrder ? { paid_at: new Date().toISOString() } : {}),
-        })
-        .select()
-        .single();
+        },
+      });
+
+      const order = Array.isArray(orderRows) ? orderRows[0] : orderRows;
 
       if (orderError || !order) {
         throw new Error(orderError?.message || "Failed to create order");
       }
+
 
       setOrderNumber(order.order_number);
 
