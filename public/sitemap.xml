@@ -7,48 +7,50 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- חנות / קטגוריות -->
-  <!-- סייבר וטכנולוגיה -->
+  <!-- חנות / קטגוריות לפי צבע -->
+  <!-- אדום וכתום -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/?category=red</loc>
+    <loc>https://padzone.co.il/?category=red</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- מופשט -->
+  <!-- כחול -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/?category=blue</loc>
+    <loc>https://padzone.co.il/?category=blue</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- טורקיז וירוק -->
+  <url>
+    <loc>https://padzone.co.il/?category=teal</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- סגול וורוד -->
+  <url>
+    <loc>https://padzone.co.il/?category=purple</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- שחור לבן -->
+  <url>
+    <loc>https://padzone.co.il/?category=mono</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- צבעוני -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/?category=teal</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <!-- כהה ומינימלי -->
-  <url>
-    <loc>https://pad-paradise-creation.lovable.app/?category=purple</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <!-- גיימינג -->
-  <url>
-    <loc>https://pad-paradise-creation.lovable.app/?category=mono</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <!-- אנימה -->
-  <url>
-    <loc>https://pad-paradise-creation.lovable.app/?category=multi</loc>
+    <loc>https://padzone.co.il/?category=multi</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- ספורט -->
   <url>
+    <loc>https://padzone.co.il/?category=sport</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+
 
   <!-- עיצוב מותאם אישית -->
   <url>
