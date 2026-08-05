@@ -12,7 +12,8 @@ import { Badge } from "@/components/ui/badge";
 import { Download, RefreshCw, Lock, Search, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-const ADMIN_PASSWORD = "padzone2026";
+
+
 
 const STATUS_MAP: Record<string, { label: string; color: string }> = {
   pending_payment: { label: "ממתין לתשלום", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
