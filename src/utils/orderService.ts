@@ -78,10 +78,8 @@ export async function processOrder(input: CreateOrderInput): Promise<OrderResult
     ? Math.max(0, Math.round(basePrice * (1 - input.discountPercent / 100)))
     : basePrice;
 
-  const { data: order, error: orderError } = await supabase
-    .from("orders")
-    .insert({
-      order_number: "", // trigger will generate
+  const { data: orderRows, error: orderError } = await supabase.rpc("create_order", {
+    payload: {
       customer_name: input.customerName,
       customer_email: input.customerEmail || null,
       customer_phone: input.customerPhone,
@@ -101,14 +99,15 @@ export async function processOrder(input: CreateOrderInput): Promise<OrderResult
       status: "paid",
       payment_provider: "grow",
       payment_transaction_id: input.paymentTransactionId || null,
-      paid_at: new Date().toISOString(),
-    })
-    .select()
-    .single();
+    },
+  });
+
+  const order = Array.isArray(orderRows) ? orderRows[0] : orderRows;
 
   if (orderError || !order) {
     throw new Error(`Failed to create order: ${orderError?.message}`);
   }
+
 
   // 3. Generate order form PDF
   const orderFormData: OrderFormData = {
@@ -147,17 +146,15 @@ export async function processOrder(input: CreateOrderInput): Promise<OrderResult
       }),
   ]);
 
-  // 5. Update order with file URLs
+  // 5. Attach file paths to the order (secure server-side function)
   const printFileUrl = printUpload.data?.path || null;
   const orderFormUrl = formUpload.data?.path || null;
 
-  await supabase
-    .from("orders")
-    .update({
-      print_file_url: printFileUrl,
-      order_form_url: orderFormUrl,
-    })
-    .eq("id", order.id);
+  await supabase.rpc("attach_order_files", {
+    _order_id: order.id,
+    _print_file_url: printFileUrl,
+    _order_form_url: orderFormUrl,
+  });
 
   // 6. Send email notifications (fire & forget — don't block order completion)
   const emailData = {
@@ -172,22 +169,6 @@ export async function processOrder(input: CreateOrderInput): Promise<OrderResult
     shippingAddress: input.shippingAddress,
   };
 
-  // Build signed URLs for admin file links
-  let printSignedUrl = '';
-  let formSignedUrl = '';
-  if (printFileUrl) {
-    const { data: pUrl } = await supabase.storage
-      .from("order-files")
-      .createSignedUrl(printFileUrl, 60 * 60 * 24 * 7); // 7 days
-    printSignedUrl = pUrl?.signedUrl || '';
-  }
-  if (orderFormUrl) {
-    const { data: fUrl } = await supabase.storage
-      .from("order-files")
-      .createSignedUrl(orderFormUrl, 60 * 60 * 24 * 7);
-    formSignedUrl = fUrl?.signedUrl || '';
-  }
-
   // Customer confirmation email
   if (input.customerEmail) {
     supabase.functions.invoke('send-transactional-email', {
@@ -200,19 +181,17 @@ export async function processOrder(input: CreateOrderInput): Promise<OrderResult
     }).catch((err) => console.error('Failed to send customer email:', err));
   }
 
-  // Admin notification email
+  // Admin notification email (file links are delivered by the order webhook,
+  // which builds signed URLs server-side)
   supabase.functions.invoke('send-transactional-email', {
     body: {
       templateName: 'admin-order-notification',
       recipientEmail: 'evyatardery@gmail.com',
       idempotencyKey: `order-admin-${order.id}`,
-      templateData: {
-        ...emailData,
-        printFileUrl: printSignedUrl,
-        orderFormUrl: formSignedUrl,
-      },
+      templateData: emailData,
     },
   }).catch((err) => console.error('Failed to send admin email:', err));
+
 
   // 7. Fire webhook notification (fire & forget)
   supabase.functions.invoke('notify-order-webhook', {
