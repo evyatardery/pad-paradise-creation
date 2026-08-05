@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 const PROMO_CODES: Record<string, { discount: number; label: string }> = {
-  TEST100: { discount: 100, label: "100% הנחה" },
+  PED123: { discount: 30, label: "30% הנחה" },
 };
 
 const checkoutSchema = z.object({
