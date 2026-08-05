@@ -103,6 +103,7 @@ export type Database = {
       }
       orders: {
         Row: {
+          coupon_code: string | null
           created_at: string
           custom_font: string | null
           custom_text: string | null
@@ -131,6 +132,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          coupon_code?: string | null
           created_at?: string
           custom_font?: string | null
           custom_text?: string | null
@@ -159,6 +161,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          coupon_code?: string | null
           created_at?: string
           custom_font?: string | null
           custom_text?: string | null
