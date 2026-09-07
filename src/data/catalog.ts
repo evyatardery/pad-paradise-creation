@@ -71,8 +71,6 @@ import darkGreenAbstract from "@/assets/pads/dark-green-abstract.jpg";
 import darkGreenAbstractPdf from "@/assets/pads/dark-green-abstract.pdf?url";
 import cyberNeonEdge from "@/assets/pads/cyber-neon-edge.jpg";
 import cyberNeonEdgePdf from "@/assets/pads/cyber-neon-edge.pdf?url";
-import cyberLightHorizon from "@/assets/pads/cyber-light-horizon.jpg";
-import cyberLightHorizonPdf from "@/assets/pads/cyber-light-horizon.pdf?url";
 import darkRedSmoke from "@/assets/pads/dark-red-smoke.jpg";
 import darkRedSmokePdf from "@/assets/pads/dark-red-smoke.pdf?url";
 
@@ -221,7 +219,7 @@ export const padDesigns: PadDesign[] = [
   // Purple / pink
   { id: "cyber-10", title: "Hex Purple", image: cyberHexPurple, category: "purple", sourcePdf: cyberHexPurplePdf },
   { id: "cyber-11", title: "Neon Edge", image: cyberNeonEdge, category: "purple", sourcePdf: cyberNeonEdgePdf },
-  { id: "cyber-12", title: "Light Horizon", image: cyberLightHorizon, category: "purple", sourcePdf: cyberLightHorizonPdf },
+  
   { id: "dark-10", title: "Magenta Smoke", image: darkMagentaSmoke, category: "purple", sourcePdf: darkMagentaSmokePdf },
 
   // Monochrome
