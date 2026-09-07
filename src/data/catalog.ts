@@ -113,6 +113,7 @@ import abstractGreyCircles from "@/assets/pads/abstract-grey-circles.jpg";
 import darkChromeFigure from "@/assets/pads/dark-chrome-figure.jpg";
 import monoTopoDark from "@/assets/pads/mono-topo-dark.jpg";
 import monoTopoLight from "@/assets/pads/mono-topo-light.jpg";
+import monoShadowFigure from "@/assets/pads/dark-shadow-figure.png";
 
 
 
