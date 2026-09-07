@@ -3,8 +3,6 @@
 // Abstract
 import abstractPattern from "@/assets/pads/abstract-pattern.jpg";
 import abstractPatternPdf from "@/assets/pads/abstract-pattern.pdf?url";
-import abstractDots from "@/assets/pads/abstract-dots.jpg";
-import abstractDotsPdf from "@/assets/pads/abstract-dots.pdf?url";
 import abstractHalftoneSwirl from "@/assets/pads/abstract-halftone-swirl.jpg";
 import abstractHalftoneSwirlPdf from "@/assets/pads/abstract-halftone-swirl.pdf?url";
 import abstractHalftoneWave from "@/assets/pads/abstract-halftone-wave.jpg";
@@ -225,7 +223,7 @@ export const padDesigns: PadDesign[] = [
 
   // Monochrome
   { id: "abs-1", title: "Organic Pattern", image: abstractPattern, category: "mono", sourcePdf: abstractPatternPdf },
-  { id: "abs-2", title: "Abstract Dots", image: abstractDots, category: "mono", sourcePdf: abstractDotsPdf },
+  { id: "abs-3", title: "Halftone Swirl", image: abstractHalftoneSwirl, category: "mono", sourcePdf: abstractHalftoneSwirlPdf },
   { id: "abs-3", title: "Halftone Swirl", image: abstractHalftoneSwirl, category: "mono", sourcePdf: abstractHalftoneSwirlPdf },
   { id: "abs-4", title: "Halftone Wave", image: abstractHalftoneWave, category: "mono", sourcePdf: abstractHalftoneWavePdf },
   { id: "dark-1", title: "Ink Brush", image: darkInkBrush, category: "mono", sourcePdf: darkInkBrushPdf },
