@@ -113,6 +113,7 @@ import abstractGreyCircles from "@/assets/pads/abstract-grey-circles.jpg";
 import darkChromeFigure from "@/assets/pads/dark-chrome-figure.jpg";
 import monoTopoDark from "@/assets/pads/mono-topo-dark.jpg";
 import monoTopoLight from "@/assets/pads/mono-topo-light.jpg";
+import monoShadowFigure from "@/assets/pads/dark-shadow-figure.png";
 
 
 
@@ -236,6 +237,7 @@ export const padDesigns: PadDesign[] = [
   { id: "dark-17", title: "Chrome Figure", image: darkChromeFigure, category: "mono" },
   { id: "mono-1", title: "Topography Dark", image: monoTopoDark, category: "mono" },
   { id: "mono-2", title: "Topography Light", image: monoTopoLight, category: "mono" },
+  { id: "mono-3", title: "Shadow Figure", image: monoShadowFigure, category: "mono" },
   { id: "abstract-6", title: "Grey Circles", image: abstractGreyCircles, category: "mono" },
 
   // Multicolor
