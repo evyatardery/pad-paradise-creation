@@ -105,6 +105,40 @@ const Admin = () => {
     setAuthenticated(false);
   };
 
+  const forgotPassword = async () => {
+    if (!email.trim()) {
+      toast({ title: "הזן את כתובת האימייל שלך קודם", variant: "destructive" });
+      return;
+    }
+    setAuthLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: `${window.location.origin}/admin`,
+    });
+    if (error) {
+      toast({ title: "שגיאה בשליחת מייל איפוס", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "נשלח אליך מייל לאיפוס הסיסמה" });
+    }
+    setAuthLoading(false);
+  };
+
+  const updatePassword = async () => {
+    if (password.length < 6) {
+      toast({ title: "הסיסמה חייבת להיות לפחות 6 תווים", variant: "destructive" });
+      return;
+    }
+    setAuthLoading(true);
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) {
+      toast({ title: "עדכון הסיסמה נכשל", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "הסיסמה עודכנה בהצלחה" });
+      setRecoveryMode(false);
+      setPassword("");
+    }
+    setAuthLoading(false);
+  };
+
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!session) setAuthenticated(false);
