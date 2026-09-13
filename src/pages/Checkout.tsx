@@ -63,10 +63,11 @@ const Checkout = () => {
       return;
     }
     // Server-side validation: one-time use per email
-    const { data, error } = await supabase.rpc("validate_coupon", {
+    const { data: rawData, error } = await supabase.rpc("validate_coupon", {
       p_code: code,
       p_email: form.email.trim(),
     });
+    const data = rawData as { valid?: boolean; reason?: string } | null;
     if (error || !data?.valid) {
       setPromoApplied(null);
       setPromoError(
