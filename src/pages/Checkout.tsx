@@ -550,6 +550,13 @@ const Checkout = () => {
                 )}
               </div>
 
+              <div className="flex justify-between items-center mb-4 pb-4 border-b border-border">
+                <span className="text-card-foreground font-bold">סה״כ לתשלום</span>
+                <span className="text-primary font-black text-2xl neon-text">
+                  {finalPrice === 0 ? "חינם! 🎉" : `₪${finalPrice}`}
+                </span>
+              </div>
+
               {/* Promo code field */}
               <div className="mb-4 pb-4 border-b border-border">
                 <label className="block text-muted-foreground text-xs mb-2 font-semibold">קוד קופון</label>
