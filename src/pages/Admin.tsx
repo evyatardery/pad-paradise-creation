@@ -57,6 +57,7 @@ const Admin = () => {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
   const [approvingId, setApprovingId] = useState<string | null>(null);
+  const [recoveryMode, setRecoveryMode] = useState(false);
   const { toast } = useToast();
 
   const checkAdmin = async () => {
@@ -104,8 +105,46 @@ const Admin = () => {
     setAuthenticated(false);
   };
 
+  const forgotPassword = async () => {
+    if (!email.trim()) {
+      toast({ title: "הזן את כתובת האימייל שלך קודם", variant: "destructive" });
+      return;
+    }
+    setAuthLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+      redirectTo: `${window.location.origin}/admin`,
+    });
+    if (error) {
+      toast({ title: "שגיאה בשליחת מייל איפוס", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "נשלח אליך מייל לאיפוס הסיסמה" });
+    }
+    setAuthLoading(false);
+  };
+
+  const updatePassword = async () => {
+    if (password.length < 6) {
+      toast({ title: "הסיסמה חייבת להיות לפחות 6 תווים", variant: "destructive" });
+      return;
+    }
+    setAuthLoading(true);
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) {
+      toast({ title: "עדכון הסיסמה נכשל", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "הסיסמה עודכנה בהצלחה" });
+      setRecoveryMode(false);
+      setPassword("");
+    }
+    setAuthLoading(false);
+  };
+
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY") {
+        setRecoveryMode(true);
+        return;
+      }
       if (!session) setAuthenticated(false);
     });
     supabase.auth.getSession().then(({ data }) => {
@@ -196,6 +235,31 @@ const Admin = () => {
     return true;
   });
 
+  if (recoveryMode) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center" dir="rtl">
+        <div className="bg-card border border-border rounded-xl p-8 w-full max-w-sm space-y-4">
+          <div className="flex items-center gap-2 justify-center text-primary">
+            <Lock className="w-6 h-6" />
+            <h1 className="text-xl font-bold">איפוס סיסמה</h1>
+          </div>
+          <Input
+            type="password"
+            placeholder="סיסמה חדשה"
+            autoComplete="new-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && updatePassword()}
+            className="text-center"
+          />
+          <Button onClick={updatePassword} className="w-full" disabled={authLoading}>
+            עדכון סיסמה
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   if (!authenticated) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center" dir="rtl">
@@ -225,6 +289,9 @@ const Admin = () => {
           <Button onClick={login} className="w-full" disabled={authLoading}>כניסה</Button>
           <Button onClick={signUp} variant="outline" className="w-full" disabled={authLoading}>
             יצירת חשבון אדמין
+          </Button>
+          <Button onClick={forgotPassword} variant="ghost" className="w-full" disabled={authLoading}>
+            שכחתי סיסמה
           </Button>
           <p className="text-xs text-muted-foreground text-center">
             הגישה מוגבלת לחשבון האדמין בלבד.
