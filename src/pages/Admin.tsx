@@ -290,6 +290,9 @@ const Admin = () => {
           <Button onClick={signUp} variant="outline" className="w-full" disabled={authLoading}>
             יצירת חשבון אדמין
           </Button>
+          <Button onClick={forgotPassword} variant="ghost" className="w-full" disabled={authLoading}>
+            שכחתי סיסמה
+          </Button>
           <p className="text-xs text-muted-foreground text-center">
             הגישה מוגבלת לחשבון האדמין בלבד.
           </p>
