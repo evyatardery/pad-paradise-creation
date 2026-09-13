@@ -140,7 +140,11 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY") {
+        setRecoveryMode(true);
+        return;
+      }
       if (!session) setAuthenticated(false);
     });
     supabase.auth.getSession().then(({ data }) => {
