@@ -235,6 +235,31 @@ const Admin = () => {
     return true;
   });
 
+  if (recoveryMode) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center" dir="rtl">
+        <div className="bg-card border border-border rounded-xl p-8 w-full max-w-sm space-y-4">
+          <div className="flex items-center gap-2 justify-center text-primary">
+            <Lock className="w-6 h-6" />
+            <h1 className="text-xl font-bold">איפוס סיסמה</h1>
+          </div>
+          <Input
+            type="password"
+            placeholder="סיסמה חדשה"
+            autoComplete="new-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && updatePassword()}
+            className="text-center"
+          />
+          <Button onClick={updatePassword} className="w-full" disabled={authLoading}>
+            עדכון סיסמה
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   if (!authenticated) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center" dir="rtl">
