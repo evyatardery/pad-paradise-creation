@@ -10,8 +10,8 @@ import { supabase } from "@/integrations/supabase/client";
 
 import { toast } from "sonner";
 
-const PROMO_CODES: Record<string, { discount: number; label: string }> = {
-  PED123: { discount: 30, label: "30% הנחה" },
+const PROMO_CODES: Record<string, { label: string; flatPrice: number }> = {
+  PED123: { label: 'מחיר מיוחד: 30 ש"ח', flatPrice: 30 },
 };
 
 const checkoutSchema = z.object({
@@ -48,24 +48,38 @@ const Checkout = () => {
 
   // Promo code state
   const [promoCode, setPromoCode] = useState("");
-  const [promoApplied, setPromoApplied] = useState<{ discount: number; label: string } | null>(null);
+  const [promoApplied, setPromoApplied] = useState<{ label: string; flatPrice: number } | null>(null);
   const [promoError, setPromoError] = useState("");
 
-  const discountPercent = promoApplied?.discount || 0;
-  const finalPrice = Math.max(0, Math.round(size.price * (1 - discountPercent / 100)));
+  const finalPrice = promoApplied ? promoApplied.flatPrice : size.price;
 
-  const applyPromo = () => {
+  const applyPromo = async () => {
     const code = promoCode.trim().toUpperCase();
     if (!code) return;
     const found = PROMO_CODES[code];
-    if (found) {
-      setPromoApplied(found);
-      setPromoError("");
-      toast.success(`קופון "${code}" הופעל! ${found.label}`);
-    } else {
+    if (!found) {
       setPromoApplied(null);
       setPromoError("קוד קופון לא תקין");
+      return;
     }
+    // Server-side validation: one-time use per email
+    const { data: rawData, error } = await supabase.rpc("validate_coupon", {
+      p_code: code,
+      p_email: form.email.trim(),
+    });
+    const data = rawData as { valid?: boolean; reason?: string } | null;
+    if (error || !data?.valid) {
+      setPromoApplied(null);
+      setPromoError(
+        data?.reason === "already_used"
+          ? "הקופון כבר נוצל עם כתובת האימייל הזו"
+          : "קוד קופון לא תקין"
+      );
+      return;
+    }
+    setPromoApplied(found);
+    setPromoError("");
+    toast.success(`קופון "${code}" הופעל! ${found.label}`);
   };
 
   const removePromo = () => {

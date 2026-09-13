@@ -291,6 +291,10 @@ export type Database = {
           read_ct: number
         }[]
       }
+      validate_coupon: {
+        Args: { p_code: string; p_email: string }
+        Returns: Json
+      }
     }
     Enums: {
       app_role: "admin"
