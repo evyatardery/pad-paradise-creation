@@ -57,6 +57,7 @@ const Admin = () => {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
   const [approvingId, setApprovingId] = useState<string | null>(null);
+  const [recoveryMode, setRecoveryMode] = useState(false);
   const { toast } = useToast();
 
   const checkAdmin = async () => {
