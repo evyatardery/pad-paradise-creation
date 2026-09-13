@@ -592,13 +592,6 @@ const Checkout = () => {
                 {promoError && <p className="text-destructive text-xs mt-1.5">{promoError}</p>}
               </div>
 
-              <div className="flex justify-between items-center mb-6">
-                <span className="text-card-foreground font-bold">סה״כ לתשלום</span>
-                <span className="text-primary font-black text-2xl neon-text">
-                  {finalPrice === 0 ? "חינם! 🎉" : `₪${finalPrice}`}
-                </span>
-              </div>
-
               {/* Trust badges */}
               <div className="space-y-3">
                 {[
