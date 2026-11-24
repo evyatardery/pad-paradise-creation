@@ -1,3 +1,4 @@
+import { serviceKey } from '../_shared/serviceKey.ts'
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.99.1";
 
 const corsHeaders = {
@@ -32,7 +33,7 @@ Deno.serve(async (req) => {
     // Fetch the full order details
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+      serviceKey()
     );
 
     const { data: order, error: fetchError } = await supabase

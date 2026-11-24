@@ -1,3 +1,4 @@
+import { serviceKey } from '../_shared/serviceKey.ts'
 // Sends PadZone transactional emails directly through Resend (https://resend.com).
 // Replaces the Lovable email queue. Same request body as before:
 //   { templateName, recipientEmail, idempotencyKey?, templateData? }
@@ -100,7 +101,7 @@ Deno.serve(async (req) => {
   try {
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+      serviceKey(),
     )
     await supabase.from('email_send_log').insert({
       message_id: result?.id ?? null,

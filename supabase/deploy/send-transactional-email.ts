@@ -1,3 +1,15 @@
+// supabase/functions/_shared/serviceKey.ts
+function serviceKey() {
+  const legacy = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (legacy) return legacy;
+  try {
+    const keys = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEYS") || "{}");
+    return keys.default || Object.values(keys)[0] || "";
+  } catch {
+    return "";
+  }
+}
+
 // supabase/functions/send-transactional-email/index.ts
 import * as React5 from "npm:react@18.3.1";
 import { renderAsync } from "npm:@react-email/components@0.0.22";
@@ -455,7 +467,7 @@ Deno.serve(async (req) => {
   try {
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL"),
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")
+      serviceKey()
     );
     await supabase.from("email_send_log").insert({
       message_id: result?.id ?? null,

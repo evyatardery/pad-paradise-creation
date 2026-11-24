@@ -1,3 +1,15 @@
+// supabase/functions/_shared/serviceKey.ts
+function serviceKey() {
+  const legacy = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (legacy) return legacy;
+  try {
+    const keys = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEYS") || "{}");
+    return keys.default || Object.values(keys)[0] || "";
+  } catch {
+    return "";
+  }
+}
+
 // supabase/functions/notify-order-webhook/index.ts
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.99.1";
 var corsHeaders = {
@@ -25,7 +37,7 @@ Deno.serve(async (req) => {
     }
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL"),
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")
+      serviceKey()
     );
     const { data: order, error: fetchError } = await supabase.from("orders").select("*").eq("id", orderId).single();
     if (fetchError || !order) {
