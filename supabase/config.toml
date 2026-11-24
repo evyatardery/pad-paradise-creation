@@ -1,4 +1,12 @@
 project_id = "proouexxpsroyzzzmvwa"
 
+# The site uses the new sb_publishable_ key (not a JWT), so gateway JWT checks are off.
+# update-order-status checks for an admin user itself.
 [functions.send-transactional-email]
-verify_jwt = true
+verify_jwt = false
+
+[functions.update-order-status]
+verify_jwt = false
+
+[functions.notify-order-webhook]
+verify_jwt = false
