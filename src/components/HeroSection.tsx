@@ -41,7 +41,7 @@ const HeroSection = ({ onNavigate }: HeroSectionProps) => {
           transition={{ delay: 0.7, duration: 0.6 }}
           className="text-lg text-muted-foreground mb-10"
         >
-          מעל 30 עיצובים מוכנים או עיצוב אישי משלך
+          מעל 50 עיצובים מוכנים או עיצוב אישי משלך
         </motion.p>
 
         <motion.div
