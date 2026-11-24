@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- דף ראשי -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/</loc>
+    <loc>https://padzone.co.il/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -54,21 +54,21 @@
 
   <!-- עיצוב מותאם אישית -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/?section=custom</loc>
+    <loc>https://padzone.co.il/?section=custom</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- אודות -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/about</loc>
+    <loc>https://padzone.co.il/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <!-- תהליך הזמנה -->
   <url>
-    <loc>https://pad-paradise-creation.lovable.app/checkout</loc>
+    <loc>https://padzone.co.il/checkout</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

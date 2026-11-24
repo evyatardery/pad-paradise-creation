@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://pad-paradise-creation.lovable.app/sitemap.xml
+Sitemap: https://padzone.co.il/sitemap.xml
